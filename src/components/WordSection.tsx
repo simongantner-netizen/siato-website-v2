@@ -84,8 +84,14 @@ export function WordSection({
     color: "transparent",
   } as const;
 
+  /* pr/-mr gleicht die nachlaufende Laufweiten-Verengung aus: tracking-tighter
+     zieht -0.05em auch HINTER dem letzten Buchstaben ab, der Elementkasten endet
+     dadurch vor dem Zeichenende. Da der Verlauf die Glyphe ueber
+     background-clip:text malt und am Kasten endet, blieb der letzte Streifen
+     ungemalt — beim «k» von «zurueck» war das sichtbar das halbe Bein.
+     Das negative Margin haelt die Layoutbreite unveraendert. */
   const wortKlassen =
-    "select-none whitespace-nowrap text-center font-black leading-none tracking-tighter";
+    "select-none whitespace-nowrap text-center font-black leading-none tracking-tighter pr-[0.05em] -mr-[0.05em]";
 
   // Im Knopf-Modus ist das Wort selbst der Knopf; die Bewegung sitzt auf der
   // Huelle, damit die Klickflaeche immer dort ist, wo das Wort zu sehen ist.
