@@ -18,7 +18,7 @@ const faq: FaqItem[] = [
     id: "was-ist-siato",
     frage: "Was ist Siato genau?",
     antwort:
-      "Eine Software fürs Lean Management: Ideen, Massnahmen, Kennzahlen, Audits und Qualitätsthemen an einem Ort statt verstreut in Excel, E-Mail, SharePoint und auf Papier. 23 Module in sieben Bereichen decken den ganzen Verbesserungsalltag ab. Siato ist der Nachfolger der allDates-Software und läuft auf der Microsoft Power Platform – direkt in Ihrem Microsoft 365.",
+      "Eine Plattform fürs Lean Management: Ideen, Massnahmen, Kennzahlen, Audits und Qualitätsthemen an einem Ort statt verstreut in Excel, E-Mail, SharePoint und auf Papier. 23 Module in sieben Bereichen decken den ganzen Verbesserungsalltag ab. Siato ist der Nachfolger der allDates-Software und läuft auf der Microsoft Power Platform – direkt in Ihrem Microsoft 365.",
   },
   {
     id: "microsoft-365",

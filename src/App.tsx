@@ -1,5 +1,6 @@
 import { FlowLines } from "./components/FlowLines";
 import { WordSection } from "./components/WordSection";
+import { SiatoNav } from "./components/SiatoNav";
 import { SiatoHeader } from "./components/SiatoHeader";
 import { SiatoCustomers } from "./components/SiatoCustomers";
 import { SiatoGruende } from "./components/SiatoGruende";
@@ -17,6 +18,7 @@ function App() {
   return (
     <main className="relative font-sans antialiased">
       <FlowLines />
+      <SiatoNav />
       <SiatoHeader />
       <WordSection word="fliessen" />
       <SiatoCustomers />
