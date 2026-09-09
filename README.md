@@ -1,3 +1,23 @@
+# Siato Marketing-Website
+
+Arbeitsstand der Siato-Seite (allDates AG). Ab dem 09.09.2026 läuft die Arbeit in
+diesem Repo weiter.
+
+| | Repo | Live |
+|---|---|---|
+| **Arbeitsstand** (hier, `origin`) | `simongantner-netizen/siato-website-v2` | https://simongantner-netizen.github.io/siato-website-v2/ |
+| **Eingefroren** (Remote `frozen`) | `simongantner-netizen/siato-website` | https://simongantner-netizen.github.io/siato-website/ |
+
+Das eingefrorene Repo hält den Stand vom 22.08.2026. Auf seine Live-URL verlinkt
+die Kurzpräsentation für Naturspur, deren Offerte am 08.09.2026 rausging - dort
+darf sich nichts mehr bewegen, bis Simon es ausdrücklich freigibt. Der Push-Pfad
+des Remotes `frozen` ist deshalb absichtlich unbrauchbar gemacht.
+
+Entwickeln: `npm run dev`. Veröffentlichen: `./deploy.sh` (baut und schiebt nach
+`origin gh-pages`, bricht ab, wenn origin nicht auf v2 zeigt).
+
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
