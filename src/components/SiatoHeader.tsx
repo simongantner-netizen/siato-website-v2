@@ -69,13 +69,13 @@ export function SiatoHeader() {
               >
                 <a
                   href="#kontakt"
-                  className="rounded-full bg-[#80BA2B] px-7 py-3 text-[15px] font-semibold text-white shadow-lg shadow-[#80BA2B]/25 transition-colors hover:bg-[#6da524]"
+                  className="rounded-full bg-[#80BA2B] px-7 py-3 text-[15px] font-bold text-white shadow-lg shadow-[#80BA2B]/25 transition-colors hover:bg-[#6da524]"
                 >
                   Demo buchen
                 </a>
                 <a
                   href="#module"
-                  className="rounded-full border border-slate-300 bg-white px-7 py-3 text-[15px] font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50"
+                  className="rounded-full border border-slate-300 bg-white px-7 py-3 text-[15px] font-bold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50"
                 >
                   Module entdecken
                 </a>

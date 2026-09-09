@@ -58,7 +58,7 @@ function ContactForm() {
       </div>
       <button
         type="submit"
-        className="group mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#80BA2B] px-6 py-3.5 text-[15px] font-semibold text-white shadow-lg shadow-[#80BA2B]/25 transition-colors hover:bg-[#6da524]"
+        className="group mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#80BA2B] px-6 py-3.5 text-[15px] font-bold text-white shadow-lg shadow-[#80BA2B]/25 transition-colors hover:bg-[#6da524]"
       >
         Demo anfragen
         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -159,8 +159,11 @@ export function SiatoContact() {
 export function SiatoFooter() {
   return (
     <footer className="relative border-t border-slate-200/60 bg-white/70 backdrop-blur-md">
-      <div className="mx-auto max-w-[90rem] px-6 py-12">
-        <div className="flex flex-col items-start justify-between gap-8 md:flex-row">
+      <div className="mx-auto max-w-[90rem] px-6 py-10 md:py-12">
+        {/* Ab md ein Dreispalter mit 1fr_auto_1fr: die mittlere Spalte liegt
+            dadurch exakt auf der Mittelachse des Footers, unabhaengig davon,
+            wie breit die Bloecke links und rechts sind. */}
+        <div className="flex flex-col items-start gap-9 md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-8">
           <div className="max-w-xs">
             <SiatoLogo />
             {/* text-balance verteilt die Zeilen gleichmaessig, damit «allDates.»
@@ -169,37 +172,67 @@ export function SiatoFooter() {
               Die neue Lean Management Software von allDates.
             </p>
 
-            {/* Dachmarke: Siato gehoert der allDates AG */}
-            <a
-              href="https://www.alldates.ch"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group mt-5 inline-flex flex-col gap-1.5 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-[#80BA2B]/40 focus-visible:ring-offset-4"
-            >
-              <span className="text-xs text-slate-400">Eine Marke der</span>
-              <img
-                src={`${import.meta.env.BASE_URL}logos/alldates.svg`}
-                alt="allDates AG"
-                className="h-9 w-auto opacity-65 transition-opacity group-hover:opacity-100"
-              />
-            </a>
           </div>
-          <div className="grid grid-cols-2 gap-12 sm:grid-cols-3">
+
+          {/* Dachmarke: Siato gehoert der allDates AG */}
+          <a
+            href="https://www.alldates.ch"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Siato ist eine Marke der allDates AG – zur Website von allDates"
+            className="group inline-flex rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-[#80BA2B]/40 focus-visible:ring-offset-4 md:justify-self-center"
+          >
+            <img
+              src={`${import.meta.env.BASE_URL}logos/alldates.svg`}
+              alt="allDates AG"
+              className="h-12 w-auto opacity-65 transition-opacity group-hover:opacity-100 md:h-20"
+            />
+          </a>
+          {/* Flex statt grid-cols-3: bei gleich breiten Spalten haengt der
+              ungenutzte Rest der kuerzesten Spalte als Weissraum an der Luecke —
+              «Produkt» ist 53 px breit in einer 93-px-Spalte, die sichtbare
+              Luecke war dadurch 88 statt 48 px. Auf Inhaltsbreite ist sie ueberall
+              genau der gap-Wert. */}
+          <div className="flex flex-wrap gap-x-12 gap-y-8 md:justify-self-end md:flex-nowrap">
             <FooterCol
               title="Produkt"
-              links={["Module", "Preise", "Technologie", "Demo"]}
+              links={[
+                { label: "Module", href: "#module" },
+                { label: "Preise", href: "#preise" },
+                { label: "Demo", href: "#kontakt" },
+              ]}
             />
             <FooterCol
               title="Unternehmen"
-              links={["Über allDates", "Team", "Kontakt", "Karriere"]}
+              links={[
+                {
+                  label: "Über allDates",
+                  href: "https://www.alldates.ch",
+                  extern: true,
+                },
+                {
+                  label: "Team",
+                  href: "https://www.alldates.ch/team/",
+                  extern: true,
+                },
+                {
+                  label: "Kontakt",
+                  href: "mailto:christoph.gantner@alldates.ch",
+                },
+              ]}
             />
+            {/* Ziele fehlen noch: die drei Rechtsseiten existieren nicht. */}
             <FooterCol
-              title="Rechtliches"
-              links={["Datenschutz", "Impressum", "AGB"]}
+              title="Langweiliges"
+              links={[
+                { label: "Datenschutz", href: "#" },
+                { label: "Impressum", href: "#" },
+                { label: "AGB", href: "#" },
+              ]}
             />
           </div>
         </div>
-        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-slate-200/60 pt-6 text-sm text-slate-400 sm:flex-row">
+        <div className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-slate-200/60 pt-6 text-sm text-slate-400 sm:flex-row sm:items-center">
           <span>© {new Date().getFullYear()} allDates AG · Siato</span>
           <span>In der Schweiz entwickelt & gehostet 🇨🇭</span>
         </div>
@@ -208,18 +241,23 @@ export function SiatoFooter() {
   );
 }
 
-function FooterCol({ title, links }: { title: string; links: string[] }) {
+type FussLink = { label: string; href: string; extern?: boolean };
+
+function FooterCol({ title, links }: { title: string; links: FussLink[] }) {
   return (
     <div>
       <div className="text-sm font-semibold text-slate-900">{title}</div>
       <ul className="mt-3 space-y-2">
         {links.map((l) => (
-          <li key={l}>
+          <li key={l.label}>
             <a
-              href="#"
+              href={l.href}
+              {...(l.extern
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
               className="text-sm text-slate-500 transition-colors hover:text-slate-900"
             >
-              {l}
+              {l.label}
             </a>
           </li>
         ))}

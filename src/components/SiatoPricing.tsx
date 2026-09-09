@@ -100,7 +100,7 @@ export function SiatoPricing() {
                 </ul>
                 <a
                   href="#kontakt"
-                  className={`mt-8 rounded-full px-6 py-3 text-center text-[15px] font-semibold transition-colors ${
+                  className={`mt-8 rounded-full px-6 py-3 text-center text-[15px] font-bold transition-colors ${
                     plan.featured
                       ? "bg-[#80BA2B] text-white hover:bg-[#6da524]"
                       : "border border-slate-300 text-slate-700 hover:border-slate-400 hover:bg-slate-50"

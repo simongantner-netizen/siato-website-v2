@@ -222,7 +222,7 @@ export function SiatoGruende() {
                 type="button"
                 onClick={() => setAlleZeigen((a) => !a)}
                 aria-expanded={alleZeigen}
-                className="inline-flex items-center gap-2 rounded-full bg-[#80BA2B] px-6 py-2.5 text-[15px] font-semibold text-white shadow-lg shadow-[#80BA2B]/25 outline-none transition-colors hover:bg-[#6da524] focus-visible:ring-2 focus-visible:ring-[#80BA2B]/40 focus-visible:ring-offset-2"
+                className="inline-flex items-center gap-2 rounded-full bg-[#80BA2B] px-6 py-2.5 text-[15px] font-bold text-white shadow-lg shadow-[#80BA2B]/25 outline-none transition-colors hover:bg-[#6da524] focus-visible:ring-2 focus-visible:ring-[#80BA2B]/40 focus-visible:ring-offset-2"
               >
                 {alleZeigen ? "Weniger zeigen" : "Die weiteren sechs Gründe"}
                 <ChevronDown

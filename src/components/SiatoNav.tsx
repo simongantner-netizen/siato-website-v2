@@ -77,7 +77,11 @@ export function SiatoNav() {
           variants={navStage}
           initial="hidden"
           animate="visible"
-          className="mx-auto flex max-w-[90rem] items-center justify-between px-6 py-4"
+          /* Ab md ein Dreispalter statt justify-between: bei justify-between
+             haengt die Mitte an der Differenz von Logo- und CTA-Breite und
+             lag dadurch 55 px zu weit links. Der Burger ist ab md display:none
+             und belegt deshalb keine Spalte. */
+          className="mx-auto flex max-w-[90rem] items-center justify-between px-6 py-4 md:grid md:grid-cols-[1fr_auto_1fr]"
         >
           <motion.div variants={navItem}>
             <SiatoLogo />
@@ -86,7 +90,7 @@ export function SiatoNav() {
           {/* Desktop-Menü */}
           <motion.div
             variants={navStage}
-            className="hidden items-center gap-7 text-[15px] text-slate-600 md:flex"
+            className="hidden items-center gap-7 text-[15px] font-bold text-slate-900 md:flex md:justify-self-center"
           >
             {NAV_LINKS.map((l) => (
               <motion.a
@@ -104,7 +108,7 @@ export function SiatoNav() {
           <motion.a
             variants={navItem}
             href="#kontakt"
-            className="group hidden items-center gap-2 rounded-full bg-slate-900 px-5 py-2.5 text-[15px] font-semibold text-white transition-colors hover:bg-[#80BA2B] md:flex"
+            className="group hidden items-center gap-2 rounded-full bg-slate-900 px-5 py-2.5 text-[15px] font-bold text-white transition-colors hover:bg-[#80BA2B] md:flex md:justify-self-end"
           >
             Demo buchen
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -147,7 +151,7 @@ export function SiatoNav() {
                 <a
                   href="#kontakt"
                   onClick={() => setOpen(false)}
-                  className="mt-3 flex items-center justify-center gap-2 rounded-full bg-slate-900 px-5 py-3 font-semibold text-white"
+                  className="mt-3 flex items-center justify-center gap-2 rounded-full bg-slate-900 px-5 py-3 font-bold text-white"
                 >
                   Demo buchen
                   <ArrowRight className="h-4 w-4" />
