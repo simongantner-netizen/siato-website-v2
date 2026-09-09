@@ -152,7 +152,7 @@ export function SiatoHeader() {
                 variants={maskReveal}
                 className="mx-auto max-w-5xl text-4xl font-bold leading-tight tracking-tight text-slate-900 md:text-6xl md:leading-[1.08]"
               >
-                Eine Software, die Ihr Unternehmen{" "}
+                Eine Software, die Ihr KMU{" "}
                 <span className="bg-gradient-to-r from-[#80BA2B] to-[#4e7717] bg-clip-text text-transparent">
                   besser und schneller
                 </span>{" "}
