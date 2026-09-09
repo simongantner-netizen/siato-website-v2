@@ -14,8 +14,14 @@ esac
 
 npm run build
 
-rm -rf .deploy
+# Reste eines abgebrochenen oder frueheren Laufs: der Orphan-Branch bleibt
+# nach dem Entfernen des Worktrees im Repo stehen und laesst den naechsten
+# Lauf an "branch already exists" scheitern.
 git worktree remove --force .deploy 2>/dev/null || true
+git worktree prune
+rm -rf .deploy
+git branch -D gh-pages-tmp 2>/dev/null || true
+
 git worktree add --detach .deploy
 cd .deploy
 git checkout --orphan gh-pages-tmp
@@ -27,5 +33,6 @@ git commit -qm "Updates"
 git push -f origin HEAD:gh-pages
 cd ..
 git worktree remove --force .deploy
+git branch -D gh-pages-tmp 2>/dev/null || true
 
 echo "Live in ein bis zwei Minuten: https://simongantner-netizen.github.io/siato-website-v2/"
