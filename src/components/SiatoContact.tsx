@@ -163,9 +163,26 @@ export function SiatoFooter() {
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row">
           <div className="max-w-xs">
             <SiatoLogo />
-            <p className="mt-3 text-sm text-slate-500">
+            {/* text-balance verteilt die Zeilen gleichmaessig, damit «allDates.»
+                nicht allein auf der zweiten Zeile steht. */}
+            <p className="mt-3 text-balance text-sm text-slate-500">
               Die neue Lean Management Software von allDates.
             </p>
+
+            {/* Dachmarke: Siato gehoert der allDates AG */}
+            <a
+              href="https://www.alldates.ch"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-5 inline-flex flex-col gap-1.5 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-[#80BA2B]/40 focus-visible:ring-offset-4"
+            >
+              <span className="text-xs text-slate-400">Eine Marke der</span>
+              <img
+                src={`${import.meta.env.BASE_URL}logos/alldates.svg`}
+                alt="allDates AG"
+                className="h-9 w-auto opacity-65 transition-opacity group-hover:opacity-100"
+              />
+            </a>
           </div>
           <div className="grid grid-cols-2 gap-12 sm:grid-cols-3">
             <FooterCol
@@ -182,27 +199,9 @@ export function SiatoFooter() {
             />
           </div>
         </div>
-        <div className="mt-10 flex flex-col items-center justify-between gap-5 border-t border-slate-200/60 pt-6 text-sm text-slate-400 sm:flex-row">
-          <span>© {new Date().getFullYear()} allDates · Siato</span>
-
-          <div className="flex flex-col items-center gap-5 sm:flex-row sm:gap-8">
-            <span>In der Schweiz entwickelt & gehostet 🇨🇭</span>
-
-            {/* Dachmarke: Siato gehoert der allDates AG */}
-            <a
-              href="https://www.alldates.ch"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-2.5 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-[#80BA2B]/40 focus-visible:ring-offset-4"
-            >
-              <span className="text-xs">Eine Marke der</span>
-              <img
-                src={`${import.meta.env.BASE_URL}logos/alldates.svg`}
-                alt="allDates AG"
-                className="h-8 w-auto opacity-65 transition-opacity group-hover:opacity-100"
-              />
-            </a>
-          </div>
+        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-slate-200/60 pt-6 text-sm text-slate-400 sm:flex-row">
+          <span>© {new Date().getFullYear()} allDates AG · Siato</span>
+          <span>In der Schweiz entwickelt & gehostet 🇨🇭</span>
         </div>
       </div>
     </footer>

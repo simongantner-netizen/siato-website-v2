@@ -56,7 +56,9 @@ export function SiatoHeader() {
                 className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg"
               >
                 Ideen, Massnahmen, Kennzahlen und Audits liegen heute
-                verstreut in Excel, E-Mail, SharePoint und auf Papier. Siato
+                verstreut in Excel,{" "}
+                <span className="whitespace-nowrap">E-Mail</span>, SharePoint
+                und auf Papier. Siato
                 führt Ihr Lean Management in einem System zusammen, direkt in
                 Microsoft 365. Aus guten Absichten werden verbindliche Prozesse.
               </motion.p>
