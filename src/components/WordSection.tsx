@@ -116,7 +116,7 @@ export function WordSection({
           className={
             onClick
               ? wortKlassen +
-                " block cursor-pointer rounded-3xl outline-none transition-opacity hover:opacity-80 focus-visible:ring-2 focus-visible:ring-[#80BA2B]/60 focus-visible:ring-offset-8"
+                " block cursor-pointer rounded-3xl outline-none focus-visible:ring-2 focus-visible:ring-[#80BA2B]/60 focus-visible:ring-offset-8"
               : wortKlassen
           }
         >
