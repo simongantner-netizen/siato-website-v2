@@ -154,7 +154,7 @@ export function SiatoGruende() {
             Wozu Siato
           </p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 [text-shadow:0_1px_14px_rgba(255,255,255,0.8)] md:text-5xl">
-            9 Gründe, warum Lean Management ohne Software scheitert
+            9 Gründe, warum Lean Management ohne Plattform scheitert
           </h2>
           <p className="mt-4 text-lg text-slate-600">
             Lean scheitert selten an der Methode. Es scheitert an der Umsetzung.
