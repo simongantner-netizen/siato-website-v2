@@ -75,10 +75,14 @@ const SICHTBAR = 3;
 function Zeile({ grund }: { grund: Grund }) {
   return (
     <li className="grid grid-cols-[2.75rem_1fr] gap-x-4 md:grid-cols-[3.5rem_1fr] md:gap-x-6">
-      {/* Punkt auf der Schiene */}
+      {/* Station auf der Schiene — gleiche Form und Farbe wie die Icon-Flächen
+          in der Modulsektion. Die weisse Unterlage deckt die Schiene ab,
+          damit die Linie nicht durch die Fläche scheint. */}
       <div className="flex justify-center">
-        <span className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-sm font-bold text-[#4e7717] shadow-sm md:h-11 md:w-11 md:text-base">
-          {grund.nr}
+        <span className="relative z-10 flex h-9 w-9 shrink-0 rounded-xl bg-white md:h-11 md:w-11">
+          <span className="flex h-full w-full items-center justify-center rounded-xl bg-[#80BA2B]/12 text-sm font-bold text-[#4e7717] md:text-base">
+            {grund.nr}
+          </span>
         </span>
       </div>
 
@@ -210,7 +214,7 @@ export function SiatoGruende() {
             <div className="flex justify-center">
               <span
                 aria-hidden="true"
-                className="relative z-10 h-3 w-3 rounded-full bg-[#80BA2B]/25 ring-4 ring-white"
+                className="relative z-10 h-3 w-3 rounded-[5px] bg-[#80BA2B]/25 ring-4 ring-white"
               />
             </div>
             <div className="-mt-1">
