@@ -6,11 +6,14 @@ import { SiatoDashboard } from "./SiatoDashboard";
 import { SiatoLogo } from "./SiatoLogo";
 import { ArrowRight, Menu, X } from "lucide-react";
 
+/* Die Navigation bildet die Seite ab, in Lesereihenfolge. „Kontakt" fehlt
+   bewusst — dorthin führt der CTA. */
 const NAV_LINKS = [
-  { href: "#module", label: "Module" },
+  { href: "#gruende", label: "9 Gründe" },
   { href: "#warum", label: "Warum Siato" },
+  { href: "#module", label: "Module" },
   { href: "#preise", label: "Preise" },
-  { href: "#kontakt", label: "Kontakt" },
+  { href: "#faq", label: "FAQ" },
 ];
 
 // Header beim Laden: Logo, Menüpunkte und CTA gestaffelt einblenden.
@@ -71,7 +74,7 @@ export function SiatoHeader() {
           {/* Desktop-Menü */}
           <motion.div
             variants={navStage}
-            className="hidden items-center gap-8 text-[15px] text-slate-600 md:flex"
+            className="hidden items-center gap-7 text-[15px] text-slate-600 md:flex"
           >
             {NAV_LINKS.map((l) => (
               <motion.a
@@ -167,15 +170,15 @@ export function SiatoHeader() {
                 variants={fadeUp}
                 className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg"
               >
-                Ideen, Massnahmen, Kennzahlen, Audits – heute über zehn
-                Excel-Listen verstreut, mit Siato an einem Ort. Direkt in
-                Microsoft 365, ohne neues System. So wird kontinuierliche
-                Verbesserung zum Alltag statt zum nächsten Projekt.
+                Ideen, Massnahmen, Kennzahlen und Audits liegen heute
+                verstreut in Excel, E-Mail, SharePoint und auf Papier. Siato
+                führt Ihr Lean Management in einem System zusammen, direkt in
+                Microsoft 365. Aus guten Absichten werden verbindliche Prozesse.
               </motion.p>
 
               <motion.div
                 variants={fadeUp}
-                className="mt-8 flex flex-wrap items-center justify-center gap-3"
+                className="mt-8 mb-14 flex flex-wrap items-center justify-center gap-3"
               >
                 <a
                   href="#kontakt"
@@ -191,13 +194,6 @@ export function SiatoHeader() {
                 </a>
               </motion.div>
 
-              <motion.p
-                variants={fadeUp}
-                className="mt-8 mb-14 text-sm font-medium text-slate-600"
-              >
-                80+ Kunden vertrauen darauf · 20 Module · Microsoft 365
-                integriert
-              </motion.p>
             </motion.div>
           }
         >

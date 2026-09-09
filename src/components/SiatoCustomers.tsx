@@ -1,12 +1,5 @@
 import { Reveal } from "./ui/reveal";
 
-const stats = [
-  { value: "15+", label: "Jahre im Einsatz" },
-  { value: "80+", label: "Schweizer KMU" },
-  { value: "20", label: "Module" },
-  { value: "99.9%", label: "Verfügbarkeit" },
-];
-
 // Echte Kunden. logo = Datei in public/logos/ (sonst Wortmarke als Fallback).
 const customers: { name: string; logo: string | null; h?: string }[] = [
   { name: "Monopol Colors", logo: "logos/monopol.png" },
@@ -19,22 +12,8 @@ export function SiatoCustomers() {
   return (
     <section className="relative scroll-mt-20 py-24">
       <div className="mx-auto max-w-[90rem] px-6">
-        {/* Social Proof: Stats-Band zuerst */}
-        <Reveal>
-          <div className="grid grid-cols-2 divide-slate-200/70 rounded-3xl border border-slate-200/70 bg-white/80 py-8 shadow-sm backdrop-blur-md sm:grid-cols-4 sm:divide-x">
-            {stats.map((stat) => (
-              <div key={stat.label} className="px-6 text-center">
-                <div className="text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">
-                  {stat.value}
-                </div>
-                <div className="mt-1 text-sm text-slate-500">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </Reveal>
-
         {/* Kunden-Headline */}
-        <Reveal delay={0.05} className="mt-16 text-center">
+        <Reveal className="text-center">
           <h2 className="mx-auto max-w-3xl text-3xl font-bold tracking-tight text-slate-900 [text-shadow:0_1px_14px_rgba(255,255,255,0.8)] md:text-4xl">
             Kunden, die dank Siato besser und schneller arbeiten.
           </h2>

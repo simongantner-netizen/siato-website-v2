@@ -1,62 +1,97 @@
 import {
+  LayoutDashboard,
   Lightbulb,
-  RefreshCcw,
-  Presentation,
-  BarChart3,
-  ShieldCheck,
-  GraduationCap,
   AlertTriangle,
-  BookOpen,
+  ShieldCheck,
+  BarChart3,
+  GraduationCap,
   Wrench,
-  ArrowUpRight,
 } from "lucide-react";
 import { Reveal } from "./ui/reveal";
 
-const modules = [
+/* ------------------------------------------------------------------
+   Quelle: «Kurzbeschrieb der Module und Kundennutzen» von Christoph
+   Gantner (allDates). Bereiche, Modulnamen und Inhalte stammen aus
+   diesem Dokument — hier nichts dazuerfinden. Bei Änderungen am
+   Funktionsumfang zuerst dort nachführen.
+------------------------------------------------------------------ */
+
+type Bereich = {
+  icon: typeof LayoutDashboard;
+  titel: string;
+  text: string;
+  module: string[];
+  /** Sitzt allein in der letzten Reihe: gleich breit wie die anderen, mittig. */
+  zentriert?: boolean;
+};
+
+const bereiche: Bereich[] = [
+  {
+    icon: LayoutDashboard,
+    titel: "Transparenz & Konsequenz",
+    text: "Jeder sieht beim Start, was heute ansteht: offene Aufgaben, Termine, eigene Kennzahlen. Führungskräfte sehen dasselbe für ihr Team und merken früh, wo etwas liegen bleibt.",
+    module: [
+      "Mein persönliches Cockpit",
+      "Alle meine Aufgaben",
+      "Aufgaben aus Sicht der Führung",
+    ],
+  },
   {
     icon: Lightbulb,
-    title: "Ideenmanagement",
-    text: "Jede Idee landet im System statt in der Schublade. Bewerten, priorisieren, umsetzen – mit klarer Verantwortung und sichtbarem Fortschritt.",
-  },
-  {
-    icon: RefreshCcw,
-    title: "PDCA-Zyklen",
-    text: "Verbesserungen strukturiert durchziehen: Plan, Do, Check, Act – mit Massnahmen, Terminen und Wirkungskontrolle statt guter Vorsätze.",
-  },
-  {
-    icon: Presentation,
-    title: "Shopfloor Management",
-    text: "Kennzahlen, Aufgaben und Abweichungen direkt am Board – für kurze, wirksame Meetings dort, wo die Arbeit passiert.",
-  },
-  {
-    icon: BarChart3,
-    title: "Kennzahlen & Cockpits",
-    text: "Alle relevanten KPIs in Echtzeit, vom Team bis zur Geschäftsleitung. Jeder sieht auf einen Blick, wo es klemmt und wo es läuft.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Audits & Compliance",
-    text: "Interne Audits, Normenprüfungen und gelenkte Dokumente an einem Ort – revisionssicher und ohne Papierkrieg.",
-  },
-  {
-    icon: GraduationCap,
-    title: "Mitarbeitenden-Entwicklung",
-    text: "Fähigkeitsmatrix, Zielvereinbarungen und Weiterbildung im Griff. Damit Können sichtbar wird und Entwicklung Routine.",
+    titel: "Verbesserung & KVP",
+    text: "Ideen aus der Belegschaft werden erfasst, bewertet und freigegeben. Verbesserungsprojekte laufen nach Plan-Do-Check-Act, Verschwendung wird direkt am Shopfloor aufgenommen.",
+    module: ["Ideenmanagement", "PDCA-Zyklen", "Waste Walks"],
   },
   {
     icon: AlertTriangle,
-    title: "Qualität & Abweichungen",
-    text: "Kunden- und Lieferantenbeanstandungen, interne Fehler und 8D-Reports strukturiert bearbeiten – mit Ursachenanalyse statt Bauchgefühl.",
+    titel: "Qualität & Abweichungen",
+    text: "Reklamationen von Kunden, Probleme mit Lieferanten und intern entdeckte Fehler laufen über denselben Weg: Sofortmassnahme, Ursache, Korrektur – alles nachvollziehbar dokumentiert.",
+    module: [
+      "Kundenbeanstandungen",
+      "Lieferantenbeanstandungen",
+      "Interne Fehler",
+      "8D-Report",
+    ],
   },
   {
-    icon: BookOpen,
-    title: "Wissensmanagement",
-    text: "Anleitungen, Standards und Erfahrungswissen an einem Ort. Neues Wissen bleibt im Unternehmen, statt mit Personen zu gehen.",
+    icon: ShieldCheck,
+    titel: "Audits & Compliance",
+    text: "Arbeitsanweisungen sind versioniert und freigegeben, interne Audits laufen nach Plan, Normen wie ISO 9001 werden systematisch geprüft. Unterweisungen bestätigen Mitarbeitende digital.",
+    module: [
+      "Gelenkte Dokumente",
+      "Interne Audits",
+      "Normenprüfung",
+      "Unterweisungen",
+    ],
+  },
+  {
+    icon: BarChart3,
+    titel: "Führung & Kommunikation",
+    text: "Projekte, Kennzahlen und die täglichen Shopfloor-Runden an einem Ort. Betriebliches Wissen bleibt im Betrieb, auch wenn jemand geht.",
+    module: [
+      "Projektadministration",
+      "Wissensmanagement",
+      "Shopfloor",
+      "Kennzahlen",
+    ],
+  },
+  {
+    icon: GraduationCap,
+    titel: "Mitarbeitenden-Entwicklung",
+    text: "Ziele werden gemeinsam vereinbart und nachgehalten, Beurteilungen laufen nach demselben Muster. Die Fähigkeitsmatrix zeigt, wer was kann und wo eine Lücke ist.",
+    module: [
+      "Persönliche Zielvereinbarung",
+      "MA-Beurteilungen",
+      "Fähigkeitsmatrix",
+      "Aus- und Weiterbildung",
+    ],
   },
   {
     icon: Wrench,
-    title: "Wartung & Instandhaltung",
-    text: "Wartungspläne, Aufgaben und Historie pro Anlage. Weniger ungeplante Stillstände, längere Lebensdauer Ihrer Maschinen.",
+    titel: "Betrieb & Instandhaltung",
+    text: "Wartungspläne liegen pro Maschine hinterlegt, Aufträge werden automatisch ausgelöst, jede Durchführung ist protokolliert. Das senkt ungeplante Ausfälle und verlängert die Lebensdauer der Anlagen.",
+    module: ["Wartung und Instandhaltung"],
+    zentriert: true,
   },
 ];
 
@@ -73,32 +108,59 @@ export function SiatoModules() {
             Alles drin, was Lean braucht.
           </h2>
           <p className="mt-4 text-base text-slate-600 md:text-lg">
-            Rund 20 Module decken den ganzen Verbesserungsalltag ab – von der
-            ersten Idee bis zum bestandenen Audit. Hier die wichtigsten neun.
+            23 Module in sieben Bereichen – von der ersten Idee bis zum
+            bestandenen Audit. Sie greifen ineinander, statt nebeneinander zu
+            stehen.
           </p>
         </Reveal>
 
-        {/* Modul-Karten */}
+        {/* Bereiche */}
         <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {modules.map((mod, i) => (
-            <Reveal key={mod.title} delay={(i % 3) * 0.08}>
+          {bereiche.map((b, i) => (
+            <Reveal
+              key={b.titel}
+              delay={(i % 3) * 0.08}
+              className={
+                b.zentriert
+                  ? "sm:col-span-2 sm:w-[calc(50%-0.625rem)] sm:justify-self-center lg:col-span-1 lg:w-auto lg:col-start-2"
+                  : undefined
+              }
+            >
               <div className="group h-full rounded-2xl border border-slate-200/80 bg-white/90 p-6 shadow-sm shadow-slate-900/5 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-[#80BA2B]/50 hover:shadow-lg hover:shadow-[#80BA2B]/10">
-                <div className="flex items-start justify-between">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#80BA2B]/12 text-[#4e7717] transition-colors group-hover:bg-[#80BA2B] group-hover:text-white">
-                    <mod.icon className="h-5 w-5" strokeWidth={1.8} />
-                  </div>
-                  <ArrowUpRight className="h-4 w-4 text-slate-300 transition-colors group-hover:text-[#80BA2B]" />
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#80BA2B]/12 text-[#4e7717] transition-colors group-hover:bg-[#80BA2B] group-hover:text-white">
+                  <b.icon className="h-5 w-5" strokeWidth={1.8} />
                 </div>
+
                 <h3 className="mt-4 text-lg font-semibold tracking-tight text-slate-900">
-                  {mod.title}
+                  {b.titel}
                 </h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-slate-500">
-                  {mod.text}
+                  {b.text}
                 </p>
+
+                <ul className="mt-4 flex flex-wrap gap-x-2 gap-y-1.5 border-t border-slate-200/70 pt-4">
+                  {b.module.map((m) => (
+                    <li
+                      key={m}
+                      className="rounded-full bg-slate-100/80 px-2.5 py-1 text-xs font-medium text-slate-600"
+                    >
+                      {m}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </Reveal>
           ))}
         </div>
+
+        {/* Systemmodule: Infrastruktur, kein Verkaufsargument – darum als Zeile */}
+        <Reveal delay={0.1}>
+          <p className="mx-auto mt-8 max-w-3xl text-center text-sm leading-relaxed text-slate-500">
+            Dazu kommen vier Systemmodule, die alles zusammenhalten:
+            Organisation, Benutzer und Rollen, Stammdaten und die Workflows, die
+            dafür sorgen, dass keine Massnahme vergessen geht.
+          </p>
+        </Reveal>
       </div>
     </section>
   );

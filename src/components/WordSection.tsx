@@ -20,7 +20,27 @@ import {
  *  4. Grösse pro Wort an die Breite angepasst → bleibt immer lesbar.
  * Bei „Bewegung reduzieren" steht alles still.
  */
-export function WordSection({ word }: { word: string }) {
+const VERLAUF =
+  "linear-gradient(90deg, #79a73b 0%, #84b344 4.17%, #8fbe4c 8.33%, #97c854 12.5%, #9ed059 16.67%, #a3d45d 20.83%, #a4d65e 25%, #a3d45d 29.17%, #9ed059 33.33%, #97c854 37.5%, #8fbe4c 41.67%, #84b344 45.83%, #79a73b 50%, #6e9a31 54.17%, #648f29 58.33%, #5b8521 62.5%, #547d1c 66.67%, #4f7918 70.83%, #4e7717 75%, #4f7918 79.17%, #547d1c 83.33%, #5b8521 87.5%, #638f29 91.67%, #6e9a31 95.83%, #79a73a 100%)";
+
+export function WordSection({
+  word,
+  onClick,
+  unterzeile,
+  onAktiv,
+  onInaktiv,
+  ariaLabel,
+}: {
+  word: string;
+  /** Gesetzt = das Wort wird zum Knopf (das "zurueck"-Band ganz unten). */
+  onClick?: () => void;
+  /** Kleine Zeile unter dem Wort, nur im Knopf-Modus. */
+  unterzeile?: string;
+  /** Zeiger/Fokus auf dem Knopf - dreht die Stroemung. */
+  onAktiv?: () => void;
+  onInaktiv?: () => void;
+  ariaLabel?: string;
+}) {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion() ?? false;
 
@@ -54,34 +74,64 @@ export function WordSection({ word }: { word: string }) {
   // Schriftgrösse pro Wort, damit die Breite passt (lange Wörter kleiner).
   const fontSize = `clamp(3rem, ${(162 / word.length).toFixed(1)}vw, 28rem)`;
 
+  const verlauf = {
+    backgroundImage: VERLAUF,
+    backgroundSize: "250% 100%",
+    backgroundRepeat: "no-repeat",
+    WebkitBackgroundClip: "text",
+    backgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    color: "transparent",
+  } as const;
+
+  const wortKlassen =
+    "select-none whitespace-nowrap text-center font-black leading-none tracking-tighter";
+
+  // Im Knopf-Modus ist das Wort selbst der Knopf; die Bewegung sitzt auf der
+  // Huelle, damit die Klickflaeche immer dort ist, wo das Wort zu sehen ist.
+  const Wort = onClick ? motion.button : motion.h2;
+
   return (
     <section
       ref={ref}
       className="relative flex items-center justify-center overflow-hidden py-24 md:py-40"
     >
-      <motion.h2
-        style={{
-          y,
-          x,
-          scale,
-          rotate,
-          fontSize,
-          backgroundPositionX: bgPos,
-          // Helligkeit folgt sin(2πt): keine scharfen Wendepunkte (kein Mach-Band)
-          // und C1-stetig an der Naht (Wert + Steigung passen) → nahtlos kachelbar.
-          backgroundImage:
-            "linear-gradient(90deg, #79a73b 0%, #84b344 4.17%, #8fbe4c 8.33%, #97c854 12.5%, #9ed059 16.67%, #a3d45d 20.83%, #a4d65e 25%, #a3d45d 29.17%, #9ed059 33.33%, #97c854 37.5%, #8fbe4c 41.67%, #84b344 45.83%, #79a73b 50%, #6e9a31 54.17%, #648f29 58.33%, #5b8521 62.5%, #547d1c 66.67%, #4f7918 70.83%, #4e7717 75%, #4f7918 79.17%, #547d1c 83.33%, #5b8521 87.5%, #638f29 91.67%, #6e9a31 95.83%, #79a73a 100%)",
-          backgroundSize: "250% 100%",
-          backgroundRepeat: "no-repeat",
-          WebkitBackgroundClip: "text",
-          backgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          color: "transparent",
-        }}
-        className="select-none whitespace-nowrap text-center font-black leading-none tracking-tighter"
+      <motion.div
+        style={{ y, x, scale, rotate }}
+        className="inline-flex flex-col items-center gap-4"
       >
-        {word}
-      </motion.h2>
+        <Wort
+          {...(onClick
+            ? {
+                type: "button" as const,
+                onClick,
+                onPointerEnter: onAktiv,
+                onPointerLeave: onInaktiv,
+                onFocus: onAktiv,
+                onBlur: onInaktiv,
+                "aria-label": ariaLabel ?? word + " - zurueck nach oben",
+              }
+            : {})}
+          style={{ fontSize, backgroundPositionX: bgPos, ...verlauf }}
+          className={
+            onClick
+              ? wortKlassen +
+                " block cursor-pointer rounded-3xl outline-none transition-opacity hover:opacity-80 focus-visible:ring-2 focus-visible:ring-[#80BA2B]/60 focus-visible:ring-offset-8"
+              : wortKlassen
+          }
+        >
+          {word}
+        </Wort>
+
+        {onClick && unterzeile && (
+          <span
+            aria-hidden="true"
+            className="text-xs font-semibold uppercase tracking-widest text-slate-400 md:text-sm"
+          >
+            {unterzeile}
+          </span>
+        )}
+      </motion.div>
     </section>
   );
 }

@@ -11,6 +11,7 @@ import {
   useVelocity,
   type MotionValue,
 } from "framer-motion";
+import { flussRichtung } from "./flow-signal";
 
 /**
  * Fliessender Linien-Hintergrund — reagiert auf den Scroll.
@@ -134,10 +135,12 @@ function Tile({ lines }: { lines: Line[] }) {
 function FlowLayer({
   cfg,
   boost,
+  richtung,
   reduce,
 }: {
   cfg: LayerCfg;
   boost: MotionValue<number>;
+  richtung: MotionValue<number>;
   reduce: boolean;
 }) {
   const pos = useRef(Math.random() * -50); // versetzter Startpunkt pro Ebene
@@ -149,9 +152,13 @@ function FlowLayer({
     const dt = Math.min(delta, 50) / 1000;
     const b = boost.get(); // 0..1, geglättet
     // Seitwärts-Tempo: Ruhe + Scroll-Schub
-    const speed = cfg.idleSpeed * (1 + b * cfg.speedGain);
+    // Richtung: +1 normal, -1 rueckwaerts. Laeuft ueber eine Feder, damit die
+    // Stroemung abbremst, steht und dreht, statt zu schnappen.
+    const dir = richtung.get();
+    const speed = cfg.idleSpeed * (1 + b * cfg.speedGain) * dir;
     let p = pos.current - speed * dt;
-    if (p <= -50) p += 50; // nahtloser Loop (eine Kachel = 50%)
+    if (p <= -50) p += 50; // nahtloser Loop vorwaerts (eine Kachel = 50%)
+    else if (p >= 0) p -= 50; // und rueckwaerts
     pos.current = p;
     x.set(p);
     // Amplitude: leichtes Ruhe-Atmen + Ausschlag mit Scroll-Tempo
@@ -187,6 +194,8 @@ export function FlowLines() {
   // Normalisierter Schub 0..1 (Betrag, gedeckelt). Skala 2350 px/s → ~+10%
   // stärkere Reaktion als zuvor (2600).
   const boost = useTransform(smoothVel, (v) => Math.min(1, Math.abs(v) / 2350));
+  // Richtungswechsel weich: die Feder laeuft durch 0 hindurch.
+  const richtung = useSpring(flussRichtung, { damping: 26, stiffness: 90, mass: 1 });
 
   return (
     <div
@@ -200,7 +209,7 @@ export function FlowLines() {
       }}
     >
       {LAYERS.map((cfg, i) => (
-        <FlowLayer key={i} cfg={cfg} boost={boost} reduce={reduce} />
+        <FlowLayer key={i} cfg={cfg} boost={boost} richtung={richtung} reduce={reduce} />
       ))}
     </div>
   );

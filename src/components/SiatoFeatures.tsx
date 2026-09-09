@@ -136,39 +136,43 @@ function QualityVisual() {
 
 /* ---------- Feature-Daten ---------- */
 
+/* Die Kopfzeile jedes Blocks trägt exakt den Bereichsnamen aus der
+   Modulsektion — sonst liest sich der Deep-Dive wie ein anderes Produkt.
+   Die Stichpunkte sind die echten Module dieses Bereichs, beschrieben mit
+   Christophs eigenen Worten. Kein Block darf zwei Bereiche mischen. */
 const features = [
   {
-    eyebrow: "Kontinuierliche Verbesserung",
+    eyebrow: "Verbesserung & KVP",
     title: "Aus Ideen werden messbare Resultate",
-    text: "Jede Verbesserung läuft strukturiert durch den PDCA-Zyklus – mit klarer Verantwortung, Terminen und Wirkungskontrolle. So bleibt KVP kein Schlagwort, sondern wird zur Routine, deren Wirkung Sie schwarz auf weiss sehen.",
+    text: "Jede Verbesserung läuft durch den PDCA-Zyklus – jede Phase dokumentiert, Verantwortlichkeiten zugewiesen, der Fortschritt nachverfolgt. So bleibt KVP kein Schlagwort, sondern wird zur Routine, deren Wirkung Sie schwarz auf weiss sehen.",
     points: [
-      "Ideenmanagement mit Bewertung & Priorisierung",
-      "PDCA-Zyklen mit Massnahmen und Fristen",
-      "Waste Walks direkt vom Smartphone erfassen",
+      "Ideenmanagement – einreichen, bewerten, freigeben",
+      "PDCA-Zyklen – jede Phase dokumentiert und nachverfolgt",
+      "Waste Walks – Verschwendung direkt am Shopfloor erfassen",
     ],
     visual: <PdcaVisual />,
     reverse: false,
   },
   {
-    eyebrow: "Transparenz & Führung",
+    eyebrow: "Führung & Kommunikation",
     title: "Alle Kennzahlen, ein Blick",
-    text: "Vom Shopfloor bis zur Geschäftsleitung sehen alle in Echtzeit, wo es läuft und wo es klemmt. Kurze, wirksame Meetings statt Excel-Tabellen, die niemand pflegt.",
+    text: "Vom Shopfloor bis zur Geschäftsleitung sehen alle dieselben Zahlen. Führungskräfte erkennen Trends früh und entscheiden auf Daten statt auf Zuruf.",
     points: [
-      "Live-Cockpits pro Team und Rolle",
-      "Shopfloor-Boards für tägliche Steuerung",
-      "Aufgaben automatisch aus Kennzahlen ableiten",
+      "Kennzahlen zentral erfasst, visualisiert und ausgewertet",
+      "Shopfloor-Runden direkt am Board – papierlos",
+      "Projektstatus mit frühem Signal bei Verzögerung",
     ],
     visual: <KpiVisual />,
     reverse: true,
   },
   {
-    eyebrow: "Qualität & Compliance",
+    eyebrow: "Qualität & Abweichungen",
     title: "Fehler systematisch abstellen",
-    text: "Beanstandungen, interne Fehler und 8D-Reports an einem Ort – mit Ursachenanalyse statt Bauchgefühl. Audits und gelenkte Dokumente bleiben revisionssicher und jederzeit prüfbereit.",
+    text: "Reklamationen von Kunden, Probleme mit Lieferanten und intern entdeckte Fehler laufen über denselben Weg: Sofortmassnahme, Ursachenanalyse, Korrektur – mit lückenloser Historie statt Bauchgefühl.",
     points: [
-      "8D-Reports mit geführter Ursachenanalyse",
-      "Interne Audits & Normenprüfungen",
-      "Gelenkte Dokumente, revisionssicher",
+      "Kundenbeanstandungen mit vollständiger Kommunikationshistorie",
+      "Interne Fehler – erkannt, bevor sie den Kunden erreichen",
+      "8D-Report von der Ursache bis zur Wirksamkeitsprüfung",
     ],
     visual: <QualityVisual />,
     reverse: false,
@@ -178,7 +182,22 @@ const features = [
 export function SiatoFeatures() {
   return (
     <section id="features" className="relative scroll-mt-20 py-24">
-      <div className="mx-auto max-w-[90rem] space-y-28 px-6">
+      <div className="mx-auto max-w-[90rem] px-6">
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <p className="text-sm font-semibold uppercase tracking-widest text-[#4e7717]">
+            Im Detail
+          </p>
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 [text-shadow:0_1px_14px_rgba(255,255,255,0.8)] md:text-5xl">
+            Drei Bereiche, genauer angeschaut.
+          </h2>
+          <p className="mt-4 text-base text-slate-600 md:text-lg">
+            Sieben Bereiche decken den Verbesserungsalltag ab. Diese drei zeigen
+            wir so, wie sie im Betrieb aussehen.
+          </p>
+        </Reveal>
+      </div>
+
+      <div className="mx-auto mt-16 max-w-[90rem] space-y-28 px-6">
         {features.map((f) => (
           <div
             key={f.title}

@@ -36,8 +36,10 @@ export function SiatoWhy() {
             Bewährt seit 15 Jahren. Modern neu gebaut.
           </h2>
           <p className="mt-4 text-lg text-slate-600">
-            Siato übernimmt die erprobten Funktionen der allDates-Software und
-            bringt sie auf den heutigen Stand der Technik.
+            Hinter Siato steht allDates: eine Software, die seit über 15 Jahren
+            in Schweizer KMU läuft und dort Abläufe verkürzt und Fehler vermeidet.
+            Über 80 Betriebe arbeiten damit. Siato übernimmt die erprobten
+            Funktionen und baut sie auf heutiger Technik neu.
           </p>
         </Reveal>
 

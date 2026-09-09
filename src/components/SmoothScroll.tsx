@@ -1,5 +1,6 @@
 import Lenis from "lenis";
 import { useEffect, type ReactNode } from "react";
+import { lenisMerken } from "./flow-signal";
 
 /**
  * Globales Smooth-Scrolling (Lenis) — der Kern des „buttrigen" Gefühls:
@@ -24,6 +25,8 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
       anchors: true, // #-Links (Nav) smooth über Lenis statt nativem Sprung
     });
 
+    lenisMerken(lenis);
+
     let raf = 0;
     const loop = (time: number) => {
       lenis.raf(time);
@@ -33,6 +36,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
 
     return () => {
       cancelAnimationFrame(raf);
+      lenisMerken(null);
       lenis.destroy();
     };
   }, []);

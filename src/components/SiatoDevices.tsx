@@ -87,12 +87,14 @@ export function SiatoDevices() {
     offset: ["start end", "center center"],
   });
 
-  // iPhone gleitet beim Scrollen von links in einer Drehbewegung herein –
-  // erreicht die Endposition früh (bei ~55 % des Scroll-Fortschritts).
-  const x = useTransform(scrollYProgress, [0, 0.6], [-280, 0]);
-  const rotate = useTransform(scrollYProgress, [0, 0.6], [-22, 0]);
-  const opacity = useTransform(scrollYProgress, [0, 0.35], [0, 1]);
-  const scale = useTransform(scrollYProgress, [0, 0.6], [0.85, 1]);
+  // iPhone gleitet beim Scrollen von links in einer Drehbewegung herein.
+  // Der Start ist bewusst verzögert (ab 20 % statt 0 %): davor klebt die
+  // Sektion noch am unteren Bildrand, dort liefe die Bewegung ins Leere.
+  // Die Fensterlänge bleibt gleich (0.6), es verschiebt sich nur nach hinten.
+  const x = useTransform(scrollYProgress, [0.2, 0.8], [-280, 0]);
+  const rotate = useTransform(scrollYProgress, [0.2, 0.8], [-22, 0]);
+  const opacity = useTransform(scrollYProgress, [0.2, 0.45], [0, 1]);
+  const scale = useTransform(scrollYProgress, [0.2, 0.8], [0.85, 1]);
 
   return (
     <section
