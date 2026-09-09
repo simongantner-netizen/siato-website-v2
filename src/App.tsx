@@ -21,14 +21,14 @@ function App() {
       <SiatoNav />
       <SiatoHeader />
       <WordSection word="fliessen" />
-      <SiatoCustomers />
       <SiatoWhy />
-      <WordSection word="besser" />
       <SiatoGruende />
+      <WordSection word="besser" />
       <SiatoModules />
       <WordSection word="überall" />
       <SiatoDevices />
       <SiatoFeatures />
+      <SiatoCustomers />
       <SiatoVoices />
       <WordSection word="fair" />
       <SiatoPricing />

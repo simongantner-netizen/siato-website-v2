@@ -54,24 +54,27 @@ function Zitat({ stimme, index }: { stimme: Stimme; index: number }) {
       <motion.div style={reduziert ? undefined : { y }}>
         <Reveal delay={index * 0.06}>
           <figure className="relative flex flex-col gap-6 pl-5 md:pl-8">
-            {/* Anführungszeichen laufen im Textfluss mit: das öffnende hängt
-                per negativem Erstzeilen-Einzug in den Rand, das schliessende
-                klebt am letzten Wort. Kein absolutes Positionieren – sonst
-                löst sich das hohe „“ von der Zeile und ragt aus dem Block. */}
-            <blockquote className="text-pretty text-xl font-medium leading-snug tracking-tight text-slate-800 [text-indent:-0.486em] md:text-[1.75rem] md:leading-[1.4]">
-              <span className="text-[1.15em] leading-[0] text-[#80BA2B]">„</span>
+            {/* Guillemets laufen im Textfluss mit: das öffnende hängt per
+                negativem Erstzeilen-Einzug in den Rand, das schliessende klebt
+                am letzten Wort. Kein absolutes Positionieren — sonst löst sich
+                das Zeichen von der Zeile und ragt aus dem Block.
+                Der Einzug ist die gemessene Laufweite von « bei 1.15em:
+                18.89 px auf 28 px Schrift = 0.675em. Bei einem anderen Zeichen
+                oder einer anderen Zeichengrösse neu messen. */}
+            <blockquote className="text-pretty text-xl font-medium leading-snug tracking-tight text-slate-800 [text-indent:-0.675em] md:text-[1.75rem] md:leading-[1.4]">
+              <span className="text-[1.15em] leading-[0] text-[#80BA2B]">«</span>
               {stimme.zitat}
-              <span className="text-[1.15em] leading-[0] text-[#80BA2B]">“</span>
+              <span className="text-[1.15em] leading-[0] text-[#80BA2B]">»</span>
             </blockquote>
 
-            <figcaption className="ml-auto flex w-full items-center gap-3 md:w-2/3">
-              <div className="hidden h-px grow translate-y-px bg-slate-300/70 md:block" />
-              <div className="flex flex-col md:ml-auto md:text-right">
-                <span className="text-sm font-semibold tracking-tight text-slate-900">
-                  {stimme.rolle}
-                </span>
-                <span className="text-sm text-slate-500">{stimme.branche}</span>
-              </div>
+            {/* Linksbündig zur Textkante des Zitats. Rechtsbündig war zwar
+                exakt auf der Blockkante, aber der Flattersatz erreicht sie nie —
+                das Auge misst an der Schrift, nicht an der unsichtbaren Kante. */}
+            <figcaption className="flex flex-col">
+              <span className="text-sm font-semibold tracking-tight text-slate-900">
+                {stimme.rolle}
+              </span>
+              <span className="text-sm text-slate-500">{stimme.branche}</span>
             </figcaption>
           </figure>
         </Reveal>
@@ -84,16 +87,8 @@ export function SiatoVoices() {
   return (
     <section id="stimmen" className="relative scroll-mt-20 py-24">
       <div className="mx-auto max-w-[90rem] px-6">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-[#4e7717]">
-            Kundenstimmen
-          </p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 [text-shadow:0_1px_14px_rgba(255,255,255,0.8)] md:text-5xl">
-            Gesagt von Menschen, die täglich mit Siato arbeiten.
-          </h2>
-        </Reveal>
 
-        <div className="mt-16 space-y-20 md:mt-20 md:space-y-24">
+        <div className="space-y-20 md:space-y-24">
           {stimmen.map((s, i) => (
             <Zitat key={s.rolle} stimme={s} index={i} />
           ))}

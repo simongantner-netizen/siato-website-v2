@@ -37,9 +37,15 @@ export const ContainerScroll = ({
   const scale = useTransform(scrollYProgress, [0, 1], scaleDimensions());
   const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
+  /* Die Bahnhoehe steuert zweierlei: den Scrollweg der Kipp-Animation UND
+     den Abstand zum naechsten Abschnitt. Desktop war 110rem — die Animation
+     war bei 1038 px fertig, danach liefen 720 px leer, der sichtbare Abstand
+     zum Wortband betrug 694 px. Bei 84rem sind es 274 px, die Animation hat
+     noch 550 px Weg und nichts ueberlappt. Mobil bleibt 70rem: darunter
+     schiebt sich das Wort ueber das Tablet (ab 60rem gemessen). */
   return (
     <div
-      className="h-[70rem] md:h-[110rem] flex items-start justify-center relative p-2 md:p-20"
+      className="h-[70rem] md:h-[84rem] flex items-start justify-center relative p-2 md:p-20"
       ref={containerRef}
     >
       <div

@@ -14,7 +14,10 @@ export function SiatoCustomers() {
       <div className="mx-auto max-w-[90rem] px-6">
         {/* Kunden-Headline */}
         <Reveal className="text-center">
-          <h2 className="mx-auto max-w-3xl text-3xl font-bold tracking-tight text-slate-900 [text-shadow:0_1px_14px_rgba(255,255,255,0.8)] md:text-4xl">
+          <p className="text-sm font-semibold uppercase tracking-widest text-[#4e7717]">
+            Referenzen
+          </p>
+          <h2 className="mx-auto mt-3 max-w-3xl text-3xl font-bold tracking-tight text-slate-900 [text-shadow:0_1px_14px_rgba(255,255,255,0.8)] md:text-5xl">
             Kunden, die dank Siato besser und schneller arbeiten.
           </h2>
         </Reveal>

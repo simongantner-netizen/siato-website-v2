@@ -70,7 +70,17 @@ function PhoneScreen() {
 
 function Phone() {
   return (
-    <div className="relative h-[540px] w-[264px] rounded-[2.75rem] border-[10px] border-[#1d1d1f] bg-[#1d1d1f] shadow-2xl">
+    <div
+      /* Dieselbe sechslagige Schattenkurve wie beim Tablet in
+         container-scroll-animation.tsx, auf rund 30 % herunterskaliert.
+         Grund: die Sektion hat nur 96 px Polster, der Tablet-Schatten
+         reicht 233 px weit und wuerde am Sektionsrand hart abgeschnitten. */
+      style={{
+        boxShadow:
+          "0 0 #0000004d, 0 3px 6px #0000004a, 0 11px 11px #00000042, 0 25px 15px #00000026, 0 45px 18px #0000000a, 0 70px 20px #00000003",
+      }}
+      className="relative h-[540px] w-[264px] rounded-[2.75rem] border-[10px] border-[#1d1d1f] bg-[#1d1d1f]"
+    >
       {/* Dynamic Island */}
       <div className="absolute left-1/2 top-2.5 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-[#1d1d1f]" />
       <div className="h-full w-full overflow-hidden rounded-[2rem] bg-white">

@@ -182,22 +182,7 @@ const features = [
 export function SiatoFeatures() {
   return (
     <section id="features" className="relative scroll-mt-20 py-24">
-      <div className="mx-auto max-w-[90rem] px-6">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-[#4e7717]">
-            Im Detail
-          </p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 [text-shadow:0_1px_14px_rgba(255,255,255,0.8)] md:text-5xl">
-            Drei Bereiche, genauer angeschaut.
-          </h2>
-          <p className="mt-4 text-base text-slate-600 md:text-lg">
-            Sieben Bereiche decken den Verbesserungsalltag ab. Diese drei zeigen
-            wir so, wie sie im Betrieb aussehen.
-          </p>
-        </Reveal>
-      </div>
-
-      <div className="mx-auto mt-16 max-w-[90rem] space-y-28 px-6">
+      <div className="mx-auto max-w-[90rem] space-y-28 px-6">
         {features.map((f) => (
           <div
             key={f.title}

@@ -32,7 +32,7 @@ export function SiatoHeader() {
     <header className="relative">
 
       {/* Hero mit Scroll-Tablet */}
-      <div className="relative flex flex-col overflow-hidden">
+      <div className="relative flex flex-col">
         <ContainerScroll
           titleComponent={
             <motion.div variants={stage} initial="hidden" animate="visible">
