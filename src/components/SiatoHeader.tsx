@@ -73,7 +73,7 @@ export function SiatoHeader() {
 
               <motion.div
                 variants={fadeUp}
-                className="mt-8 mb-14 flex flex-wrap items-center justify-center gap-3"
+                className="mt-8 mb-8 flex flex-wrap items-center justify-center gap-3"
               >
                 <a
                   href="#kontakt"

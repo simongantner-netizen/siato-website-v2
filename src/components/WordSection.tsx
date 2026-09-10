@@ -20,7 +20,7 @@ import {
  *  4. Grösse pro Wort an die Breite angepasst → bleibt immer lesbar.
  * Bei „Bewegung reduzieren" steht alles still.
  */
-const VERLAUF =
+export const VERLAUF =
   "linear-gradient(90deg, #79a73b 0%, #84b344 4.17%, #8fbe4c 8.33%, #97c854 12.5%, #9ed059 16.67%, #a3d45d 20.83%, #a4d65e 25%, #a3d45d 29.17%, #9ed059 33.33%, #97c854 37.5%, #8fbe4c 41.67%, #84b344 45.83%, #79a73b 50%, #6e9a31 54.17%, #648f29 58.33%, #5b8521 62.5%, #547d1c 66.67%, #4f7918 70.83%, #4e7717 75%, #4f7918 79.17%, #547d1c 83.33%, #5b8521 87.5%, #638f29 91.67%, #6e9a31 95.83%, #79a73a 100%)";
 
 export function WordSection({

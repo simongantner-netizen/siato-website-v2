@@ -1,4 +1,12 @@
 import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import {
+  anfassen,
+  flaecheDruck,
+  flaecheHover,
+  linkDruck,
+  linkHover,
+} from "../bewegung";
 import { Reveal } from "./ui/reveal";
 import { SiatoLogo } from "./SiatoLogo";
 import { Mail, Phone, Check, ArrowRight } from "lucide-react";
@@ -157,6 +165,7 @@ export function SiatoContact() {
 }
 
 export function SiatoFooter() {
+  const reduce = useReducedMotion() ?? false;
   return (
     <footer className="relative border-t border-slate-200/60 bg-white/70 backdrop-blur-md">
       <div className="mx-auto max-w-[90rem] px-6 py-10 md:py-12">
@@ -175,11 +184,14 @@ export function SiatoFooter() {
           </div>
 
           {/* Dachmarke: Siato gehoert der allDates AG */}
-          <a
+          <motion.a
             href="https://www.alldates.ch"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Siato ist eine Marke der allDates AG – zur Website von allDates"
+            whileHover={reduce ? undefined : flaecheHover}
+            whileTap={reduce ? undefined : flaecheDruck}
+            transition={anfassen}
             className="group inline-flex rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-[#80BA2B]/40 focus-visible:ring-offset-4 md:justify-self-center"
           >
             <img
@@ -187,7 +199,7 @@ export function SiatoFooter() {
               alt="allDates AG"
               className="h-12 w-auto opacity-65 transition-opacity group-hover:opacity-100 md:h-20"
             />
-          </a>
+          </motion.a>
           {/* Flex statt grid-cols-3: bei gleich breiten Spalten haengt der
               ungenutzte Rest der kuerzesten Spalte als Weissraum an der Luecke —
               «Produkt» ist 53 px breit in einer 93-px-Spalte, die sichtbare
@@ -244,21 +256,29 @@ export function SiatoFooter() {
 type FussLink = { label: string; href: string; extern?: boolean };
 
 function FooterCol({ title, links }: { title: string; links: FussLink[] }) {
+  const reduce = useReducedMotion() ?? false;
   return (
     <div>
       <div className="text-sm font-semibold text-slate-900">{title}</div>
       <ul className="mt-3 space-y-2">
         {links.map((l) => (
           <li key={l.label}>
-            <a
+            <motion.a
               href={l.href}
               {...(l.extern
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}
+              whileHover={reduce ? undefined : linkHover}
+              whileTap={reduce ? undefined : linkDruck}
+              transition={anfassen}
+              /* Aus der linken Kante heraus wachsen, nicht aus der Mitte:
+                 in einer linksbuendigen Liste wandert der Text sonst sichtbar
+                 nach links aus der Flucht. */
+              style={{ transformOrigin: "left center", display: "inline-block" }}
               className="text-sm text-slate-500 transition-colors hover:text-slate-900"
             >
               {l.label}
-            </a>
+            </motion.a>
           </li>
         ))}
       </ul>

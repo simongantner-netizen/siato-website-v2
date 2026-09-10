@@ -67,11 +67,11 @@ export const ContainerScroll = ({
      schiebt sich das Wort ueber das Tablet (ab 60rem gemessen). */
   return (
     <div
-      className="h-[70rem] md:h-[84rem] flex items-start justify-center relative p-2 md:p-20"
+      className="h-[70rem] md:h-[84rem] flex items-start justify-center relative p-2 md:px-20 md:pb-20 md:pt-4"
       ref={containerRef}
     >
       <div
-        className="py-10 md:py-24 w-full sticky top-16 md:top-20"
+        className="py-10 md:pb-24 md:pt-6 w-full sticky top-16 md:top-20"
         style={{
           perspective: "1000px",
         }}
@@ -127,7 +127,7 @@ export const Card = ({
         boxShadow:
           "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
       }}
-      className="max-w-6xl -mt-12 mx-auto h-[30rem] md:h-[44rem] w-full border-4 border-[#6C6C6C] p-2 md:p-6 bg-[#222222] rounded-[30px] shadow-2xl"
+      className="max-w-6xl -mt-12 md:-mt-16 mx-auto h-[30rem] md:h-[44rem] w-full border-4 border-[#6C6C6C] p-2 md:p-6 bg-[#222222] rounded-[30px] shadow-2xl"
     >
       <div className="h-full w-full overflow-hidden rounded-2xl bg-gray-100 md:rounded-2xl">
         {children}

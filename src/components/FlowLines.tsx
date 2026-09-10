@@ -26,12 +26,12 @@ import { flussRichtung } from "./flow-signal";
  * Bei „Bewegung reduzieren" stehen die Linien still.
  */
 
-const TILE_W = 1440;
-const TILE_H = 800;
+export const TILE_W = 1440;
+export const TILE_H = 800;
 const TAU = Math.PI * 2;
 
-type Harmonic = { k: number; amp: number; phase: number };
-type Line = {
+export type Harmonic = { k: number; amp: number; phase: number };
+export type Line = {
   baseY: number;
   harmonics: Harmonic[];
   width: number;
@@ -48,21 +48,21 @@ type LayerCfg = {
   lines: Line[];
 };
 
-function yAt(x: number, baseY: number, harmonics: Harmonic[]): number {
+function yAt(x: number, baseY: number, harmonics: Harmonic[], verstaerkung = 1): number {
   let y = baseY;
   for (const h of harmonics) {
-    y += h.amp * Math.sin((h.k * TAU * x) / TILE_W + h.phase);
+    y += h.amp * verstaerkung * Math.sin((h.k * TAU * x) / TILE_W + h.phase);
   }
   return y;
 }
 
 /** Seidig-glatter, exakt periodischer Pfad (Catmull-Rom → kubische Béziers,
  *  periodische Nachbarn → auch die Kachel-Naht ist knickfrei). */
-function buildPath(line: Line): string {
+export function buildPath(line: Line, verstaerkung = 1, baseY = line.baseY): string {
   const N = 16;
   const dx = TILE_W / N;
   const ys: number[] = [];
-  for (let i = 0; i <= N; i++) ys.push(yAt(i * dx, line.baseY, line.harmonics));
+  for (let i = 0; i <= N; i++) ys.push(yAt(i * dx, baseY, line.harmonics, verstaerkung));
   const yMod = (i: number) => ys[((i % N) + N) % N];
 
   let d = `M 0 ${ys[0].toFixed(2)}`;
@@ -81,7 +81,7 @@ const G_DARK = "#6da524";
 
 // Drei Tiefen-Ebenen: hinten langsam/blass/leicht unscharf, vorne klarer.
 // Amplituden bewusst kräftiger als zuvor → „mehr Wellen".
-const LAYERS: LayerCfg[] = [
+export const LAYERS: LayerCfg[] = [
   {
     idleSpeed: 0.55, speedGain: 2.6, ampGain: 0.34, breath: 0.05, breathSpeed: 0.18, blur: 0.6,
     lines: [

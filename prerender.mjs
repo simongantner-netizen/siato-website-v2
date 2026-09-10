@@ -146,9 +146,18 @@ try {
     // Start selbst anheftet. In der Datei haetten beide nichts verloren: die
     // CSS-Regel wuerde sonst auch ohne JavaScript greifen und genau den Text
     // verstecken, dessentwegen wir hier ueberhaupt prerendern.
+    /* Der Vorhang wird im Ausgeliefertem geleert: seine Flaeche und Wortmarke
+       bleiben als Geruest stehen (die CSS-Regel haengt an js-bereit, ohne
+       JavaScript ist er also unsichtbar), aber die von React nachgefuellten
+       Wellen gehoeren nicht in die Datei - React baut sie bei jedem Aufruf neu. */
+    const wellen = document.getElementById("splash-wellen");
+    if (wellen) wellen.innerHTML = "";
+    const wortAuf = document.querySelector("#splash .wort");
+    if (wortAuf) wortAuf.removeAttribute("style");
+
     const wurzel = document.documentElement;
     const abgelegt = [...wurzel.classList].filter(
-      (k) => k === "js-bereit" || k.startsWith("lenis"),
+      (k) => k === "js-bereit" || k === "splash-vorbei" || k.startsWith("lenis"),
     );
     wurzel.classList.remove(...abgelegt);
     if (!wurzel.className.trim()) wurzel.removeAttribute("class");
@@ -172,7 +181,7 @@ try {
   }
   // Nicht auf die Zeichenkette pruefen - die steht berechtigterweise im Skript
   // und in der Style-Regel im <head>. Gemeint ist die Klasse am <html>.
-  if (bericht.klassenRest && /\bjs-bereit\b|\blenis/.test(bericht.klassenRest)) {
+  if (bericht.klassenRest && /\bjs-bereit\b|\bsplash-vorbei\b|\blenis/.test(bericht.klassenRest)) {
     throw new Error(`Am <html> haengen noch Laufzeit-Klassen: ${bericht.klassenRest}`);
   }
   if (!/data-vorgerendert="1"/.test(bericht.html)) {

@@ -1,11 +1,19 @@
 import { useState } from "react";
 import { vorgerendert } from "../vorgerendert";
 import {
-  AnimatePresence,
+  anfassen,
+  flaecheDruck,
+  flaecheHover,
+  linkDruck,
+  linkHover,
+} from "../bewegung";
+import {
   motion,
-  useMotionValueEvent,
-  useScroll,
+  AnimatePresence,
   type Variants,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
 } from "framer-motion";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { SiatoLogo } from "./SiatoLogo";
@@ -51,6 +59,7 @@ const TOTZONE = 6;
 export function SiatoNav() {
   const [open, setOpen] = useState(false);
   const [versteckt, setVersteckt] = useState(false);
+  const reduce = useReducedMotion() ?? false;
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (y) => {
@@ -99,7 +108,10 @@ export function SiatoNav() {
                 key={l.href}
                 variants={navItem}
                 href={l.href}
-                className="transition-colors hover:text-slate-900"
+                whileHover={reduce ? undefined : linkHover}
+                whileTap={reduce ? undefined : linkDruck}
+                transition={anfassen}
+                className="transition-colors hover:text-[#4e7717]"
               >
                 {l.label}
               </motion.a>
@@ -110,6 +122,9 @@ export function SiatoNav() {
           <motion.a
             variants={navItem}
             href="#kontakt"
+            whileHover={reduce ? undefined : flaecheHover}
+            whileTap={reduce ? undefined : flaecheDruck}
+            transition={anfassen}
             className="group hidden items-center gap-2 rounded-full bg-slate-900 px-5 py-2.5 text-[15px] font-bold text-white transition-colors hover:bg-[#80BA2B] md:flex md:justify-self-end"
           >
             Demo buchen

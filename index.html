@@ -39,14 +39,186 @@
     -->
     <script>
       document.documentElement.classList.add("js-bereit");
+
+      /* Der Vorhang laeuft bei JEDEM Laden. Kein Merker in der Sitzung: er
+         dauert kuerzer, als das Nachdenken ueber eine Ausnahme dauert, und
+         eine Marke, die sich nur beim ersten Mal zeigt, ist keine.
+         Der Entscheid faellt HIER, blockierend vor dem ersten Bild - sonst
+         blitzt der Vorhang auf und verschwindet sofort wieder. */
+      (function () {
+        var w = document.documentElement;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          w.classList.add("splash-vorbei");
+          return;
+        }
+        /* Notbremse: laedt das Buendel nicht, raeumt sich der Vorhang selbst
+           weg. Eine gruene Flaeche, die stehen bleibt, waere der schlimmste
+           denkbare Ausgang - man wuerde die Seite fuer kaputt halten. */
+        setTimeout(function () { w.classList.add("splash-vorbei"); }, 7000);
+      })();
     </script>
     <style>
       html.js-bereit [data-reveal] {
         opacity: 0;
       }
+
+      /* Der Vorhang. Ohne JavaScript existiert er nicht: die Regel haengt an
+         js-bereit, und die Klasse setzt nur ein laufendes Skript. Suchmaschinen
+         und KI-Antwortsysteme sehen also weiterhin die fertige Seite. */
+      #splash {
+        display: none;
+      }
+      html.js-bereit #splash {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 90;
+        pointer-events: none;
+      }
+      /* Der Grund traegt Verlauf und Wellen und wird von der Wellenkante
+         beschnitten. Die Wortmarke liegt bewusst DANEBEN, nicht darin: sonst
+         schneidet die ablaufende Kante sie mitten im Flug ab. */
+      html.js-bereit #splash .grund {
+        position: absolute;
+        inset: 0;
+        /* Derselbe Verlauf wie in den Wortbaendern: 24 Stufen, sinus-abgetastet,
+           damit an den Helligkeits-Wendepunkten keine Kante steht. Er liegt auf
+           250 % Breite und wird nicht gekachelt - das Fenster wandert, statt
+           dass eine Naht durchlaeuft. */
+        background-image: linear-gradient(
+          90deg,
+          #79a73b 0%, #84b344 4.17%, #8fbe4c 8.33%, #97c854 12.5%,
+          #9ed059 16.67%, #a3d45d 20.83%, #a4d65e 25%, #a3d45d 29.17%,
+          #9ed059 33.33%, #97c854 37.5%, #8fbe4c 41.67%, #84b344 45.83%,
+          #79a73b 50%, #6e9a31 54.17%, #648f29 58.33%, #5b8521 62.5%,
+          #547d1c 66.67%, #4f7918 70.83%, #4e7717 75%, #4f7918 79.17%,
+          #547d1c 83.33%, #5b8521 87.5%, #638f29 91.67%, #6e9a31 95.83%,
+          #79a73a 100%
+        );
+        background-size: 250% 100%;
+        background-repeat: no-repeat;
+        /* Muss der Startwert der Animation sein, nicht 50 %. Sonst steht im
+           ersten Bild ein anderer Farbton als der, mit dem React weiterfaehrt -
+           und der Grund flackert genau einmal, beim Uebernehmen. */
+        background-position-x: 18%;
+      }
+      #splash .wort { z-index: 2; }
+      html.js-bereit.splash-vorbei #splash {
+        display: none;
+      }
+      /* Mittig, waagerecht wie senkrecht - auf jedem Format. Vorher stand hier
+         top: 34 %, das sass auf dem Telefon 111 px zu hoch. */
+      #splash .wort {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #fff;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+        /* Muss exakt die Typografie von SiatoLogo sein - sonst wechselt beim
+           Aufsetzen die Schriftform, und das ruckelt in den letzten Bildern.
+           Beide stehen auf 900 mit -0.045em. Wer eines aendert, aendert beides. */
+        font-weight: 900;
+        letter-spacing: -0.045em;
+        line-height: 1;
+        /* 27vw statt 13: «siato» nimmt damit rund 60 % der Bildschirmbreite
+           ein statt 29 %. Der Deckel bei 182 px haelt den Desktop unveraendert,
+           die Untergrenze faengt sehr schmale Fenster ab. */
+        font-size: clamp(64px, 27vw, 182px);
+        /* Eigene Ebene fuer den Flug, sonst rastert der Browser die Schrift
+           beim Schrumpfen in Stufen neu - das ruckelt kurz vor dem Ziel. */
+        will-change: transform;
+        transform: translateZ(0);
+      }
+      /* Buchstabe fuer Buchstabe, wie bei schoenau-wetzikon.ch - dort
+         nachgemessen: reines Einblenden ohne Bewegung, rund 450 ms je
+         Buchstabe, versetzt um etwa 140 ms. Dort laeuft der Name senkrecht,
+         hier waagerecht; die Bewegung ist dieselbe.
+         Bewusst inline-Spans ohne display-Wechsel: so bleibt die Unterschneidung
+         der Schrift unangetastet, und der Kasten des Wortes aendert sich nicht -
+         daran haengt spaeter die Messung fuer den Flug. */
+      #splash .wort span span {
+        opacity: 0;
+        animation: buchstabe-auf 450ms cubic-bezier(0.33, 1, 0.68, 1) both;
+      }
+      #splash .wort span span:nth-child(1) { animation-delay: 60ms; }
+      #splash .wort span span:nth-child(2) { animation-delay: 200ms; }
+      #splash .wort span span:nth-child(3) { animation-delay: 340ms; }
+      #splash .wort span span:nth-child(4) { animation-delay: 480ms; }
+      #splash .wort span span:nth-child(5) { animation-delay: 620ms; }
+      @keyframes buchstabe-auf {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+      }
+
+      /* Die Navigation setzt sich zusammen, wenn die Marke ihren Platz
+         einnimmt. Das Logo muss warten, sonst stuenden zwei Wortmarken
+         gleichzeitig im Bild; Menue und Knopf warten mit, weil die fliegende
+         Marke sonst quer durch sie hindurchzieht. Die weisse Leiste selbst
+         wird ganz normal vom Vorhang freigegeben - die Seite baut sich also
+         weiter auf, es fehlt nur ihr Inhalt. */
+      html.js-bereit:not(.splash-sitzt):not(.splash-vorbei) [data-logo],
+      html.js-bereit:not(.splash-sitzt):not(.splash-vorbei) nav a,
+      html.js-bereit:not(.splash-sitzt):not(.splash-vorbei) nav button {
+        /* !important ist hier kein Holzhammer, sondern noetig: Framer Motion
+           setzt die Deckkraft dieser Elemente als Inline-Style, und ein
+           Inline-Style schlaegt jede Klassenregel. Ohne das bleiben die
+           Menuepunkte sichtbar, und die fliegende Marke zieht quer durch sie
+           hindurch. */
+        opacity: 0 !important;
+      }
+      /* Die Navigation kommt so, dass sie FERTIG ist, wenn die Marke sitzt -
+         nicht danach. Der Vorhang setzt splash-sitzt 420 ms vor dem Aufsetzen,
+         genau die Dauer dieser Einblendung. Beides endet im selben Bild. */
+      html.js-bereit.splash-sitzt nav a,
+      html.js-bereit.splash-sitzt nav button {
+        /* backwards, NICHT both: mit `both` behaelt die Animation ihren
+           Endzustand dauerhaft bei - und eine nachhaltende CSS-Animation
+           schlaegt jeden Inline-Style. Damit klemmt sie `transform: none`
+           fest, und der Hover-Effekt aus Framer Motion kommt nie an. Mit
+           `backwards` gilt der Anfangszustand nur VOR dem Lauf; danach
+           uebernehmen wieder die normalen Regeln. */
+        animation: nav-auf 420ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+      }
+      /* Das Logo dagegen erst ganz am Schluss: bis dahin steht die fliegende
+         Marke an derselben Stelle, sonst waeren es zwei. */
+      html.js-bereit.splash-sitzt:not(.splash-vorbei) [data-logo] {
+        opacity: 0 !important;
+      }
+      @keyframes nav-auf {
+        from { opacity: 0; transform: translateY(-6px); }
+        to   { opacity: 1; transform: none; }
+      }
+      #splash svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
     </style>
   </head>
   <body>
+    <!-- Liegt bewusst VOR dem Wurzelelement und ausserhalb von React: der
+         Vorhang steht damit im ersten Bild, nicht erst wenn das Buendel
+         laeuft. React fuellt nur die Wellen nach und fuehrt den Ausgang. -->
+    <div id="splash" aria-hidden="true">
+      <div class="grund">
+        <svg
+          id="splash-wellen"
+          viewBox="0 0 1440 800"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        ></svg>
+      </div>
+      <div class="wort">
+        <span class="txt"
+          ><span>s</span><span>i</span><span>a</span><span>t</span><span>o</span></span
+        >
+      </div>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

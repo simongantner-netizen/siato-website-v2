@@ -69,13 +69,18 @@ export function SiatoMark({ className }: { className?: string }) {
   );
 }
 
-// Logo = reine Wortmarke „siato" in Schwarz (Bildmarke bewusst weggelassen).
+/* Logo = reine Wortmarke „siato" in Schwarz (Bildmarke bewusst weggelassen).
+   Gewicht 900 mit -0.045em Laufweite, seit 10.09.2026. Vorher 700 mit
+   tracking-tight. Die schwerere Fassung kam aus dem Marken-Moment und hat sich
+   dort als die bessere erwiesen; damit Vorhang und Logo dieselbe Form haben,
+   gilt sie jetzt fuer beide. Aendert sich das hier, muss der Vorhang in
+   index.html mitgehen - sonst springt die Schrift beim Aufsetzen. */
 export function SiatoLogo({
   textClassName = "text-2xl text-slate-900",
 }: {
   textClassName?: string;
 }) {
   return (
-    <span className={`font-bold tracking-tight ${textClassName}`}>siato</span>
+    <span data-logo className={`font-black tracking-[-0.045em] ${textClassName}`}>siato</span>
   );
 }
