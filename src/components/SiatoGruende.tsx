@@ -1,5 +1,11 @@
-import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+} from "framer-motion";
 import { Check, ChevronDown } from "lucide-react";
 import { Reveal } from "./ui/reveal";
 
@@ -113,38 +119,64 @@ export function SiatoGruende() {
 
   // Die Schiene wächst mit dem Scrollen. Bewusst scaleY (GPU) statt
   // stroke-dashoffset — das wäre Paint-Arbeit in jedem Frame.
-  const { scrollYProgress } = useScroll({
-    target: listeRef,
-    offset: ["start 85%", "end 55%"],
-  });
-  const fortschritt = useSpring(scrollYProgress, {
+  const { scrollY } = useScroll();
+  const fortschritt = useSpring(0, {
     damping: 30,
     stiffness: 120,
     mass: 0.6,
   });
 
-  /* Beim Aufklappen wächst die Liste von ~645 auf ~1917 px. Framer Motion
-     misst den Fortschritts-Bereich aber nur bei einem Fenster-Resize neu —
-     ohne das bliebe der grüne Strich auf seinem alten Anteil stehen und
-     würde rund 900 px zu weit reichen. Der Beobachter meldet die
-     Höhenänderung, gedrosselt auf einen Frame. Läuft nur beim Auf- und
-     Zuklappen, nicht beim Scrollen. */
+  /* Geometrie der Liste, gemessen NUR bei Layout-Änderungen, nie im Scroll.
+     Die Rechnung bildet Framers offset ["start 85%", "end 55%"] nach:
+     0, wenn die Oberkante auf 85 % Fensterhöhe steht, 1, wenn die Unterkante
+     auf 55 % steht. */
+  const geo = useRef({ oben: 0, hoehe: 1 });
+
+  const anteil = useCallback(() => {
+    const { oben, hoehe } = geo.current;
+    const fenster = window.innerHeight;
+    const spanne = hoehe + 0.3 * fenster;
+    if (spanne <= 0) return 0;
+    const gelaufen = scrollY.get() - oben + 0.85 * fenster;
+    return Math.min(1, Math.max(0, gelaufen / spanne));
+  }, [scrollY]);
+
+  const messen = useCallback(() => {
+    const el = listeRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    geo.current = { oben: r.top + window.scrollY, hoehe: r.height };
+  }, []);
+
+  // Vom Scrollen kommt der gefederte Anteil — das weiche Nachlaufen bleibt.
+  useMotionValueEvent(scrollY, "change", () => fortschritt.set(anteil()));
+
+  /* Beim Aufklappen wächst die Liste von ~675 auf ~1947 px, also fast auf das
+     Dreifache. Die Spitze sitzt bei Anteil × Schienenhöhe. Wächst die Höhe,
+     während der Anteil noch der alte ist, schiesst die Spitze mit — gemessen
+     316 px nach unten — und die Feder holt sie über eine Sekunde zurück. Das
+     war der Sprung.
+     Also: bei jeder Höhenänderung neu messen, neu rechnen und mit jump()
+     setzen. jump() überspringt die Feder, damit hier nichts nachläuft, was
+     nur eine Korrektur ist. Anteil × Höhe bleibt so stetig, die Spitze
+     gleitet mit der wachsenden Liste statt zu springen. Läuft nur beim Auf-
+     und Zuklappen, nicht beim Scrollen. */
   useEffect(() => {
     const el = listeRef.current;
     if (!el) return;
-    let frame = 0;
-    const beobachter = new ResizeObserver(() => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() =>
-        window.dispatchEvent(new Event("resize")),
-      );
-    });
+    const nachfuehren = () => {
+      messen();
+      fortschritt.jump(anteil());
+    };
+    nachfuehren();
+    const beobachter = new ResizeObserver(nachfuehren);
     beobachter.observe(el);
+    window.addEventListener("resize", nachfuehren);
     return () => {
       beobachter.disconnect();
-      cancelAnimationFrame(frame);
+      window.removeEventListener("resize", nachfuehren);
     };
-  }, []);
+  }, [anteil, fortschritt, messen]);
 
   return (
     <section id="gruende" className="relative scroll-mt-20 py-24">
