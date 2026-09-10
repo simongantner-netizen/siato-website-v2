@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { vorgerendert } from "../vorgerendert";
 import {
   AnimatePresence,
   motion,
@@ -75,7 +76,8 @@ export function SiatoNav() {
     >
         <motion.div
           variants={navStage}
-          initial="hidden"
+          /* siehe SiatoHeader: nicht verstecken, was schon im Bild steht */
+          initial={vorgerendert ? false : "hidden"}
           animate="visible"
           /* Ab md ein Dreispalter statt justify-between: bei justify-between
              haengt die Mitte an der Differenz von Logo- und CTA-Breite und

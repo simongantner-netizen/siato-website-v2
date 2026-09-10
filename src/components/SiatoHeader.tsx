@@ -2,6 +2,7 @@ import { motion, type Variants } from "framer-motion";
 import { ContainerScroll } from "./ui/container-scroll-animation";
 import { HeroPill } from "./HeroPill";
 import { SiatoDashboard } from "./SiatoDashboard";
+import { vorgerendert } from "../vorgerendert";
 
 // Hero-Inhalt: gestaffelter Auftritt statt „brav auftauchen".
 const stage: Variants = {
@@ -35,7 +36,14 @@ export function SiatoHeader() {
       <div className="relative flex flex-col">
         <ContainerScroll
           titleComponent={
-            <motion.div variants={stage} initial="hidden" animate="visible">
+            <motion.div
+              variants={stage}
+              /* Vorgerendert steht der Hero schon im ersten Bild. Ihn dann
+                 einzublenden hiesse, ihn erst wieder zu verstecken - die
+                 Headline kaeme spaeter als ganz ohne Prerendering. */
+              initial={vorgerendert ? false : "hidden"}
+              animate="visible"
+            >
               <motion.h1
                 variants={maskReveal}
                 className="mx-auto max-w-5xl text-4xl font-bold leading-tight tracking-tight text-slate-900 md:text-6xl md:leading-[1.08]"

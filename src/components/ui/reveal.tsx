@@ -31,6 +31,10 @@ export function Reveal({
 
   return (
     <motion.div
+      /* Marke fuers Prerendering: index.html versteckt [data-reveal] per CSS,
+         sobald JavaScript laeuft, und das Postbuild-Skript raeumt hier die
+         Inline-Styles weg. Siehe prerender.mjs. */
+      data-reveal=""
       className={className}
       variants={variants}
       initial="hidden"

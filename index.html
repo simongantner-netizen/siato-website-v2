@@ -15,6 +15,36 @@
       rel="stylesheet"
     />
     <title>Siato – Lean. Effizient. Transparent.</title>
+
+    <!--
+      Prerendering, Teil 1 von 2 (Teil 2 ist prerender.mjs).
+
+      Das ausgelieferte HTML enthaelt seit dem Postbuild den fertigen Text,
+      damit Suchmaschinen und KI-Antwortsysteme ihn ohne JavaScript sehen.
+
+      Fuer echte Besucher entstuende daraus ein Aufblitzen: das erste Bild
+      zeigt den Text, dann uebernimmt React, und die Einblend-Animation
+      versteckt ihn wieder, um ihn beim Scrollen hereinzuholen. Sichtbar,
+      versteckt, sichtbar.
+
+      Deshalb liegt der versteckte Startzustand hier und nicht im JavaScript.
+      Das Skript laeuft blockierend, also bevor das erste Bild gemalt wird,
+      und setzt die Klasse. Die Regel darunter versteckt die Einblend-Elemente
+      damit schon vor dem ersten Bildaufbau - kein Aufblitzen. Wer kein
+      JavaScript ausfuehrt, bekommt die Klasse nie und sieht den vollen Text.
+
+      Die Regel deckt bewusst nur opacity ab: unsichtbar ist unsichtbar, die
+      uebrigen Startwerte (Versatz, Scale, Blur) setzt Framer Motion beim
+      Uebernehmen selbst.
+    -->
+    <script>
+      document.documentElement.classList.add("js-bereit");
+    </script>
+    <style>
+      html.js-bereit [data-reveal] {
+        opacity: 0;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
