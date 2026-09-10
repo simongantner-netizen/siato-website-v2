@@ -46,7 +46,7 @@ export function SiatoWhy() {
         <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {reasons.map((r, i) => (
             <Reveal key={r.title} delay={i * 0.08}>
-              <div className="h-full rounded-2xl border border-slate-200/80 bg-white/90 p-6 shadow-sm shadow-slate-900/5 backdrop-blur-sm">
+              <div className="h-full rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm shadow-slate-900/5 md:bg-white/90 md:backdrop-blur-sm">
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#80BA2B]/12 text-[#4e7717]">
                   <r.icon className="h-5 w-5" strokeWidth={1.8} />
                 </div>

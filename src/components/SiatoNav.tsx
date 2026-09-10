@@ -71,7 +71,7 @@ export function SiatoNav() {
           ? { duration: 0.3, ease: [0.4, 0, 1, 1] }
           : { type: "spring", stiffness: 520, damping: 40, mass: 0.7 }
       }
-      className="sticky top-0 z-50 border-b border-slate-200/60 bg-white/80 backdrop-blur-md"
+      className="sticky top-0 z-50 border-b border-slate-200/60 bg-white md:bg-white/80 md:backdrop-blur-md"
     >
         <motion.div
           variants={navStage}
@@ -135,7 +135,7 @@ export function SiatoNav() {
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="overflow-hidden border-t border-slate-200/60 bg-white/95 backdrop-blur-md md:hidden"
+              className="overflow-hidden border-t border-slate-200/60 bg-white md:hidden"
             >
               <div className="flex flex-col gap-1 px-6 py-4 text-[16px] text-slate-700">
                 {NAV_LINKS.map((l) => (

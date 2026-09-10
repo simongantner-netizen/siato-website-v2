@@ -17,7 +17,7 @@ function PdcaVisual() {
     { k: "Act", c: "#3d5e12" },
   ];
   return (
-    <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-6 shadow-lg shadow-slate-900/5 backdrop-blur-sm">
+    <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-lg shadow-slate-900/5 md:bg-white/90 md:backdrop-blur-sm">
       <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-slate-700">
         <RefreshCcw className="h-4 w-4 text-[#80BA2B]" /> PDCA-Zyklus · Rüstzeit
         Presse 3
@@ -59,7 +59,7 @@ function PdcaVisual() {
 function KpiVisual() {
   const bars = [48, 55, 51, 62, 70, 66, 78, 84, 92];
   return (
-    <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-6 shadow-lg shadow-slate-900/5 backdrop-blur-sm">
+    <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-lg shadow-slate-900/5 md:bg-white/90 md:backdrop-blur-sm">
       <div className="mb-4 flex items-center justify-between">
         <span className="flex items-center gap-2 text-sm font-semibold text-slate-700">
           <TrendingUp className="h-4 w-4 text-[#80BA2B]" /> Shopfloor-Cockpit
@@ -101,7 +101,7 @@ function QualityVisual() {
     { t: "D4 · Ursache identifiziert", done: false },
   ];
   return (
-    <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-6 shadow-lg shadow-slate-900/5 backdrop-blur-sm">
+    <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-lg shadow-slate-900/5 md:bg-white/90 md:backdrop-blur-sm">
       <div className="mb-4 flex items-center justify-between">
         <span className="flex items-center gap-2 text-sm font-semibold text-slate-700">
           <ClipboardCheck className="h-4 w-4 text-[#80BA2B]" /> 8D-Report #482
