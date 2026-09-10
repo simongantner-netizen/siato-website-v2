@@ -1,5 +1,11 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { Reveal } from "./ui/reveal";
 import { SiatoMark } from "./SiatoLogo";
 import {
@@ -101,10 +107,24 @@ export function SiatoDevices() {
   // Der Start ist bewusst verzögert (ab 20 % statt 0 %): davor klebt die
   // Sektion noch am unteren Bildrand, dort liefe die Bewegung ins Leere.
   // Die Fensterlänge bleibt gleich (0.6), es verschiebt sich nur nach hinten.
-  const x = useTransform(scrollYProgress, [0.2, 0.8], [-280, 0]);
-  const rotate = useTransform(scrollYProgress, [0.2, 0.8], [-22, 0]);
-  const opacity = useTransform(scrollYProgress, [0.2, 0.45], [0, 1]);
-  const scale = useTransform(scrollYProgress, [0.2, 0.8], [0.85, 1]);
+
+  /* Gefedert wie das Tablet und wie alles andere auf dieser Seite. Ohne Feder
+     geht jeder Ruckler des Scrolls ungefiltert in die Bewegung, und ein Sprung
+     über die halbe Seite rast in wenigen Bildern durch den ganzen Weg. Mehr
+     Weg, weicher gefahren, wirkt getragener als wenig Weg hart. */
+  const reduce = useReducedMotion() ?? false;
+  const gefedert = useSpring(scrollYProgress, {
+    damping: 32,
+    stiffness: 130,
+    mass: 0.7,
+    restDelta: 0.0005,
+  });
+  const lauf = reduce ? scrollYProgress : gefedert;
+
+  const x = useTransform(lauf, [0.2, 0.8], reduce ? [0, 0] : [-360, 0]);
+  const rotate = useTransform(lauf, [0.2, 0.8], reduce ? [0, 0] : [-30, 0]);
+  const opacity = useTransform(lauf, [0.2, 0.45], [0, 1]);
+  const scale = useTransform(lauf, [0.2, 0.8], reduce ? [1, 1] : [0.82, 1]);
 
   return (
     <section
@@ -117,7 +137,20 @@ export function SiatoDevices() {
           className="flex justify-center"
           style={{ perspective: "1200px" }}
         >
-          <motion.div style={{ x, rotate, opacity, scale, transformOrigin: "left center" }}>
+          <motion.div
+            style={{
+              x,
+              rotate,
+              opacity,
+              scale,
+              transformOrigin: "left center",
+              /* Eigene Ebene: der sechslagige Schatten des Geräts sitzt
+                 unter diesem Element und würde sonst in jedem Bild neu
+                 gerastert. So wird er einmal gezeichnet, und die Bewegung
+                 ist reine Compositor-Arbeit. */
+              willChange: "transform",
+            }}
+          >
             <Phone />
           </motion.div>
         </div>

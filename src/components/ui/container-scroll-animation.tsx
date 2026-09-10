@@ -1,6 +1,13 @@
 "use client";
 import React, { useRef } from "react";
-import { useScroll, useTransform, motion, type MotionValue } from "framer-motion";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
 
 export const ContainerScroll = ({
   titleComponent,
@@ -33,9 +40,24 @@ export const ContainerScroll = ({
     return isMobile ? [0.65, 0.9] : [1.12, 1];
   };
 
-  const rotate = useTransform(scrollYProgress, [0, 1], [32, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], scaleDimensions());
-  const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  /* Gefedert wie alles andere auf dieser Seite. Vorher lief das Kippen 1:1
+     auf der Scrollposition - als einziges Element ohne Feder. Jeder Ruckler
+     im Scroll ging damit ungefiltert in die Neigung, und beim Sprung nach
+     oben raste die Neigung in wenigen Bildern durch ihren ganzen Weg. */
+  const reduce = useReducedMotion() ?? false;
+  const gefedert = useSpring(scrollYProgress, {
+    damping: 32,
+    stiffness: 130,
+    mass: 0.7,
+    restDelta: 0.0005,
+  });
+  const lauf = reduce ? scrollYProgress : gefedert;
+
+  /* Startwinkel von 32 auf 45 Grad: mehr Weg auf derselben Scrollstrecke,
+     dadurch wirkt die Bewegung getragener statt gehetzt. */
+  const rotate = useTransform(lauf, [0, 1], reduce ? [0, 0] : [45, 0]);
+  const scale = useTransform(lauf, [0, 1], scaleDimensions());
+  const translate = useTransform(lauf, [0, 1], reduce ? [0, 0] : [0, -100]);
 
   /* Die Bahnhoehe steuert zweierlei: den Scrollweg der Kipp-Animation UND
      den Abstand zum naechsten Abschnitt. Desktop war 110rem — die Animation
@@ -97,6 +119,11 @@ export const Card = ({
       style={{
         rotateX: rotate,
         scale,
+        /* Ohne eigene Ebene muss der sechslagige Schatten in JEDEM Bild neu
+           gerastert werden - er sitzt auf dem Element, das sich dreht und
+           skaliert. Mit eigener Ebene wird er einmal gezeichnet, und das
+           Kippen ist reine Compositor-Arbeit. */
+        willChange: "transform",
         boxShadow:
           "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
       }}
