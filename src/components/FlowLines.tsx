@@ -125,6 +125,7 @@ function Tile({ lines }: { lines: Line[] }) {
           strokeWidth={line.width}
           strokeOpacity={line.opacity}
           strokeLinecap="round"
+          vectorEffect="non-scaling-stroke"
         />
       ))}
     </svg>

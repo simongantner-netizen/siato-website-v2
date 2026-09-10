@@ -126,7 +126,7 @@ export function SiatoModules() {
                   : undefined
               }
             >
-              <div className="group h-full rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm shadow-slate-900/5 md:bg-white/90 md:backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-[#80BA2B]/50 hover:shadow-lg hover:shadow-[#80BA2B]/10">
+              <div className="group h-full rounded-2xl border border-slate-200/80 bg-white/90 p-6 shadow-sm shadow-slate-900/5 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-[#80BA2B]/50 hover:shadow-lg hover:shadow-[#80BA2B]/10">
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#80BA2B]/12 text-[#4e7717] transition-colors group-hover:bg-[#80BA2B] group-hover:text-white">
                   <b.icon className="h-5 w-5" strokeWidth={1.8} />
                 </div>

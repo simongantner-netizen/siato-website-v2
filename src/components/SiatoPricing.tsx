@@ -67,10 +67,10 @@ export function SiatoPricing() {
           {plans.map((plan, i) => (
             <Reveal key={plan.name} delay={i * 0.08} className="h-full">
               <div
-                className={`flex h-full flex-col rounded-3xl border p-8 transition-all md:backdrop-blur-sm ${
+                className={`flex h-full flex-col rounded-3xl border p-8 backdrop-blur-sm transition-all ${
                   plan.featured
                     ? "border-[#80BA2B] bg-white shadow-xl shadow-[#80BA2B]/15 ring-1 ring-[#80BA2B]"
-                    : "border-slate-200/80 bg-white shadow-sm shadow-slate-900/5 md:bg-white/90"
+                    : "border-slate-200/80 bg-white/90 shadow-sm shadow-slate-900/5"
                 }`}
               >
                 {plan.featured && (

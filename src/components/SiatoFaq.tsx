@@ -99,7 +99,7 @@ function FaqZeile({
 }) {
   return (
     <div
-      className={`overflow-hidden rounded-2xl border bg-white shadow-sm shadow-slate-900/5 md:bg-white/85 md:backdrop-blur-sm transition-colors ${
+      className={`overflow-hidden rounded-2xl border bg-white/85 shadow-sm shadow-slate-900/5 backdrop-blur-sm transition-colors ${
         offen ? "border-[#80BA2B]/50" : "border-slate-200/80"
       }`}
     >

@@ -8,7 +8,7 @@ function ContactForm() {
 
   if (sent) {
     return (
-      <div className="flex h-full min-h-[20rem] flex-col items-center justify-center rounded-3xl border border-[#80BA2B]/40 bg-[#f5faee] p-8 text-center md:bg-[#80BA2B]/8 md:backdrop-blur-sm">
+      <div className="flex h-full min-h-[20rem] flex-col items-center justify-center rounded-3xl border border-[#80BA2B]/40 bg-[#80BA2B]/8 p-8 text-center backdrop-blur-sm">
         <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#80BA2B]">
           <Check className="h-7 w-7 text-white" />
         </div>
@@ -29,7 +29,7 @@ function ContactForm() {
         e.preventDefault();
         setSent(true);
       }}
-      className="rounded-3xl border border-slate-200/80 bg-white p-8 shadow-lg shadow-slate-900/5 md:bg-white/90 md:backdrop-blur-md"
+      className="rounded-3xl border border-slate-200/80 bg-white/90 p-8 shadow-lg shadow-slate-900/5 backdrop-blur-md"
     >
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Field label="Name" name="name" placeholder="Vor- und Nachname" required />
@@ -116,7 +116,7 @@ export function SiatoContact() {
               Ihren eigenen Beispielen, ohne Verpflichtung.
             </p>
 
-            <div className="mt-8 rounded-2xl border border-slate-200/80 bg-white p-6 md:bg-white/80 md:backdrop-blur-sm">
+            <div className="mt-8 rounded-2xl border border-slate-200/80 bg-white/80 p-6 backdrop-blur-sm">
               <div className="flex items-center gap-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#80BA2B]/15 text-base font-bold text-[#4e7717]">
                   CG
@@ -158,7 +158,7 @@ export function SiatoContact() {
 
 export function SiatoFooter() {
   return (
-    <footer className="relative border-t border-slate-200/60 bg-white md:bg-white/70 md:backdrop-blur-md">
+    <footer className="relative border-t border-slate-200/60 bg-white/70 backdrop-blur-md">
       <div className="mx-auto max-w-[90rem] px-6 py-10 md:py-12">
         {/* Ab md ein Dreispalter mit 1fr_auto_1fr: die mittlere Spalte liegt
             dadurch exakt auf der Mittelachse des Footers, unabhaengig davon,
