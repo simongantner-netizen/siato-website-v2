@@ -65,9 +65,22 @@ export const ContainerScroll = ({
      zum Wortband betrug 694 px. Bei 84rem sind es 274 px, die Animation hat
      noch 550 px Weg und nichts ueberlappt. Mobil bleibt 70rem: darunter
      schiebt sich das Wort ueber das Tablet (ab 60rem gemessen). */
+  /* overflow-x-clip haelt die gekippte Karte im Fenster.
+     Sie ist 1152 px breit, steht aber mit perspective: 1000px und rotateX(45deg)
+     im Raum: die untere Kante ist naeher am Auge und wird groesser gezeichnet.
+     Der Kasten, den der Browser dafuer rechnet, ist am Anfang der Animation
+     1718 px breit und ragt auf beiden Seiten 139 px heraus. Links faellt das
+     nicht auf - links vom Anfang kann man nicht scrollen. Rechts wuchs die
+     Seite mit, und die ganze Seite hatte einen waagerechten Rollbalken.
+
+     clip, nicht hidden: hidden zwingt die senkrechte Achse mit auf auto, macht
+     diesen Kasten damit zum Scroll-Container - und dann klebt das sticky
+     darunter an ihm statt am Fenster, die Kipp-Animation faellt in sich
+     zusammen. clip vertraegt sich mit overflow-y: visible. Browser ohne clip
+     (Safari vor 16) lassen die Regel fallen und verhalten sich wie bisher. */
   return (
     <div
-      className="h-[70rem] md:h-[84rem] flex items-start justify-center relative p-2 md:px-20 md:pb-20 md:pt-4"
+      className="h-[70rem] md:h-[84rem] flex items-start justify-center relative overflow-x-clip p-2 md:px-20 md:pb-20 md:pt-4"
       ref={containerRef}
     >
       <div

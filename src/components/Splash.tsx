@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { LAYERS, TILE_H, TILE_W, buildPath, type Line } from "./FlowLines";
+import { LAYERS, TILE_H, TILE_W, buildPath, type Line } from "./flow-geometrie";
 
 /**
  * Marken-Moment beim Laden.
