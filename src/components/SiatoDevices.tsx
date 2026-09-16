@@ -7,7 +7,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { Reveal } from "./ui/reveal";
-import { SiatoMark } from "./SiatoLogo";
+import { WORTMARKE } from "./SiatoLogo";
 import {
   Monitor,
   Tablet,
@@ -28,11 +28,13 @@ function PhoneScreen() {
   return (
     <div className="flex h-full w-full flex-col bg-[#f7f8f6] text-left select-none">
       {/* App-Header */}
+      {/* Dieselbe Wortmarke wie im Tablet daneben. Der Bildschirmtitel tritt
+          dafuer zurueck: zwei fette Dinge nebeneinander streiten, und die
+          Marke gewinnt diesen Streit. */}
       <div className="flex items-center gap-2 bg-white px-4 pb-3 pt-9">
-        <SiatoMark className="h-6 w-6" />
-        <span className="text-[13px] font-semibold text-slate-900">
-          Mein Cockpit
-        </span>
+        <span className={`${WORTMARKE} text-[15px] text-slate-900`}>siato</span>
+        <span className="h-3 w-px bg-slate-200" />
+        <span className="text-[13px] text-slate-500">Mein Cockpit</span>
       </div>
 
       <div className="flex-1 space-y-3 overflow-hidden p-3">

@@ -1,5 +1,5 @@
 /**
- * Bildmarke: ein dynamisches Flow-Ribbon aus vielen dünnen Strömungslinien —
+ * Bildmarke: ein dynamisches Flow-Ribbon aus vielen dünnen Strömungslinien -
  * dieselbe Sprache wie der animierte Linien-Hintergrund. Die Linien teilen
  * eine fliessende Wellenform und fächern über einen modulierten Abstand auf
  * (sie bunchen und spreizen), was den dynamischen „Fluss" erzeugt.
@@ -38,6 +38,10 @@ const RIBBON: string[] = (() => {
   return out;
 })();
 
+/* Seit 16.09.2026 rendert diese Bildmarke nirgends mehr: Navigation, Vorhang,
+   Geraete-Attrappen und Favicon tragen alle die reine Wortmarke. Sie bleibt
+   vorerst stehen, weil sie die einzige Fassung der Ribbon-Geometrie im Haus
+   ist - loeschen ist Simons Entscheid, nicht meiner. */
 export function SiatoMark({ className }: { className?: string }) {
   return (
     <svg
@@ -75,12 +79,21 @@ export function SiatoMark({ className }: { className?: string }) {
    dort als die bessere erwiesen; damit Vorhang und Logo dieselbe Form haben,
    gilt sie jetzt fuer beide. Aendert sich das hier, muss der Vorhang in
    index.html mitgehen - sonst springt die Schrift beim Aufsetzen. */
+/* Die Typografie der Wortmarke, an einer Stelle.
+   Sie steht an drei Orten im Bild: in der Navigation, im Vorhang und in den
+   Geraete-Attrappen. Der Vorhang kann sie nicht von hier beziehen - er laeuft
+   vor React und traegt seine eigene Kopie in index.html. Umso wichtiger, dass
+   wenigstens alles, was React malt, aus derselben Zeile kommt: sonst faellt
+   beim naechsten Schnittwechsel wieder eine Stelle hinten runter, so wie die
+   Geraete-Attrappen bis zum 16.09.2026 auf 700 stehengeblieben sind. */
+export const WORTMARKE = "font-black tracking-[-0.045em]";
+
 export function SiatoLogo({
   textClassName = "text-2xl text-slate-900",
 }: {
   textClassName?: string;
 }) {
   return (
-    <span data-logo className={`font-black tracking-[-0.045em] ${textClassName}`}>siato</span>
+    <span data-logo className={`${WORTMARKE} ${textClassName}`}>siato</span>
   );
 }

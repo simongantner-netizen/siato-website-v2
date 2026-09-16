@@ -1,4 +1,4 @@
-import { SiatoMark } from "./SiatoLogo";
+import { WORTMARKE } from "./SiatoLogo";
 import {
   LayoutDashboard,
   ListTodo,
@@ -46,9 +46,11 @@ export function SiatoDashboard() {
     <div className="flex h-full w-full bg-[#f7f8f6] text-left text-slate-800 select-none">
       {/* Sidebar */}
       <aside className="hidden md:flex w-52 shrink-0 flex-col border-r border-slate-200 bg-white">
-        <div className="flex items-center gap-2 px-5 pt-5 pb-6">
-          <SiatoMark className="h-7 w-7" />
-          <span className="font-semibold tracking-tight text-slate-900">siato</span>
+        {/* Reine Wortmarke, wie in der Navigation - kein Signet davor. Hier
+            stand bis zum 16.09.2026 noch das alte Lockup aus Ribbon plus
+            Schnitt 600; das ist die Fassung von vor dem 10.09.2026. */}
+        <div className="flex items-center px-5 pt-5 pb-6">
+          <span className={`${WORTMARKE} text-xl text-slate-900`}>siato</span>
         </div>
         <nav className="flex flex-col gap-1 px-3 text-[13px]">
           {navItems.map((item) => (
