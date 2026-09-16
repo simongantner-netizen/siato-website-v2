@@ -47,14 +47,19 @@
          blitzt der Vorhang auf und verschwindet sofort wieder. */
       (function () {
         var w = document.documentElement;
+
+        /* Notbremse, und zwar als Erstes - vor jeder Abfrage, die werfen
+           koennte. Laedt das Buendel nicht, raeumt sich der Vorhang selbst
+           weg. Eine gruene Flaeche, die stehen bleibt, waere der schlimmste
+           denkbare Ausgang - man wuerde die Seite fuer kaputt halten. Seit
+           die Scroll-Sperre am selben Schalter haengt, waere es nicht mehr
+           nur eine Flaeche, sondern eine Flaeche ohne Ausweg. */
+        setTimeout(function () { w.classList.add("splash-vorbei"); }, 7000);
+
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
           w.classList.add("splash-vorbei");
           return;
         }
-        /* Notbremse: laedt das Buendel nicht, raeumt sich der Vorhang selbst
-           weg. Eine gruene Flaeche, die stehen bleibt, waere der schlimmste
-           denkbare Ausgang - man wuerde die Seite fuer kaputt halten. */
-        setTimeout(function () { w.classList.add("splash-vorbei"); }, 7000);
       })();
     </script>
     <style>
@@ -74,6 +79,40 @@
         inset: 0;
         z-index: 90;
         pointer-events: none;
+      }
+
+      /* Die Seite steht still, solange der Vorhang laeuft.
+
+         Wer waehrend des Vorhangs scrollt, steht danach mitten auf der Seite:
+         die Wortmarke fliegt auf eine Navigation, die nicht mehr dort ist, wo
+         sie beim Messen stand, und die Wellenkante gibt einen Abschnitt frei,
+         der nicht der Anfang ist.
+
+         Die Sperre hat bewusst keinen eigenen Zustand und keine eigene Uhr.
+         Sie haengt an denselben zwei Klassen wie der Vorhang - solange er da
+         ist, ist sie da, und sie faellt in genau dem Bild, in dem er faellt.
+         Ein zweiter Schalter waere ein zweiter Ort, an dem etwas haengen
+         bleiben kann. Aus demselben Grund steht hier kein Scroll-Horcher, der
+         die Position zuruecksetzt: der laeuft im Scroll-Ereignis und fasst
+         dort Layout an, und genau das ist auf dieser Seite verboten.
+
+         Bei «Bewegung reduziert» steht splash-vorbei schon im ersten Bild.
+         Die Regel greift dann nie - wer keinen Vorhang bekommt, bekommt auch
+         keine Sperre.
+
+         scrollbar-gutter haelt den Platz des Rollbalkens frei, obwohl gerade
+         keiner gezeichnet wird. Ohne die Zeile verschwindet er beim Sperren
+         und kommt beim Freigeben zurueck: die Seite spraenge um die Breite
+         des Balkens zur Seite, genau in dem Bild, in dem der Vorhang aufgeht.
+         Auf macOS liegt der Balken ohnehin ueber dem Inhalt, dort aendert sie
+         nichts.
+
+         overscroll-behavior nimmt dem Telefon das Ziehen zum Neuladen und das
+         Nachfedern am Rand - beides scrollt nicht, sieht aber so aus. */
+      html.js-bereit:not(.splash-vorbei) {
+        overflow: hidden;
+        overscroll-behavior: none;
+        scrollbar-gutter: stable;
       }
       /* Der Grund traegt Verlauf und Wellen und wird von der Wellenkante
          beschnitten. Die Wortmarke liegt bewusst DANEBEN, nicht darin: sonst

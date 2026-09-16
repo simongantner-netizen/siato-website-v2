@@ -27,6 +27,33 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
 
     lenisMerken(lenis);
 
+    /* Solange der Vorhang läuft, hält Lenis still.
+     *
+     * Das ist nicht dieselbe Sache wie die CSS-Sperre im <head>, sondern der
+     * Teil, den die nicht kann: Lenis führt eine eigene Scrollposition und
+     * schiebt sie bei jedem Rad-Ereignis weiter - auch dann, wenn das Fenster
+     * sich nicht bewegen darf. Ohne dieses Anhalten stünde beim Freigeben
+     * eine aufgelaufene Summe im Speicher, und die Seite schösse in dem
+     * Moment los, in dem der Vorhang aufgeht.
+     *
+     * Beobachtet wird die Klasse, nicht die Uhr. Der Vorhang endet an drei
+     * Stellen (Notbremse, fehlender Vorhang, regulärer Ablauf) und setzt dort
+     * überall dieselbe Klasse - eine zweite Zeitrechnung hier würde früher
+     * oder später von einer der drei abweichen.
+     */
+    const wurzel = document.documentElement;
+    let waechter: MutationObserver | null = null;
+    if (!wurzel.classList.contains("splash-vorbei")) {
+      lenis.stop();
+      waechter = new MutationObserver(() => {
+        if (!wurzel.classList.contains("splash-vorbei")) return;
+        waechter?.disconnect();
+        waechter = null;
+        lenis.start();
+      });
+      waechter.observe(wurzel, { attributes: true, attributeFilter: ["class"] });
+    }
+
     let raf = 0;
     const loop = (time: number) => {
       lenis.raf(time);
@@ -35,6 +62,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
     raf = requestAnimationFrame(loop);
 
     return () => {
+      waechter?.disconnect();
       cancelAnimationFrame(raf);
       lenisMerken(null);
       lenis.destroy();

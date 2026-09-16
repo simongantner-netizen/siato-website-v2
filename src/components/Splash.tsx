@@ -154,7 +154,15 @@ export function Splash() {
     const wurzel = document.documentElement;
     const huelle = document.getElementById("splash");
     const svg = document.getElementById("splash-wellen");
-    if (!huelle || !svg || wurzel.classList.contains("splash-vorbei")) return;
+    if (wurzel.classList.contains("splash-vorbei")) return;
+    if (!huelle || !svg) {
+      /* Ohne Vorhang gibt es nichts abzuspielen - aber die Scroll-Sperre
+         haengt an derselben Klasse wie er. Waere hier nur ein return, stuende
+         die Seite bis zur Notbremse sieben Sekunden lang fest, und zwar
+         sichtbar und vollstaendig aufgebaut. Also ausdruecklich freigeben. */
+      wurzel.classList.add("splash-vorbei");
+      return;
+    }
 
     /* React StrictMode laesst jeden Effekt zweimal laufen. Ohne dieses Leeren
        haengen die Wellen danach doppelt im DOM. */
