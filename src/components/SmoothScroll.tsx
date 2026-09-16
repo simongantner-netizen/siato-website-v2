@@ -36,10 +36,12 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
      * eine aufgelaufene Summe im Speicher, und die Seite schösse in dem
      * Moment los, in dem der Vorhang aufgeht.
      *
-     * Beobachtet wird die Klasse, nicht die Uhr. Der Vorhang endet an drei
-     * Stellen (Notbremse, fehlender Vorhang, regulärer Ablauf) und setzt dort
-     * überall dieselbe Klasse - eine zweite Zeitrechnung hier würde früher
-     * oder später von einer der drei abweichen.
+     * Beobachtet wird die Klasse, nicht die Uhr. Der Vorhang endet an vier
+     * Stellen - Notbremse und «Bewegung reduziert» in index.html, fehlende
+     * Hülle und regulärer Ablauf in Splash.tsx - und setzt dort überall
+     * dieselbe Klasse. Eine zweite Zeitrechnung hier würde früher oder später
+     * von einer der vier abweichen. (Hier stand «drei»; die Aufzählung ist der
+     * einzige Zweck dieses Absatzes, also zählt sie auch.)
      */
     const wurzel = document.documentElement;
     let waechter: MutationObserver | null = null;

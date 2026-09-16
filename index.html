@@ -114,6 +114,34 @@
         overscroll-behavior: none;
         scrollbar-gutter: stable;
       }
+      /* Und die Seite darunter nimmt keine Klicks an.
+         Das ist nicht dieselbe Sperre, sondern eine zweite Tuer. Die Regel
+         darueber nimmt nur BENUTZER-Scrollen - Rad, Tasten, Wisch. Alles
+         Programmatische geht weiter durch, und ein Klick auf einen Anker ist
+         programmatisch.
+
+         Gemessen am 16.09.2026 am Live-Stand: waehrend des Vorhangs sind die
+         Navigationspunkte unsichtbar (opacity: 0 !important, weiter unten in
+         dieser Datei), aber anklickbar - opacity nimmt die Sichtbarkeit, nicht
+         die Klickflaeche. Wer die gruene Flaeche wegklicken will, zielt auf die
+         rechte obere Ecke, wo bei jedem Overlay das Kreuz sitzt. Dort liegt der
+         CTA «Demo buchen», ein Anker auf #kontakt. Ergebnis war scrollY 13'292,
+         und der Vorhang hob sich ueber dem Kontaktformular.
+
+         #root, nicht body: der Vorhang ist ein Geschwister von #root, er bleibt
+         also unberuehrt. Faellt mit derselben Klasse wie alles andere hier.
+
+         BEWUSST NICHT geschlossen, auf Simons Entscheid vom 16.09.2026:
+         - Tab. Der Browser scrollt ein fokussiertes Element ins Bild; 14 Anschlaege
+           landeten bei scrollY 11'962. pointer-events fasst Tastaturfokus nicht an,
+           dafuer braeuchte es inert auf #root.
+         - Neuladen mitten auf der Seite. history.scrollRestoration steht auf auto,
+           der Browser stellt die Position programmatisch wieder her; gemessen 11'000
+           vor und nach dem Vorhang.
+         Beide fuehren zum selben Schaden wie der Klick, sind aber seltenere Wege. */
+      html.js-bereit:not(.splash-vorbei) #root {
+        pointer-events: none;
+      }
       /* Der Grund traegt Verlauf und Wellen und wird von der Wellenkante
          beschnitten. Die Wortmarke liegt bewusst DANEBEN, nicht darin: sonst
          schneidet die ablaufende Kante sie mitten im Flug ab. */
