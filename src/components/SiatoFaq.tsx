@@ -18,67 +18,67 @@ const faq: FaqItem[] = [
     id: "was-ist-siato",
     frage: "Was ist Siato genau?",
     antwort:
-      "Eine Plattform fürs Lean Management: Ideen, Massnahmen, Kennzahlen, Audits und Qualitätsthemen an einem Ort statt verstreut in Excel, E-Mail, SharePoint und auf Papier. 23 Module in sieben Bereichen decken den ganzen Verbesserungsalltag ab. Siato ist der Nachfolger der allDates-Software und läuft auf der Microsoft Power Platform – direkt in Ihrem Microsoft 365.",
+      "Eine Plattform und ein Überblick fürs Lean Management. Ideen, Massnahmen, Reklamationen und Dokumente, die heute in Excel-Listen und auf Papier verstreut sind, liegen damit an einem Ort. Fünf Module decken den Verbesserungsalltag ab, eigene Abläufe kommen als Custom-Modul dazu. Siato ist die Version der allDates-Software, die auf der Microsoft Power Platform läuft, direkt in Ihrem Microsoft 365.",
   },
   {
     id: "microsoft-365",
     frage: "Brauchen wir Microsoft 365?",
     antwort:
-      "Siato ist für den Betrieb in Microsoft 365 gebaut: Anmeldung mit dem bestehenden Konto, Aufgaben in Outlook, Dokumente in SharePoint, Boards als Tab in Teams. Ohne M365-Umgebung ist der Einsatz nicht vorgesehen.",
+      "Ja, Siato ist für Microsoft 365 gebaut: Angemeldet wird mit dem bestehenden Konto, Aufgaben erscheinen in Outlook, Dokumente liegen in SharePoint, Boards gibt es als Tab in Teams. Ohne Microsoft 365 ist der Einsatz nicht vorgesehen.",
   },
   {
     id: "kosten",
     frage: "Was kostet Siato?",
     antwort:
-      "Ein Modul ab CHF 190.– pro Monat, dazu CHF 5.– pro Nutzer und Monat für den Betrieb auf der Power Platform. Sie zahlen nur die Module, die Sie einsetzen; mehrere Module zusammen gibt es zum vergünstigten Paketpreis. Alle Preise exkl. MwSt.",
+      "Ein Modul kostet ab CHF 190 pro Monat. Dazu braucht jeder Benutzer eine Lizenz «Power Apps per App» von Microsoft, deren Preis von Ihrem Microsoft-Partner (CSP) abhängt. Sie bezahlen nur die Module, die Sie einsetzen. Für mehrere Module machen wir Ihnen ein Angebot. Alle Siato-Preise verstehen sich exkl. MwSt.",
   },
   {
     id: "ein-modul",
     frage: "Können wir mit einem einzelnen Modul starten?",
     antwort:
-      "Ja, und das ist der übliche Weg. Die meisten beginnen dort, wo es am meisten drückt – oft beim Ideenmanagement oder bei den Abweichungen – und nehmen weitere Module dazu, sobald das erste im Alltag angekommen ist.",
+      "Ja. Fangen Sie dort an, wo es am meisten drückt, zum Beispiel bei den Ideen aus der Halle oder bei den Reklamationen. Weitere Module kommen dazu, sobald das erste im Alltag läuft.",
   },
   {
     id: "mindestnutzer",
-    frage: "Gibt es eine Mindestzahl an Nutzern?",
+    frage: "Gibt es eine Mindestzahl an Benutzern?",
     antwort:
-      "Nein. Sie lösen so viele Nutzer wie nötig, monatlich abgerechnet, und ändern die Zahl jederzeit.",
+      "Das klären wir mit Ihnen im ersten Gespräch.",
   },
   {
     id: "daten",
     frage: "Wo liegen unsere Daten?",
     antwort:
-      "In der Schweiz. Siato wird hier entwickelt und in einem Schweizer Rechenzentrum betrieben. Die Datenhaltung erfüllt das revidierte Schweizer Datenschutzgesetz und die DSGVO; Rollen und Berechtigungen steuern Sie selbst.",
+      "In der Cloud von Microsoft, denn Siato läuft auf der Power Platform. Wo genau Ihre Daten liegen, sagen wir Ihnen vor dem Start verbindlich.",
   },
   {
     id: "einfuehrung",
     frage: "Wie lange dauert die Einführung?",
     antwort:
-      "Ein erstes Modul ist in wenigen Wochen im Einsatz: gemeinsamer Aufsetztermin, Anpassung an Ihre Begriffe und Abläufe, Schulung der Schlüsselpersonen, danach der Start im Alltag. Wir begleiten Sie dabei.",
+      "Das hängt vom Modul ab und davon, wie viel angepasst werden soll. Einen Zeitplan bekommen Sie, sobald klar ist, mit welchem Modul Sie beginnen.",
   },
   {
     id: "alldates",
     frage: "Wir arbeiten heute mit allDates. Was heisst das für uns?",
     antwort:
-      "Siato ist der Nachfolger, und niemand wird zu einem Stichtag umgestellt. Wir schauen Ihre bestehende Installation an und planen den Wechsel so, dass Ihre Daten und Ihre gewohnten Abläufe mitkommen.",
+      "Siato ist die Version der allDates-Software, die in Ihrer Microsoft-Umgebung läuft. Ihre heutige allDates-Software können Sie weiterhin einsetzen. Ob ein Wechsel für Sie sinnvoll ist, besprechen wir persönlich.",
   },
   {
     id: "eigene-prozesse",
     frage: "Können wir eigene Prozesse abbilden?",
     antwort:
-      "Ja. Siato läuft auf der Microsoft Power Platform, also entstehen eigene Abläufe in derselben Datenbank – ohne zusätzliche Lizenzkosten und ohne Drittanbieter. So lassen sich auch Excel-Lösungen ablösen, die mit Lean nichts zu tun haben.",
+      "Dafür gibt es das Custom-Modul. Es bildet einen oder mehrere Ihrer Prozesse ab, auf derselben Plattform wie die fünf Module, und wird nach Aufwand abgerechnet. So lassen sich auch Excel-Listen ablösen, die mit Lean nichts zu tun haben.",
   },
   {
     id: "testen",
     frage: "Können wir Siato vorher ausprobieren?",
     antwort:
-      "Wir zeigen Siato in einer halben Stunde live an Ihren eigenen Beispielen. Wenn es passt, richten wir Ihnen eine Testumgebung mit Ihren Daten ein, bevor Sie sich entscheiden.",
+      "In einer Demo von 30 Minuten zeigen wir Ihnen Siato live. Danach wissen Sie, ob es zu Ihrem Betrieb passt.",
   },
   {
     id: "support",
     frage: "Wer hilft, wenn es klemmt?",
     antwort:
-      "Sie erreichen uns direkt, auf Deutsch, ohne Ticket-Nummern-Karussell. Updates kommen im Halbjahres-Rhythmus und werden angekündigt, nicht übers Wochenende eingespielt.",
+      "Wir, und zwar direkt: am Telefon oder per E-Mail.",
   },
 ];
 
@@ -174,8 +174,7 @@ export function SiatoFaq() {
             Das fragen KMU vor dem Start.
           </h2>
           <p className="mt-4 text-lg text-slate-600">
-            Ihre Frage ist nicht dabei? Rufen Sie an – das geht schneller als
-            jedes Formular.
+            Ihre Frage ist nicht dabei? Rufen Sie Christoph Gantner oder Remo Semm an, das geht schneller als jedes Formular.
           </p>
         </Reveal>
 

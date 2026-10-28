@@ -21,7 +21,7 @@ function ContactForm() {
           <Check className="h-7 w-7 text-white" />
         </div>
         <h3 className="mt-4 text-xl font-semibold text-slate-900">
-          Danke für Ihre Anfrage!
+          Danke für Ihre Anfrage.
         </h3>
         <p className="mt-2 max-w-sm text-slate-600">
           Wir melden uns innerhalb eines Arbeitstages bei Ihnen, um einen Termin
@@ -60,7 +60,7 @@ function ContactForm() {
         <textarea
           name="message"
           rows={4}
-          placeholder="Welche Module oder Themen interessieren Sie?"
+          placeholder="Wo drückt es heute am meisten?"
           className="w-full resize-none rounded-xl border border-slate-300 bg-white/80 px-4 py-2.5 text-sm text-slate-800 outline-none transition-colors placeholder:text-slate-400 focus:border-[#80BA2B] focus:ring-2 focus:ring-[#80BA2B]/20"
         />
       </div>
@@ -107,6 +107,45 @@ function Field({
   );
 }
 
+/* Remo kam am 28.10.2026 dazu (Simon). Seine Funktion steht im Dossier nur
+   als «Architekt» und ist bei allDates nachgefragt. */
+const ansprechpersonen = [
+  { kuerzel: "CG", name: "Christoph Gantner", rolle: "Inhaber · allDates", mail: "christoph.gantner@alldates.ch", tel: "+41 79 217 82 71" },
+  { kuerzel: "RS", name: "Remo Semm", rolle: "Architekt · allDates", mail: "remo.semm@alldates.ch", tel: "+41 79 626 98 77" },
+];
+
+function Kontaktkarte({ kuerzel, name, rolle, mail, tel }: (typeof ansprechpersonen)[number]) {
+  return (
+    <div className="rounded-2xl border border-slate-200/80 bg-white/80 p-6 backdrop-blur-sm">
+      <div className="flex items-center gap-4">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#80BA2B]/15 text-base font-bold text-[#4e7717]">
+          {kuerzel}
+        </div>
+        <div>
+          <div className="font-semibold text-slate-900">{name}</div>
+          <div className="text-sm text-slate-500">{rolle}</div>
+        </div>
+      </div>
+      <div className="mt-5 space-y-2.5 text-sm">
+        <a
+          href={`mailto:${mail}`}
+          className="flex items-center gap-3 text-slate-600 transition-colors hover:text-[#4e7717]"
+        >
+          <Mail className="h-4 w-4 text-[#80BA2B]" />
+          {mail}
+        </a>
+        <a
+          href={`tel:${tel.replace(/\s/g, "")}`}
+          className="flex items-center gap-3 text-slate-600 transition-colors hover:text-[#4e7717]"
+        >
+          <Phone className="h-4 w-4 text-[#80BA2B]" />
+          {tel}
+        </a>
+      </div>
+    </div>
+  );
+}
+
 export function SiatoContact() {
   return (
     <section id="kontakt" className="relative scroll-mt-20 py-24">
@@ -120,38 +159,13 @@ export function SiatoContact() {
               Sehen Sie sich Siato in 30 Minuten an
             </h2>
             <p className="mt-4 text-lg text-slate-600">
-              Wir zeigen Ihnen live, wie Siato Ihre Lean-Prozesse abbildet – an
-              Ihren eigenen Beispielen, ohne Verpflichtung.
+              Denken Sie an die Excel-Liste, die keiner mehr anfassen will. In der unverbindlichen Demo sehen Sie, wie dieselbe Arbeit in Siato aussieht.
             </p>
 
-            <div className="mt-8 rounded-2xl border border-slate-200/80 bg-white/80 p-6 backdrop-blur-sm">
-              <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#80BA2B]/15 text-base font-bold text-[#4e7717]">
-                  CG
-                </div>
-                <div>
-                  <div className="font-semibold text-slate-900">
-                    Christoph Gantner
-                  </div>
-                  <div className="text-sm text-slate-500">Inhaber · allDates</div>
-                </div>
-              </div>
-              <div className="mt-5 space-y-2.5 text-sm">
-                <a
-                  href="mailto:christoph.gantner@alldates.ch"
-                  className="flex items-center gap-3 text-slate-600 transition-colors hover:text-[#4e7717]"
-                >
-                  <Mail className="h-4 w-4 text-[#80BA2B]" />
-                  christoph.gantner@alldates.ch
-                </a>
-                <a
-                  href="tel:+41792178271"
-                  className="flex items-center gap-3 text-slate-600 transition-colors hover:text-[#4e7717]"
-                >
-                  <Phone className="h-4 w-4 text-[#80BA2B]" />
-                  +41 79 217 82 71
-                </a>
-              </div>
+            <div className="mt-8 space-y-4">
+              {ansprechpersonen.map((p) => (
+                <Kontaktkarte key={p.mail} {...p} />
+              ))}
             </div>
           </Reveal>
 
@@ -178,7 +192,7 @@ export function SiatoFooter() {
             {/* text-balance verteilt die Zeilen gleichmaessig, damit «allDates.»
                 nicht allein auf der zweiten Zeile steht. */}
             <p className="mt-3 text-balance text-sm text-slate-500">
-              Die neue Lean Management Software von allDates.
+              Die neue Lean-Management-Software von allDates.
             </p>
 
           </div>
@@ -233,12 +247,21 @@ export function SiatoFooter() {
                 },
               ]}
             />
-            {/* Ziele fehlen noch: die drei Rechtsseiten existieren nicht. */}
+            {/* Datenschutz und Impressum liegen bei allDates (Simon, 28.10.2026).
+                Die AGB haben noch kein Ziel. */}
             <FooterCol
               title="Langweiliges"
               links={[
-                { label: "Datenschutz", href: "#" },
-                { label: "Impressum", href: "#" },
+                {
+                  label: "Datenschutz",
+                  href: "https://www.alldates.ch/datenschutzerklaerung/",
+                  extern: true,
+                },
+                {
+                  label: "Impressum",
+                  href: "https://www.alldates.ch/impressum/",
+                  extern: true,
+                },
                 { label: "AGB", href: "#" },
               ]}
             />
@@ -246,7 +269,7 @@ export function SiatoFooter() {
         </div>
         <div className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-slate-200/60 pt-6 text-sm text-slate-400 sm:flex-row sm:items-center">
           <span>© {new Date().getFullYear()} allDates AG · Siato</span>
-          <span>In der Schweiz entwickelt & gehostet 🇨🇭</span>
+          <span>In der Schweiz entwickelt 🇨🇭</span>
         </div>
       </div>
     </footer>

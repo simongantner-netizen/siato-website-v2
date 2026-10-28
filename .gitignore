@@ -23,3 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 .deploy/
+
+# Kundenunterlagen (Screenshots von allDates), nie ins oeffentliche Repo
+referenz/
+# Interne Arbeitsflaechen (Textvergleich, Feedback), nie ins oeffentliche Repo
+werkstatt/

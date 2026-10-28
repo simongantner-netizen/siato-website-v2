@@ -5,22 +5,22 @@ const reasons = [
   {
     icon: ShieldCheck,
     title: "Schweizer Datenhoheit",
-    text: "In der Schweiz entwickelt und gehostet. Ihre Daten bleiben hier – DSGVO- und ISO-konform.",
+    text: "In der Schweiz entwickelt. Ihre Daten bleiben hier, DSGVO- und ISO-konform.",
   },
   {
     icon: Plug,
-    title: "Microsoft 365 integriert",
-    text: "Single Sign-On, Teams, Outlook und SharePoint. Siato fügt sich nahtlos in Ihre bestehende IT.",
+    title: "Mitten in Microsoft 365",
+    text: "Gebaut auf der Microsoft Power Platform. Ihre Leute arbeiten in Teams, Outlook und SharePoint, also dort, wo sie sich schon auskennen.",
   },
   {
     icon: Banknote,
     title: "Faire KMU-Preise",
-    text: "Schon ab CHF 15.– pro Nutzer. Sie zahlen nur die Module, die Sie wirklich brauchen.",
+    text: "Schon ab CHF X.– pro Benutzer. Sie zahlen nur die Module, die Sie brauchen.",
   },
   {
     icon: Blocks,
     title: "Erweiterbar & zukunftssicher",
-    text: "Auf Microsoft Power Platform gebaut. Eigene Prozesse ergänzen Sie ohne Lizenz-Mehrkosten.",
+    text: "Was in kein Modul passt, bilden wir als Custom-Modul ab, auf derselben Plattform.",
   },
 ];
 
@@ -33,13 +33,10 @@ export function SiatoWhy() {
             Warum Siato
           </p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 md:text-5xl">
-            Bewährt seit 15 Jahren. Modern neu gebaut.
+            Seit über 15 Jahren bewährt. Jetzt in Microsoft 365.
           </h2>
           <p className="mt-4 text-lg text-slate-600">
-            Hinter Siato steht allDates: eine Software, die seit über 15 Jahren
-            in Schweizer KMU läuft und dort Abläufe verkürzt und Fehler vermeidet.
-            Über 80 Betriebe arbeiten damit. Siato übernimmt die erprobten
-            Funktionen und baut sie auf heutiger Technik neu.
+            Siato ist die Version der allDates-Software, die auf der Microsoft Power Platform läuft. Die Software ist seit über 15 Jahren in Schweizer KMU im Einsatz, über 80 Betriebe arbeiten damit. Was sich dort bewährt hat, steckt auch in Siato.
           </p>
         </Reveal>
 

@@ -16,19 +16,19 @@ type Stimme = {
 const stimmen: Stimme[] = [
   {
     zitat:
-      "Vorher lagen unsere Massnahmen in vier Excel-Listen, und niemand wusste, welche die aktuelle ist. Heute steht alles an einem Ort, und ich sehe am Montagmorgen in zwei Minuten, wo wir stehen.",
+      "Vorher lagen unsere Massnahmen in vier Excel-Listen, und niemand wusste, welche die aktuelle ist. Heute sehe ich in zwei Minuten, wo wir stehen.",
     rolle: "Leiterin Qualitätsmanagement",
     branche: "Lackierbetrieb",
   },
   {
     zitat:
-      "Das Beste ist, dass niemand ein neues Programm lernen musste. Siato ist einfach in Teams drin. Die Leute in der Halle erfassen ihre Ideen aufs Handy, und die Idee ist wirklich dort gelandet.",
+      "Das Beste ist, dass niemand ein ganz neues Programm lernen musste. Siato läuft in unserem Microsoft 365. Die Leute in der Halle erfassen ihre Ideen am Tablet, und jede landet bei jemandem, der sie bewertet.",
     rolle: "Betriebsleiter",
     branche: "Produktionsbetrieb",
   },
   {
     zitat:
-      "Beim letzten Audit haben wir keine einzige Nacht durchgearbeitet. Alles, was der Auditor sehen wollte, war da – nachvollziehbar, mit Datum und Verantwortlichkeit.",
+      "Vor dem letzten Audit hat niemand eine Nacht durchgearbeitet. Was der Auditor sehen wollte, war da, mit Datum und Namen.",
     rolle: "Leiterin Betriebsentwicklung",
     branche: "Industriebetrieb",
   },

@@ -23,56 +23,56 @@ const gruende: Grund[] = [
   {
     nr: 1,
     titel: "Papier und Excel halten nicht",
-    ohne: "Eine Massnahme auf einer Excel-Liste verschwindet in der Schublade. Niemand weiss, wie der Stand ist, wer dran ist und ob sie je umgesetzt wurde.",
-    mit: "Jede Massnahme hat einen Verantwortlichen, ein Datum und einen Status. Workflows leiten sie weiter, damit keine liegen bleibt.",
+    ohne: "Eine Massnahme auf der Excel-Liste verschwindet in der Schublade. Wer dran ist und ob sie je erledigt wurde, weiss bald niemand mehr.",
+    mit: "Bei jeder Massnahme steht, wer sie erledigt und bis wann. Wird sie überfällig, sehen Sie es sofort.",
   },
   {
     nr: 2,
     titel: "Führung kann nicht überall sein",
-    ohne: "Keine Führungskraft kontrolliert täglich jeden Bereich persönlich. Was gut läuft und was überfällig ist, sieht sie zu spät.",
-    mit: "Der Aufgabenüberblick über das ganze Team steht jederzeit da, samt der Massnahmen, die überfällig sind.",
+    ohne: "Sie können nicht jeden Tag durch jede Abteilung gehen. Was überfällig ist, erfahren Sie erst, wenn es brennt.",
+    mit: "Am Montagmorgen sehen Sie die Aufgaben Ihres ganzen Teams und was davon überfällig ist.",
   },
   {
     nr: 3,
     titel: "Beim Audit wird es eng",
-    ohne: "ISO 9001 und branchenspezifische Vorschriften verlangen lückenlose Dokumentation. Ohne System wird die Suche danach zur Nachtschicht.",
-    mit: "Gelenkte Dokumente, interne Audits und Normenprüfung liegen am selben Ort. Die Nachweise sind da, wenn der Auditor fragt.",
+    ohne: "ISO 9001 und die Vorschriften Ihrer Branche verlangen lückenlose Nachweise. Ohne System wird die Woche vor dem Audit zur Nachtschicht.",
+    mit: "Arbeitsanweisungen liegen versioniert und freigegeben in Siato. Fragt der Auditor nach der gültigen Fassung, ist sie schon da.",
   },
   {
     nr: 4,
     titel: "Probleme werden gesehen, aber nicht gelöst",
-    ohne: "Erkannt wird viel. Aber ohne Verantwortlichkeiten, Fristen und Eskalation verpufft der ganze Aufwand.",
-    mit: "Aus jedem Befund wird eine Massnahme mit Verantwortlichem und Frist – nachverfolgt, bis sie erledigt ist.",
+    ohne: "In der Shopfloor-Runde wird viel erkannt. Aber wenn niemand zuständig ist und keine Frist gilt, verpufft der Aufwand.",
+    mit: "Aus jedem Befund wird eine Massnahme mit Zuständigkeit und Frist. Sie bleibt sichtbar, bis sie erledigt ist.",
   },
   {
     nr: 5,
     titel: "Wissen geht mit den Leuten",
-    ohne: "Wer den Betrieb verlässt oder die Schicht wechselt, nimmt sein Wissen mit. Was nicht festgehalten ist, ist weg.",
-    mit: "Betriebliches Wissen liegt zentral und ist für alle zugänglich. Es bleibt im Betrieb, auch wenn jemand geht.",
+    ohne: "Geht der langjährige Schichtleiter in Pension, nimmt er mit, was nirgends aufgeschrieben ist.",
+    mit: "Arbeitsanweisungen und erledigte Massnahmen bleiben in Siato. Neue Leute sehen nach, wie ein Problem schon einmal gelöst wurde.",
   },
   {
     nr: 6,
     titel: "Was nicht gemessen wird, wird nicht besser",
-    ohne: "Ohne Zahlen lässt sich nicht zeigen, ob die Verbesserungen wirklich wirken – weder der Geschäftsleitung noch dem Kunden.",
-    mit: "Kennzahlen werden zentral erfasst und ausgewertet. Auch der Erfolg umgesetzter Ideen wird messbar.",
+    ohne: "Ohne Zahlen können Sie nicht belegen, ob eine Verbesserung etwas gebracht hat, weder intern noch beim Kunden.",
+    mit: "Jede umgesetzte Idee ist dokumentiert, samt dem, was sie gebracht hat. So haben Sie die Zahl, bevor jemand danach fragt.",
   },
   {
     nr: 7,
     titel: "Lean funktioniert nur, wenn alle mitmachen",
-    ohne: "Verbesserung von oben verordnet bleibt Theorie. Wer keine Möglichkeit hat, etwas einzubringen, bringt nichts ein.",
-    mit: "Jeder kann jederzeit eine Idee einreichen und hat seine eigenen Aufgaben und Ziele im Blick.",
+    ohne: "Wer an der Maschine steht, sieht jeden Tag, was klemmt. Gibt es keinen einfachen Weg, das zu melden, erfährt es niemand.",
+    mit: "Ideen lassen sich am PC oder am Tablet einreichen. Jede wird bewertet und verstaubt nicht im Ideenkasten.",
   },
   {
     nr: 8,
     titel: "Was bei 20 Leuten geht, bricht bei 200",
     ohne: "Zurufe und Excel funktionieren im kleinen Betrieb. Über mehrere Abteilungen oder Standorte hält das nicht.",
-    mit: "Organisation, Rollen und Standards sind hinterlegt. Überall wird nach demselben Muster gearbeitet.",
+    mit: "Alle Abteilungen und Standorte arbeiten nach denselben Standards.",
   },
   {
     nr: 9,
-    titel: "Digital geführte Betriebe sind schneller",
-    ohne: "Wer Verbesserung analog betreibt, arbeitet langsamer und mit mehr Fehlern als der Betrieb nebenan.",
-    mit: "Konsequent digital gelebtes Lean macht Abläufe schneller, günstiger und fehlerärmer.",
+    titel: "Digital geht es schneller",
+    ohne: "Protokolle abtippen, Excel-Listen zusammenführen: So wird Verbesserung verwaltet, nicht vorangebracht.",
+    mit: "Die Massnahme vom Shopfloor-Board landet bei der Person, die sie erledigt. Abgetippt wird nichts.",
   },
 ];
 
@@ -183,13 +183,13 @@ export function SiatoGruende() {
       <div className="mx-auto max-w-[90rem] px-6">
         <Reveal className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-[#4e7717]">
-            Wozu Siato
+            Woran es hängt
           </p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 [text-shadow:0_1px_14px_rgba(255,255,255,0.8)] md:text-5xl">
             9 Gründe, warum Lean Management ohne Plattform scheitert
           </h2>
           <p className="mt-4 text-lg text-slate-600">
-            Lean scheitert selten an der Methode. Es scheitert an der Umsetzung.
+            Lean scheitert selten an der Methode, meist an der Umsetzung. Schulung gemacht, Plakate aufgehängt, und ein paar Monate später ist alles wie vorher.
           </p>
         </Reveal>
 

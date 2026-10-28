@@ -7,71 +7,172 @@ import {
   useTransform,
 } from "framer-motion";
 import { Reveal } from "./ui/reveal";
-import { WORTMARKE } from "./SiatoLogo";
 import {
   Monitor,
   Tablet,
   Smartphone,
   Check,
-  Camera,
+  ChevronLeft,
   ChevronRight,
+  RotateCw,
+  Wifi,
+  LayoutGrid,
+  CircleCheck,
+  List,
+  User,
 } from "lucide-react";
 
 const devices = [
-  { icon: Monitor, title: "Desktop & Web", text: "Volle Übersicht im Büro – direkt im Browser, ohne Installation." },
-  { icon: Tablet, title: "Tablet am Shopfloor", text: "Boards und Kennzahlen griffbereit dort, wo produziert wird." },
-  { icon: Smartphone, title: "Smartphone unterwegs", text: "Waste Walks und Aufgaben mit einem Tipp – auch von der Halle aus." },
+  { icon: Monitor, title: "Desktop & Web", text: "Volle Übersicht im Büro, direkt im Browser und ohne Installation." },
+  { icon: Tablet, title: "Tablet am Shopfloor", text: "Boards und Waste Walks griffbereit dort, wo produziert wird." },
+  { icon: Smartphone, title: "Smartphone unterwegs", text: "Kennzahlen lesen, Aufgaben abhaken und anlegen. Mit eingeschränktem Funktionsumfang." },
 ];
 
-/* Mobiler Siato-Screen im iPhone */
+/* Mobiler Siato-Screen im iPhone, nachgebaut nach Remos Bildern vom
+   24.10.2026 (Dashboard der iPhone-App). Gemessen: Grund #FAFAFA, Karten weiss
+   mit Rand #E5E5E5, Dunkelgruen #475F20 fuer Knopf, gute Werte und den
+   aktiven Reiter, Rot #B1241B, Etiketten #737373, Umschalter #EBEBEB.
+
+   Gezeichnet wird in den Massen eines echten iPhones (393 pt breit) und dann
+   als Ganzes verkleinert: so stimmen Schriftgroessen und Abstaende im
+   Verhaeltnis, statt dass jede Zahl einzeln geschrumpft werden muss. Der
+   Bildschirm des Geraets ist 244 x 520 px, das ergibt 0.6209 und 837.5 pt.
+
+   Die echte App zeigt kein Logo, nur den Gruss. Deshalb steht hier auch keine
+   Wortmarke. Gezeigt wird nur, was die App kann: Kennzahlen lesen, Aufgaben
+   abhaken und anlegen - keine Ideen oder Waste Walks erfassen (Remo,
+   18.09.2026: am Telefon eingeschraenkt). */
+const PT = 244 / 393;
+
+/* Derselbe Tag wie im Tablet (Montag, 19.10.), aber der ganze Monat: darum
+   mehr offen als in der Woche (64 statt 42), dieselben 5 heute faellig, und
+   die 2 Ueberfaelligen liegen vor dem Wochenbeginn - im Tablet stehen 0. */
+const telefonKacheln: { titel: string; wert: string; text: string; ton?: "rot" | "gruen" }[] = [
+  { titel: "Offen", wert: "64", text: "Offene Aufgaben im Zeitraum" },
+  { titel: "Überfällig", wert: "2", text: "Älteste seit 5 Tagen offen", ton: "rot" },
+  { titel: "Heute fällig", wert: "5", text: "Für heute eingeplant" },
+  { titel: "Hohe Priorität", wert: "11", text: "Priorisierte offene Aufgaben" },
+  { titel: "Ohne Termin", wert: "0", text: "Alle Aufgaben sind eingeplant" },
+  { titel: "Erledigt", wert: "19", text: "19 von 83 Aufgaben im Zeitraum", ton: "gruen" },
+];
+
+function Statusleiste() {
+  return (
+    <div className="flex h-[54px] items-end justify-between px-8 pb-2 text-[17px] font-semibold text-black">
+      <span>9:41</span>
+      <span className="flex items-center gap-1.5">
+        {/* Empfang, WLAN, Akku - als Formen, nicht als Symbolschrift */}
+        <span className="flex items-end gap-[2px]">
+          {[5, 8, 11, 13].map((h, i) => (
+            <span key={h} className={`w-[3px] rounded-[1px] ${i < 3 ? "bg-black" : "bg-black/25"}`} style={{ height: h }} />
+          ))}
+        </span>
+        <Wifi className="h-[17px] w-[17px]" strokeWidth={2.6} />
+        <span className="relative ml-0.5 flex h-[13px] w-[25px] items-center rounded-[4px] border border-black/40 p-[1.5px]">
+          <span className="h-full w-[70%] rounded-[2px] bg-black" />
+          <span className="absolute -right-[3px] h-[4px] w-[1.5px] rounded-r bg-black/40" />
+        </span>
+      </span>
+    </div>
+  );
+}
+
 function PhoneScreen() {
   return (
-    <div className="flex h-full w-full flex-col bg-[#f7f8f6] text-left select-none">
-      {/* App-Header */}
-      {/* Dieselbe Wortmarke wie im Tablet daneben. Der Bildschirmtitel tritt
-          dafuer zurueck: zwei fette Dinge nebeneinander streiten, und die
-          Marke gewinnt diesen Streit. */}
-      <div className="flex items-center gap-2 bg-white px-4 pb-3 pt-9">
-        <span className={`${WORTMARKE} text-[15px] text-slate-900`}>siato</span>
-        <span className="h-3 w-px bg-slate-200" />
-        <span className="text-[13px] text-slate-500">Mein Cockpit</span>
-      </div>
+    <div
+      role="img"
+      aria-label="Siato-App auf dem iPhone: Cockpit mit offenen, überfälligen und erledigten Aufgaben des Monats"
+      className="relative h-full w-full overflow-hidden bg-[#FAFAFA] text-left select-none"
+    >
+      <div
+        className="absolute left-0 top-0 flex origin-top-left flex-col"
+        style={{ width: 393, height: 520 / PT, transform: `scale(${PT})` }}
+      >
+        <Statusleiste />
 
-      <div className="flex-1 space-y-3 overflow-hidden p-3">
-        {/* KPI-Kacheln */}
-        <div className="grid grid-cols-2 gap-2">
-          {[
-            ["Offene Aufgaben", "12"],
-            ["Ideen aktiv", "8"],
-          ].map(([l, v]) => (
-            <div key={l} className="rounded-xl bg-white p-3">
-              <div className="text-[10px] text-slate-400">{l}</div>
-              <div className="mt-0.5 text-xl font-bold text-slate-900">{v}</div>
+        {/* Gruss und Zeitraum */}
+        <div className="px-5 pt-3">
+          <div className="flex items-start justify-between">
+            <div>
+              <div className="text-[27px] font-semibold leading-tight tracking-[-0.01em] text-[#111]">
+                Guten Morgen, Lea
+              </div>
+              <div className="mt-0.5 text-[17px] text-[#737373]">Montag, 19. Oktober</div>
             </div>
-          ))}
-        </div>
-
-        {/* Aufgaben */}
-        <div className="rounded-xl bg-white p-3">
-          <div className="mb-2 text-[11px] font-semibold text-slate-700">
-            Heute fällig
+            <span className="flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-full bg-[#475F20] text-white">
+              <RotateCw className="h-[22px] w-[22px]" strokeWidth={2.4} />
+            </span>
           </div>
-          {["Waste Walk Halle 2", "8D-Report #482 prüfen"].map((t) => (
-            <div
-              key={t}
-              className="flex items-center justify-between border-t border-slate-100 py-2 first:border-0"
-            >
-              <span className="text-[11px] text-slate-600">{t}</span>
-              <ChevronRight className="h-3 w-3 text-slate-300" />
+          {/* Inter laeuft breiter als die Systemschrift des iPhones; mit 17 pt
+              wie im Original stiessen die vier Zeitraeume aneinander. */}
+          <div className="mt-3.5 flex items-center gap-2">
+            <span className="flex h-[50px] w-[46px] shrink-0 items-center justify-center rounded-[14px] border border-[#E5E5E5] bg-white">
+              <ChevronLeft className="h-6 w-6 text-[#111]" />
+            </span>
+            <div className="flex h-[50px] flex-1 items-center rounded-[14px] bg-[#EBEBEB] p-[3px] text-[15px] text-[#444]">
+              {["Heute", "Woche", "Monat", "Von/Bis"].map((z) => (
+                <span
+                  key={z}
+                  className={`flex h-full flex-1 items-center justify-center rounded-[11px] ${z === "Monat" ? "bg-white font-semibold text-[#111] shadow-[0_1px_3px_rgba(0,0,0,0.12)]" : ""}`}
+                >
+                  {z}
+                </span>
+              ))}
             </div>
-          ))}
+            <span className="flex h-[50px] w-[46px] shrink-0 items-center justify-center rounded-[14px] border border-[#E5E5E5] bg-white">
+              <ChevronRight className="h-6 w-6 text-[#111]" />
+            </span>
+          </div>
+          <div className="mt-2 text-[16px] text-[#737373]">Oktober · 01.10. – 31.10.</div>
         </div>
 
-        {/* CTA */}
-        <div className="flex items-center justify-center gap-1.5 rounded-xl bg-[#80BA2B] py-2.5 text-[12px] font-semibold text-white">
-          <Camera className="h-3.5 w-3.5" /> Waste Walk erfassen
+        <div className="mt-2.5 h-px bg-[#E8E8E8]" />
+
+        {/* Cockpit-Kacheln. Knapp gesetzt, damit die dritte Reihe ganz ueber
+            der Reiterleiste steht - zwei Pixel darunter sah wie ein Fehler aus. */}
+        <div className="flex-1 overflow-hidden px-5 pt-3.5">
+          <div className="pl-1 text-[20px] font-semibold text-[#111]">Cockpit</div>
+          <div className="mt-2.5 grid grid-cols-2 gap-2.5">
+            {telefonKacheln.map((k) => (
+              <div key={k.titel} className="rounded-[18px] border border-[#E5E5E5] bg-white px-4 pb-3 pt-3">
+                <div className="flex items-center justify-between text-[16px] text-[#222]">
+                  {k.titel}
+                  <ChevronRight className="h-[18px] w-[18px] text-[#A0A0A0]" />
+                </div>
+                <div
+                  className={`mt-0.5 text-[34px] font-semibold leading-tight tabular-nums ${k.ton === "rot" ? "text-[#B1241B]" : k.ton === "gruen" ? "text-[#475F20]" : "text-[#111]"}`}
+                >
+                  {k.wert}
+                </div>
+                <div className="mt-0.5 text-[14px] leading-snug text-[#737373]">{k.text}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Reiterleiste der App */}
+        <div className="flex h-[92px] shrink-0 border-t border-[#E5E5E5] bg-white px-2 pt-2.5">
+          {[
+            ["Dashboard", LayoutGrid],
+            ["Aufgaben", CircleCheck],
+            ["Listen", List],
+            ["Profil", User],
+          ].map(([label, Icon], i) => {
+            const I = Icon as typeof LayoutGrid;
+            return (
+              <div
+                key={label as string}
+                className={`flex flex-1 flex-col items-center gap-1 text-[13px] ${i === 0 ? "font-semibold text-[#475F20]" : "text-[#737373]"}`}
+              >
+                <I className="h-[26px] w-[26px]" strokeWidth={1.8} />
+                {label as string}
+              </div>
+            );
+          })}
         </div>
       </div>
+      {/* Home-Balken */}
+      <span className="absolute bottom-[5px] left-1/2 h-[3px] w-[84px] -translate-x-1/2 rounded-full bg-black" />
     </div>
   );
 }
@@ -163,13 +264,14 @@ export function SiatoDevices() {
             Überall einsatzbereit
           </p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 [text-shadow:0_1px_14px_rgba(255,255,255,0.8)] md:text-5xl">
-            Desktop, Tablet oder Smartphone – Siato ist dabei.
+            Desktop, Tablet, Smartphone: Siato ist überall dabei.
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-slate-600">
             Verbesserung passiert nicht am Schreibtisch allein. Siato läuft im
-            Browser und als App auf jedem Gerät – im Büro, am Shopfloor-Terminal
-            oder unterwegs. Ihr Team erfasst Ideen und Waste Walks genau dort, wo
-            sie entstehen.
+            Browser und als App auf jedem Gerät. Gebaut ist es für Desktop und
+            Tablet: Dort hat Ihr Team den vollen Funktionsumfang, im Büro wie am
+            Shopfloor-Terminal. Unterwegs reicht das Smartphone für Kennzahlen
+            und Aufgaben.
           </p>
 
           <div className="mt-8 space-y-4">
@@ -187,8 +289,7 @@ export function SiatoDevices() {
           </div>
 
           <div className="mt-8 flex items-center gap-2 text-sm font-medium text-[#4e7717]">
-            <Check className="h-4 w-4" /> Ein Login, alle Geräte – dank Microsoft
-            365 Single Sign-On.
+            <Check className="h-4 w-4" /> Ein Login für alle Geräte: das Microsoft-Konto, das Ihr Team schon hat.
           </div>
         </Reveal>
       </div>

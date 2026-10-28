@@ -3,9 +3,9 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 const TEXTS = [
   "In der Schweiz entwickelt.",
-  "In der Schweiz gehostet.",
-  "Schon ab 15.– pro Nutzer.",
-  "Speziell für Schweizer KMU.",
+  "In Microsoft 365 integriert.",
+  "Schon ab CHF X.– pro Benutzer.",
+  "Für Schweizer KMU gebaut.",
 ];
 const LONGEST = TEXTS.reduce((a, b) => (b.length > a.length ? b : a));
 const INTERVAL = 3800; // ruhiges Tempo (ms) — länger = ruhiger

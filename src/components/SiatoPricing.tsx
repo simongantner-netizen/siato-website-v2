@@ -6,12 +6,12 @@ const plans = [
     name: "Start",
     price: "ab CHF 190",
     unit: "pro Modul / Monat",
-    desc: "Für KMU, die gezielt einzelne Lean-Themen digitalisieren.",
+    desc: "Für KMU, die mit einem einzelnen Thema anfangen wollen.",
     features: [
       "Einzelne Module frei wählbar",
-      "CHF 5.– pro Nutzer / Monat",
-      "Microsoft 365 Integration",
-      "Updates im Halbjahres-Rhythmus",
+      "Zusätzlich pro Benutzer eine Lizenz «Power Apps per App»",
+      "Microsoft-365-Integration",
+      "Im Browser und als App",
     ],
     cta: "Module wählen",
     featured: false,
@@ -20,12 +20,12 @@ const plans = [
     name: "Professional",
     price: "Modulpaket",
     unit: "individuell geschnürt",
-    desc: "Die meistgewählte Lösung – mehrere Module im Verbund.",
+    desc: "Für Betriebe, die mehrere Module zusammen einsetzen.",
     features: [
       "Mehrere Module im Paket",
-      "Vergünstigter Paketpreis",
-      "Onboarding & Schulung",
-      "Priorisierter Support",
+      "Paketpreis auf Anfrage",
+      "Eine Aufgabenliste über alle Module",
+      "Zusätzlich pro Benutzer eine Lizenz «Power Apps per App»",
     ],
     cta: "Beratung anfragen",
     featured: true,
@@ -34,11 +34,11 @@ const plans = [
     name: "Custom",
     price: "nach Aufwand",
     unit: "Eigenentwicklung",
-    desc: "Eigene Prozesse auf der Power Platform – ohne Lizenz-Mehrkosten.",
+    desc: "Für Abläufe, die in kein Modul passen, gebaut auf der Power Platform.",
     features: [
-      "Unternehmenseigene Prozesse",
-      "Gleiche Datenbank, keine Extra-Lizenz",
-      "Ablösung von Excel & Drittanbietern",
+      "Ein oder mehrere eigene Prozesse",
+      "Dieselbe Datenbank wie die Module",
+      "Excel-Listen ablösen",
       "Volle Power-Platform-Funktionalität",
     ],
     cta: "Projekt besprechen",
@@ -58,8 +58,7 @@ export function SiatoPricing() {
             Sie zahlen nur, was Sie nutzen
           </h2>
           <p className="mt-4 text-lg text-slate-600">
-            Modular aufgebaut und mitwachsend. Starten Sie mit einem Modul –
-            erweitern Sie, wann immer Sie wollen.
+            Sie starten mit den Modulen, die Sie heute brauchen, und nehmen weitere dazu, wenn Ihr Betrieb so weit ist.
           </p>
         </Reveal>
 
@@ -73,11 +72,6 @@ export function SiatoPricing() {
                     : "border-slate-200/80 bg-white/90 shadow-sm shadow-slate-900/5"
                 }`}
               >
-                {plan.featured && (
-                  <span className="mb-4 w-fit rounded-full bg-[#80BA2B] px-3 py-1 text-xs font-semibold text-white">
-                    Beliebt
-                  </span>
-                )}
                 <h3 className="text-lg font-semibold text-slate-900">
                   {plan.name}
                 </h3>
@@ -114,9 +108,10 @@ export function SiatoPricing() {
         </div>
 
         <Reveal className="mt-8 text-center">
+          {/* Erster Satz in Remos Wortlaut (18.09.2026). «exkl. MwSt.» bleibt
+              stehen, weil die Modulpreise in CHF darueber weiter gelten. */}
           <p className="text-sm text-slate-500">
-            Power Platform Hosting: CHF 5.– pro Benutzer / Monat · Alle Preise
-            exkl. MwSt.
+            Dazu braucht jeder Benutzer eine Lizenz «Power Apps per App» von Microsoft. Was sie kostet, hängt von Ihrem Microsoft-Partner (CSP) ab. Siato-Preise exkl. MwSt.
           </p>
         </Reveal>
       </div>

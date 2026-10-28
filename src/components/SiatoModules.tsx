@@ -3,9 +3,8 @@ import {
   Lightbulb,
   AlertTriangle,
   ShieldCheck,
-  BarChart3,
-  GraduationCap,
-  Wrench,
+  Presentation,
+  Puzzle,
 } from "lucide-react";
 import { Reveal } from "./ui/reveal";
 
@@ -14,6 +13,13 @@ import { Reveal } from "./ui/reveal";
    Gantner (allDates). Bereiche, Modulnamen und Inhalte stammen aus
    diesem Dokument — hier nichts dazuerfinden. Bei Änderungen am
    Funktionsumfang zuerst dort nachführen.
+
+   Stand heute nach Remo Semm (Mail 18.09.2026): fuenf Module plus die
+   Moeglichkeit eines eigenen Custom-Moduls und ein Systemmodul fuer die
+   Verbindung zu M365. «Mitarbeitenden-Entwicklung» und «Betrieb &
+   Instandhaltung» gibt es heute nicht und sind deshalb raus; «Führung &
+   Kommunikation» heisst «Kommunikation & Abstimmung», die Chips dort sind die
+   Eintraege aus Remos Navigation und iPhone-Dashboard.
 ------------------------------------------------------------------ */
 
 type Bereich = {
@@ -21,15 +27,15 @@ type Bereich = {
   titel: string;
   text: string;
   module: string[];
-  /** Sitzt allein in der letzten Reihe: gleich breit wie die anderen, mittig. */
-  zentriert?: boolean;
+  /** Das Custom-Modul: kein fertiges Modul, sondern der Platz fuer eigene Prozesse. */
+  eigen?: boolean;
 };
 
 const bereiche: Bereich[] = [
   {
     icon: LayoutDashboard,
     titel: "Transparenz & Konsequenz",
-    text: "Jeder sieht beim Start, was heute ansteht: offene Aufgaben, Termine, eigene Kennzahlen. Führungskräfte sehen dasselbe für ihr Team und merken früh, wo etwas liegen bleibt.",
+    text: "Nach dem Anmelden erscheinen zuerst die eigenen Aufgaben und Termine. Führungskräfte sehen dasselbe für ihr Team und merken früh, wo etwas liegen bleibt.",
     module: [
       "Mein persönliches Cockpit",
       "Alle meine Aufgaben",
@@ -39,59 +45,41 @@ const bereiche: Bereich[] = [
   {
     icon: Lightbulb,
     titel: "Verbesserung & KVP",
-    text: "Ideen aus der Belegschaft werden erfasst, bewertet und freigegeben. Verbesserungsprojekte laufen nach Plan-Do-Check-Act, Verschwendung wird direkt am Shopfloor aufgenommen.",
+    text: "Ideen aus der Belegschaft werden bewertet und freigegeben. Verbesserungsprojekte laufen im PDCA-Zyklus, und Verschwendung halten Sie beim Rundgang am Tablet fest.",
     module: ["Ideenmanagement", "PDCA-Zyklen", "Waste Walks"],
   },
   {
     icon: AlertTriangle,
     titel: "Qualität & Abweichungen",
-    text: "Reklamationen von Kunden, Probleme mit Lieferanten und intern entdeckte Fehler laufen über denselben Weg: Sofortmassnahme, Ursache, Korrektur – alles nachvollziehbar dokumentiert.",
+    text: "Reklamationen von Kunden, Probleme mit Lieferanten und Fehler aus der eigenen Produktion laufen über denselben Weg. Jeder Schritt ist dokumentiert, bis die Ursache beseitigt ist.",
     module: [
       "Kundenbeanstandungen",
       "Lieferantenbeanstandungen",
-      "Interne Fehler",
+      "Interne Abweichungen",
       "8D-Report",
     ],
   },
   {
     icon: ShieldCheck,
     titel: "Audits & Compliance",
-    text: "Arbeitsanweisungen sind versioniert und freigegeben, interne Audits laufen nach Plan, Normen wie ISO 9001 werden systematisch geprüft. Unterweisungen bestätigen Mitarbeitende digital.",
+    text: "Wer eine Arbeitsanweisung öffnet, hat die gültige vor sich, nicht die vom letzten Jahr. Die Prozesslandkarte zeigt, wie Ihre Abläufe zusammenhängen.",
     module: [
       "Gelenkte Dokumente",
-      "Interne Audits",
-      "Normenprüfung",
-      "Unterweisungen",
+      "Prozesslandkarte",
     ],
   },
   {
-    icon: BarChart3,
-    titel: "Führung & Kommunikation",
-    text: "Projekte, Kennzahlen und die täglichen Shopfloor-Runden an einem Ort. Betriebliches Wissen bleibt im Betrieb, auch wenn jemand geht.",
-    module: [
-      "Projektadministration",
-      "Wissensmanagement",
-      "Shopfloor",
-      "Kennzahlen",
-    ],
+    icon: Presentation,
+    titel: "Kommunikation & Abstimmung",
+    text: "Die tägliche Shopfloor-Runde läuft direkt am Board, die Sitzungen aller Gremien stehen im Kalender. Was nicht warten kann, entscheiden Sie per Zirkularbeschluss.",
+    module: ["Besprechungen", "Shopfloor", "Zirkularbeschlüsse"],
   },
   {
-    icon: GraduationCap,
-    titel: "Mitarbeitenden-Entwicklung",
-    text: "Ziele werden gemeinsam vereinbart und nachgehalten, Beurteilungen laufen nach demselben Muster. Die Fähigkeitsmatrix zeigt, wer was kann und wo eine Lücke ist.",
-    module: [
-      "Persönliche Zielvereinbarung",
-      "MA-Beurteilungen",
-      "Fähigkeitsmatrix",
-      "Aus- und Weiterbildung",
-    ],
-  },
-  {
-    icon: Wrench,
-    titel: "Betrieb & Instandhaltung",
-    text: "Wartungspläne liegen pro Maschine hinterlegt, Aufträge werden automatisch ausgelöst, jede Durchführung ist protokolliert. Das senkt ungeplante Ausfälle und verlängert die Lebensdauer der Anlagen.",
-    module: ["Wartung und Instandhaltung"],
-    zentriert: true,
+    icon: Puzzle,
+    titel: "Custom-Modul",
+    text: "Passt ein Ablauf in keines der fünf Module, bekommt er sein eigenes. Ein Custom-Modul bildet einen oder mehrere beliebige Prozesse aus Ihrem Betrieb ab, auf derselben Plattform.",
+    module: ["Eigene Prozesse", "Excel-Listen ablösen"],
+    eigen: true,
   },
 ];
 
@@ -108,25 +96,19 @@ export function SiatoModules() {
             Alles drin, was Lean braucht.
           </h2>
           <p className="mt-4 text-base text-slate-600 md:text-lg">
-            23 Module in sieben Bereichen – von der ersten Idee bis zum
-            bestandenen Audit. Sie greifen ineinander, statt nebeneinander zu
-            stehen.
+            Fünf Module, von der ersten Idee bis zum bestandenen Audit. Jedes hilft für sich, zusammen geben sie den Überblick.
           </p>
         </Reveal>
 
         {/* Bereiche */}
         <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {bereiche.map((b, i) => (
-            <Reveal
-              key={b.titel}
-              delay={(i % 3) * 0.08}
-              className={
-                b.zentriert
-                  ? "sm:col-span-2 sm:w-[calc(50%-0.625rem)] sm:justify-self-center lg:col-span-1 lg:w-auto lg:col-start-2"
-                  : undefined
-              }
-            >
-              <div className="group h-full rounded-2xl border border-slate-200/80 bg-white/90 p-6 shadow-sm shadow-slate-900/5 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-[#80BA2B]/50 hover:shadow-lg hover:shadow-[#80BA2B]/10">
+            <Reveal key={b.titel} delay={(i % 3) * 0.08}>
+              {/* Das Custom-Modul traegt einen gestrichelten Rand: der Platz,
+                  der erst mit dem eigenen Prozess gefuellt wird. */}
+              <div
+                className={`group h-full rounded-2xl border bg-white/90 p-6 shadow-sm shadow-slate-900/5 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-[#80BA2B]/50 hover:shadow-lg hover:shadow-[#80BA2B]/10 ${b.eigen ? "border-dashed border-[#80BA2B]/60" : "border-slate-200/80"}`}
+              >
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#80BA2B]/12 text-[#4e7717] transition-colors group-hover:bg-[#80BA2B] group-hover:text-white">
                   <b.icon className="h-5 w-5" strokeWidth={1.8} />
                 </div>
@@ -153,12 +135,11 @@ export function SiatoModules() {
           ))}
         </div>
 
-        {/* Systemmodule: Infrastruktur, kein Verkaufsargument – darum als Zeile */}
+        {/* Systemmodul: Infrastruktur, kein Verkaufsargument – darum als Zeile.
+            Der Satz ist Remos Wortlaut (18.09.2026). */}
         <Reveal delay={0.1}>
           <p className="mx-auto mt-8 max-w-3xl text-center text-sm leading-relaxed text-slate-500">
-            Dazu kommen vier Systemmodule, die alles zusammenhalten:
-            Organisation, Benutzer und Rollen, Stammdaten und die Workflows, die
-            dafür sorgen, dass keine Massnahme vergessen geht.
+            Dazu kommt ein Systemmodul, welches Siato mit M365 verbindet.
           </p>
         </Reveal>
       </div>

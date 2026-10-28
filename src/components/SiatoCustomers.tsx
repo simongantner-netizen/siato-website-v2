@@ -18,7 +18,7 @@ export function SiatoCustomers() {
             Referenzen
           </p>
           <h2 className="mx-auto mt-3 max-w-3xl text-3xl font-bold tracking-tight text-slate-900 [text-shadow:0_1px_14px_rgba(255,255,255,0.8)] md:text-5xl">
-            Kunden, die dank Siato besser und schneller arbeiten.
+            Diese Betriebe arbeiten mit der Software von allDates.
           </h2>
         </Reveal>
 
