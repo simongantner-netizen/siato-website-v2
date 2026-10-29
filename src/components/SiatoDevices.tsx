@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useReducedMotion,
@@ -224,10 +224,27 @@ export function SiatoDevices() {
   });
   const lauf = reduce ? scrollYProgress : gefedert;
 
-  const x = useTransform(lauf, [0.2, 0.8], reduce ? [0, 0] : [-360, 0]);
-  const rotate = useTransform(lauf, [0.2, 0.8], reduce ? [0, 0] : [-30, 0]);
-  const opacity = useTransform(lauf, [0.2, 0.45], [0, 1]);
-  const scale = useTransform(lauf, [0.2, 0.8], reduce ? [1, 1] : [0.82, 1]);
+  /* Mobil steht der Text unter dem Geraet, die Sektion ist 1536 px hoch und
+     ihre Mitte liegt weit unter dem iPhone. Mit dem Fenster 0.2-0.8 war die
+     Bewegung erst fertig, als das Geraet oben schon 68 px aus dem Bild war
+     (402x750 gemessen). Mobil startet sie darum frueher, gleich lang
+     (0.6 = 686 px Weg) und endet mit dem Geraet ganz im Bild, ~150 px unter
+     der Oberkante. Desktop bleibt wie es war. */
+  const [mobil, setMobil] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const pruefen = () => setMobil(mq.matches);
+    pruefen();
+    mq.addEventListener("change", pruefen);
+    return () => mq.removeEventListener("change", pruefen);
+  }, []);
+  const [von, bis] = mobil ? [0.01, 0.61] : [0.2, 0.8];
+  const sichtbar = von + 0.25;
+
+  const x = useTransform(lauf, [von, bis], reduce ? [0, 0] : [-360, 0]);
+  const rotate = useTransform(lauf, [von, bis], reduce ? [0, 0] : [-30, 0]);
+  const opacity = useTransform(lauf, [von, sichtbar], [0, 1]);
+  const scale = useTransform(lauf, [von, bis], reduce ? [1, 1] : [0.82, 1]);
 
   return (
     <section

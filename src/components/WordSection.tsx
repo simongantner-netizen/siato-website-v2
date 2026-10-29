@@ -2,6 +2,7 @@ import { useRef } from "react";
 import {
   motion,
   useAnimationFrame,
+  useInView,
   useMotionValue,
   useReducedMotion,
   useScroll,
@@ -49,10 +50,21 @@ export function WordSection({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["65%", "-65%"]);
-  const x = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["-3%", "3%"]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], reduce ? [1, 1, 1] : [0.82, 1, 1]);
-  const rotate = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [-2.5, 2.5]);
+  /* Gefedert wie das Geraet im Hero. Auf dem iPhone scrollt Safari nativ
+     (Lenis hat syncTouch aus) auf einem eigenen Thread, die Transformation
+     kommt aber aus JS und hinkt Bild fuer Bild hinterher - ungefedert ist
+     jede dieser Stufen als Ruckeln zu sehen. Die Feder glaettet sie. */
+  const gefedert = useSpring(scrollYProgress, {
+    damping: 32,
+    stiffness: 130,
+    mass: 0.7,
+    restDelta: 0.0005,
+  });
+  const lauf = reduce ? scrollYProgress : gefedert;
+  const y = useTransform(lauf, [0, 1], reduce ? ["0%", "0%"] : ["65%", "-65%"]);
+  const x = useTransform(lauf, [0, 1], reduce ? ["0%", "0%"] : ["-3%", "3%"]);
+  const scale = useTransform(lauf, [0, 0.5, 1], reduce ? [1, 1, 1] : [0.82, 1, 1]);
+  const rotate = useTransform(lauf, [0, 1], reduce ? [0, 0] : [-2.5, 2.5]);
 
   // Farbfluss: an die Scroll-Geschwindigkeit gekoppelt. Eine Verlaufs-Phase
   // akkumuliert (Ruhe-Drift + Velocity-Schub); daraus oszilliert die
@@ -61,8 +73,13 @@ export function WordSection({
   const { scrollY } = useScroll();
   const smoothVel = useSpring(useVelocity(scrollY), { damping: 50, stiffness: 300, mass: 1 });
   const phase = useMotionValue(0);
+  /* Der Farbfluss malt das riesige Wort in jedem Bild neu (background-position
+     auf background-clip:text ist keine Compositor-Arbeit). Vier Woerter taten
+     das dauernd, auch ausserhalb des Bilds - auf dem iPhone frisst das die
+     Zeit, die das Scrollen braucht. Jetzt nur, solange das Wort zu sehen ist. */
+  const imBild = useInView(ref, { margin: "100px 0px" });
   useAnimationFrame((_t, dtMs) => {
-    if (reduce) return;
+    if (reduce || !imBild) return;
     const dt = Math.min(dtMs, 50) / 1000;
     const v = Math.abs(smoothVel.get());
     phase.set(phase.get() + (0.25 + v * 0.0009) * dt); // rad/s
@@ -103,7 +120,7 @@ export function WordSection({
       className="relative flex items-center justify-center overflow-hidden py-24 md:py-40"
     >
       <motion.div
-        style={{ y, x, scale, rotate }}
+        style={{ y, x, scale, rotate, willChange: "transform" }}
         className="inline-flex flex-col items-center gap-4"
       >
         <Wort
