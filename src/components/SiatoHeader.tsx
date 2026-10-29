@@ -38,6 +38,8 @@ export function SiatoHeader() {
           titleComponent={
             <motion.div
               variants={stage}
+              /* px-3 + p-2 des ContainerScroll = 20px wie die anderen Abschnitte */
+              className="px-3"
               /* Vorgerendert steht der Hero schon im ersten Bild. Ihn dann
                  einzublenden hiesse, ihn erst wieder zu verstecken - die
                  Headline kaeme spaeter als ganz ohne Prerendering. */
