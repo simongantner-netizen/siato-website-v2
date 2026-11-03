@@ -10,12 +10,12 @@ const reasons = [
   {
     icon: Plug,
     title: "Mitten in Microsoft 365",
-    text: "Gebaut auf der Microsoft Power Platform. Aufgaben erscheinen in Outlook, Dokumente liegen in SharePoint, also dort, wo sich Ihre Leute schon auskennen.",
+    text: "Aufgaben landen in Outlook, Dokumente in SharePoint, also dort, wo sich Ihre Leute auskennen.",
   },
   {
     icon: Banknote,
     title: "Faire KMU-Preise",
-    text: "Ab CHF 390.– pro Monat, ohne Benutzerlimite. Drei Pakete: ein Modul, drei Module oder alle fünf.",
+    text: "Ab CHF 390.– pro Monat, ohne Benutzerlimite. Drei Pakete: ein Modul, drei oder alle fünf.",
   },
   {
     icon: Blocks,
@@ -33,7 +33,9 @@ export function SiatoWhy() {
             Warum Siato
           </p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 md:text-5xl">
-            Seit über 15 Jahren bewährt. Jetzt in Microsoft 365.
+            <span className="block">Seit über 15 Jahren bewährt.</span>
+            <span className="block">Jetzt in Microsoft 365.</span>
+            <span className="block">Und alles an einem Ort.</span>
           </h2>
           <p className="mt-4 text-lg text-slate-600">
             Siato ist die Version der allDates-Software, die auf der Microsoft Power Platform läuft. Die Software ist seit über 15 Jahren in Schweizer KMU im Einsatz, über 80 Betriebe arbeiten damit. Was sich dort bewährt hat, steckt auch in Siato.
