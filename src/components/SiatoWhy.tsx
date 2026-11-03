@@ -38,7 +38,7 @@ export function SiatoWhy() {
             <span className="block">Und alles an einem Ort.</span>
           </h2>
           <p className="mt-4 text-lg text-slate-600">
-            Siato ist die Version der allDates-Software, die auf der Microsoft Power Platform läuft. Die Software ist seit über 15 Jahren in Schweizer KMU im Einsatz. Über 80 Betriebe arbeiten damit besser und schneller: Massnahmen bleiben nicht liegen, und das Audit wird nicht zur Nachtschicht. Was sich dort bewährt hat, steckt auch in Siato.
+            Siato ist die Version der allDates-Software, die auf der Microsoft Power Platform läuft. Die Software ist seit über 15 Jahren in Schweizer KMU im Einsatz. Über 80 Betriebe arbeiten damit besser und schneller: Massnahmen bleiben nicht liegen, und der ganze Betrieb kann erfolgreicher wirtschaften. Was sich dort bewährt hat, steckt auch in Siato.
           </p>
         </Reveal>
 
