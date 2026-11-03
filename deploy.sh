@@ -14,6 +14,14 @@ esac
 
 npm run build
 
+# GitHub Pages ist nur die Testseite und gehoert nie in den Suchindex. Das
+# noindex kommt deshalb hier dazu und nicht in die Quelle: der spaetere Build
+# fuer siato.ch bleibt so ohne, und niemand muss daran denken, es zu entfernen.
+perl -pi -e 's|<head>|<head><meta name="robots" content="noindex, nofollow">|' dist/index.html
+if ! grep -q 'name="robots" content="noindex' dist/index.html; then
+  echo "Abbruch: noindex fehlt in dist/index.html"; exit 1
+fi
+
 # Reste eines abgebrochenen oder frueheren Laufs: der Orphan-Branch bleibt
 # nach dem Entfernen des Worktrees im Repo stehen und laesst den naechsten
 # Lauf an "branch already exists" scheitern.
