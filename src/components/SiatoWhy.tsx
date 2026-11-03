@@ -20,7 +20,7 @@ const reasons = [
   {
     icon: Blocks,
     title: "Erweiterbar & zukunftssicher",
-    text: "Was in kein Modul passt, bilden wir als Custom-Modul ab, auf derselben Plattform. Geplant sind Anbindungen an Microsoft Dynamics 365 Business Central, bexio und KI-Assistenten sowie ein Portal für Ihre Kunden und Lieferanten. Noch ist davon nichts verfügbar.",
+    text: "Was in kein Modul passt, bilden wir als Custom-Modul ab, auf derselben Plattform.",
   },
 ];
 
