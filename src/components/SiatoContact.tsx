@@ -37,7 +37,7 @@ function ContactForm() {
         e.preventDefault();
         setSent(true);
       }}
-      className="rounded-3xl border border-slate-200/80 bg-white/90 p-8 shadow-lg shadow-slate-900/5 backdrop-blur-md"
+      className="flex h-full flex-col rounded-3xl border border-slate-200/80 bg-white/90 p-8 shadow-lg shadow-slate-900/5 backdrop-blur-md"
     >
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Field label="Name" name="name" placeholder="Vor- und Nachname" required />
@@ -53,7 +53,7 @@ function ContactForm() {
         />
         <Field label="Telefon" name="phone" placeholder="+41 …" />
       </div>
-      <div className="mt-4">
+      <div className="mt-4 flex flex-1 flex-col">
         <label className="mb-1.5 block text-sm font-medium text-slate-700">
           Worum geht es?
         </label>
@@ -61,7 +61,7 @@ function ContactForm() {
           name="message"
           rows={4}
           placeholder="Wo drückt es heute am meisten?"
-          className="w-full resize-none rounded-xl border border-slate-300 bg-white/80 px-4 py-2.5 text-sm text-slate-800 outline-none transition-colors placeholder:text-slate-400 focus:border-[#80BA2B] focus:ring-2 focus:ring-[#80BA2B]/20"
+          className="w-full flex-1 resize-none rounded-xl border border-slate-300 bg-white/80 px-4 py-2.5 text-sm text-slate-800 outline-none transition-colors placeholder:text-slate-400 focus:border-[#80BA2B] focus:ring-2 focus:ring-[#80BA2B]/20"
         />
       </div>
       <button
@@ -146,7 +146,10 @@ export function SiatoContact() {
   return (
     <section id="kontakt" className="relative scroll-mt-20 py-24">
       <div className="mx-auto max-w-[90rem] px-6">
-        <div className="grid items-start gap-12 md:grid-cols-2 md:gap-16">
+        {/* Ohne items-start strecken sich beide Spalten auf die Zeilenhöhe:
+            die Formularkarte endet bündig mit der letzten Kontaktkarte, den
+            Zuwachs nimmt das Textfeld auf. */}
+        <div className="grid gap-12 md:grid-cols-2 md:gap-16">
           <Reveal>
             <p className="text-sm font-semibold uppercase tracking-widest text-[#4e7717]">
               Kontakt
@@ -166,7 +169,7 @@ export function SiatoContact() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.12}>
+          <Reveal delay={0.12} className="h-full">
             <ContactForm />
           </Reveal>
         </div>
