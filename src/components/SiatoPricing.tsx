@@ -1,47 +1,48 @@
 import { Reveal } from "./ui/reveal";
 import { Check } from "lucide-react";
 
+/* Drei Pakete nach Anzahl Module. Bewusst ohne «beliebt»-Abzeichen. */
 const plans = [
   {
-    name: "Start",
-    price: "ab CHF 190",
-    unit: "pro Modul / Monat",
-    desc: "Für KMU, die mit einem einzelnen Thema anfangen wollen.",
+    name: "Einstieg",
+    price: "CHF 390.–",
+    unit: "pro Monat",
+    desc: "Für Betriebe, die ein einzelnes Thema angehen wollen.",
     features: [
-      "Einzelne Module frei wählbar",
+      "Ein Modul",
+      "Keine Benutzerlimite",
+      "Support und Updates inbegriffen",
       "Zusätzlich pro Benutzer eine Lizenz «Power Apps per App»",
-      "Microsoft-365-Integration",
-      "Im Browser und als App",
     ],
-    cta: "Module wählen",
+    cta: "Angebot anfragen",
     featured: false,
   },
   {
-    name: "Professional",
-    price: "Modulpaket",
-    unit: "individuell geschnürt",
-    desc: "Für Betriebe, die mehrere Module zusammen einsetzen.",
+    name: "Fortgeschritten",
+    price: "CHF 590.–",
+    unit: "pro Monat",
+    desc: "Für Betriebe, die mehrere Baustellen gleichzeitig anpacken.",
     features: [
-      "Mehrere Module im Paket",
-      "Paketpreis auf Anfrage",
-      "Eine Aufgabenliste über alle Module",
+      "Drei Module",
+      "Keine Benutzerlimite",
+      "Support und Updates inbegriffen",
       "Zusätzlich pro Benutzer eine Lizenz «Power Apps per App»",
     ],
-    cta: "Beratung anfragen",
+    cta: "Angebot anfragen",
     featured: true,
   },
   {
-    name: "Custom",
-    price: "nach Aufwand",
-    unit: "Eigenentwicklung",
-    desc: "Für Abläufe, die in kein Modul passen, gebaut auf der Power Platform.",
+    name: "Professional",
+    price: "CHF 790.–",
+    unit: "pro Monat",
+    desc: "Für Betriebe, die ihr Lean Management ganz in Siato führen.",
     features: [
-      "Ein oder mehrere eigene Prozesse",
-      "Dieselbe Datenbank wie die Module",
-      "Excel-Listen ablösen",
-      "Volle Power-Platform-Funktionalität",
+      "Alle fünf Module",
+      "Keine Benutzerlimite",
+      "Support und Updates inbegriffen",
+      "Zusätzlich pro Benutzer eine Lizenz «Power Apps per App»",
     ],
-    cta: "Projekt besprechen",
+    cta: "Angebot anfragen",
     featured: false,
   },
 ];
@@ -55,10 +56,10 @@ export function SiatoPricing() {
             Preise
           </p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 md:text-5xl">
-            Sie zahlen nur, was Sie nutzen
+            Wie viele Module brauchen Sie?
           </h2>
           <p className="mt-4 text-lg text-slate-600">
-            Sie starten mit den Modulen, die Sie heute brauchen, und nehmen weitere dazu, wenn Ihr Betrieb so weit ist.
+            Der Siato-Preis richtet sich nach der Anzahl Module: eines, drei oder alle fünf. Eine Benutzerlimite gibt es nicht.
           </p>
         </Reveal>
 
@@ -79,7 +80,7 @@ export function SiatoPricing() {
                   <span className="text-3xl font-bold tracking-tight text-slate-900">
                     {plan.price}
                   </span>
-                  <span className="ml-1 text-sm text-slate-500">
+                  <span className="ml-1.5 text-sm text-slate-500">
                     {plan.unit}
                   </span>
                 </div>
@@ -107,11 +108,12 @@ export function SiatoPricing() {
           ))}
         </div>
 
-        <Reveal className="mt-8 text-center">
-          {/* Erster Satz in Remos Wortlaut (18.09.2026). «exkl. MwSt.» bleibt
-              stehen, weil die Modulpreise in CHF darueber weiter gelten. */}
+        <Reveal className="mx-auto mt-8 max-w-3xl space-y-2 text-center">
+          <p className="text-[15px] text-slate-600">
+            Für Abläufe, die in kein Modul passen, gibt es das Custom-Modul: nach Angebot, allenfalls mit kleinen Lizenzgebühren.
+          </p>
           <p className="text-sm text-slate-500">
-            Dazu braucht jeder Benutzer eine Lizenz «Power Apps per App» von Microsoft. Was sie kostet, hängt von Ihrem Microsoft-Partner (CSP) ab. Siato-Preise exkl. MwSt.
+            Was die Lizenz «Power Apps per App» kostet, hängt von Ihrem Microsoft-Partner (CSP) ab. Wer nur Ideen einreicht, braucht keine. Einrichtung und Schulung verrechnen wir separat. Siato-Preise exkl. MwSt.
           </p>
         </Reveal>
       </div>

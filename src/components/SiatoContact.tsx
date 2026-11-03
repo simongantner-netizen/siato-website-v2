@@ -24,8 +24,8 @@ function ContactForm() {
           Danke für Ihre Anfrage.
         </h3>
         <p className="mt-2 max-w-sm text-slate-600">
-          Wir melden uns innerhalb eines Arbeitstages bei Ihnen, um einen Termin
-          für Ihre persönliche Demo zu vereinbaren.
+          Christoph Gantner oder Remo Semm meldet sich innerhalb eines
+          Arbeitstages bei Ihnen.
         </p>
       </div>
     );
@@ -68,7 +68,7 @@ function ContactForm() {
         type="submit"
         className="group mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#80BA2B] px-6 py-3.5 text-[15px] font-bold text-white shadow-lg shadow-[#80BA2B]/25 transition-colors hover:bg-[#6da524]"
       >
-        Demo anfragen
+        Anfrage senden
         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
       </button>
       <p className="mt-3 text-center text-xs text-slate-400">
@@ -107,24 +107,20 @@ function Field({
   );
 }
 
-/* Remo kam am 28.10.2026 dazu (Simon). Seine Funktion steht im Dossier nur
-   als «Architekt» und ist bei allDates nachgefragt. */
+/* Ansprechpersonen nur mit Namen, ohne Funktion. */
 const ansprechpersonen = [
-  { kuerzel: "CG", name: "Christoph Gantner", rolle: "Inhaber · allDates", mail: "christoph.gantner@alldates.ch", tel: "+41 79 217 82 71" },
-  { kuerzel: "RS", name: "Remo Semm", rolle: "Architekt · allDates", mail: "remo.semm@alldates.ch", tel: "+41 79 626 98 77" },
+  { kuerzel: "CG", name: "Christoph Gantner", mail: "christoph.gantner@alldates.ch", tel: "+41 79 217 82 71" },
+  { kuerzel: "RS", name: "Remo Semm", mail: "remo.semm@alldates.ch", tel: "+41 79 626 98 77" },
 ];
 
-function Kontaktkarte({ kuerzel, name, rolle, mail, tel }: (typeof ansprechpersonen)[number]) {
+function Kontaktkarte({ kuerzel, name, mail, tel }: (typeof ansprechpersonen)[number]) {
   return (
     <div className="rounded-2xl border border-slate-200/80 bg-white/80 p-6 backdrop-blur-sm">
       <div className="flex items-center gap-4">
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#80BA2B]/15 text-base font-bold text-[#4e7717]">
           {kuerzel}
         </div>
-        <div>
-          <div className="font-semibold text-slate-900">{name}</div>
-          <div className="text-sm text-slate-500">{rolle}</div>
-        </div>
+        <div className="font-semibold text-slate-900">{name}</div>
       </div>
       <div className="mt-5 space-y-2.5 text-sm">
         <a
@@ -153,13 +149,14 @@ export function SiatoContact() {
         <div className="grid items-start gap-12 md:grid-cols-2 md:gap-16">
           <Reveal>
             <p className="text-sm font-semibold uppercase tracking-widest text-[#4e7717]">
-              Demo buchen
+              Kontakt
             </p>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 md:text-5xl">
-              Sehen Sie sich Siato in 30 Minuten an
+              Erzählen Sie uns von Ihrer{" "}
+              <span className="whitespace-nowrap">Excel-Liste</span>
             </h2>
             <p className="mt-4 text-lg text-slate-600">
-              Denken Sie an die Excel-Liste, die keiner mehr anfassen will. In der unverbindlichen Demo sehen Sie, wie dieselbe Arbeit in Siato aussieht.
+              Von der, die keiner mehr anfassen will. Wir sagen Ihnen, ob Siato sie ablösen kann und was das kostet.
             </p>
 
             <div className="mt-8 space-y-4">
@@ -225,7 +222,7 @@ export function SiatoFooter() {
               links={[
                 { label: "Module", href: "#module" },
                 { label: "Preise", href: "#preise" },
-                { label: "Demo", href: "#kontakt" },
+                { label: "Anfrage", href: "#kontakt" },
               ]}
             />
             <FooterCol

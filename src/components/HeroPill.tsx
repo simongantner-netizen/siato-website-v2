@@ -4,7 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 const TEXTS = [
   "In der Schweiz entwickelt.",
   "In Microsoft 365 integriert.",
-  "Schon ab CHF X.– pro Benutzer.",
+  "Ab CHF 390.– pro Monat.",
   "Für Schweizer KMU gebaut.",
 ];
 const LONGEST = TEXTS.reduce((a, b) => (b.length > a.length ? b : a));

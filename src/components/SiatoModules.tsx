@@ -66,6 +66,9 @@ const bereiche: Bereich[] = [
     module: [
       "Gelenkte Dokumente",
       "Prozesslandkarte",
+      "Interne Audits",
+      "Normenprüfung",
+      "Unterweisungen",
     ],
   },
   {

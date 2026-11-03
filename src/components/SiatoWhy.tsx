@@ -10,17 +10,17 @@ const reasons = [
   {
     icon: Plug,
     title: "Mitten in Microsoft 365",
-    text: "Gebaut auf der Microsoft Power Platform. Ihre Leute arbeiten in Teams, Outlook und SharePoint, also dort, wo sie sich schon auskennen.",
+    text: "Gebaut auf der Microsoft Power Platform. Aufgaben erscheinen in Outlook, Dokumente liegen in SharePoint, also dort, wo sich Ihre Leute schon auskennen.",
   },
   {
     icon: Banknote,
     title: "Faire KMU-Preise",
-    text: "Schon ab CHF X.– pro Benutzer. Sie zahlen nur die Module, die Sie brauchen.",
+    text: "Ab CHF 390.– pro Monat, ohne Benutzerlimite. Drei Pakete: ein Modul, drei Module oder alle fünf.",
   },
   {
     icon: Blocks,
     title: "Erweiterbar & zukunftssicher",
-    text: "Was in kein Modul passt, bilden wir als Custom-Modul ab, auf derselben Plattform.",
+    text: "Was in kein Modul passt, bilden wir als Custom-Modul ab, auf derselben Plattform. Geplant sind Anbindungen an Microsoft Dynamics 365 Business Central, bexio und KI-Assistenten sowie ein Portal für Ihre Kunden und Lieferanten. Noch ist davon nichts verfügbar.",
   },
 ];
 

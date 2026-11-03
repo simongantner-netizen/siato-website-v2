@@ -81,7 +81,7 @@ export function SiatoHeader() {
                   href="#kontakt"
                   className="rounded-full bg-[#80BA2B] px-7 py-3 text-[15px] font-bold text-white shadow-lg shadow-[#80BA2B]/25 transition-colors hover:bg-[#6da524]"
                 >
-                  Demo buchen
+                  Angebot anfragen
                 </a>
                 <a
                   href="#module"

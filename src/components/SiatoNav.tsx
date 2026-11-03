@@ -1,12 +1,6 @@
 import { useState } from "react";
 import { vorgerendert } from "../vorgerendert";
-import {
-  anfassen,
-  flaecheDruck,
-  flaecheHover,
-  linkDruck,
-  linkHover,
-} from "../bewegung";
+import { anfassen, linkDruck, linkHover } from "../bewegung";
 import {
   motion,
   AnimatePresence,
@@ -15,17 +9,18 @@ import {
   useReducedMotion,
   useScroll,
 } from "framer-motion";
-import { ArrowRight, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { SiatoLogo } from "./SiatoLogo";
 
-/* Die Navigation bildet die Seite ab, in Lesereihenfolge. „Kontakt" fehlt
-   bewusst — dorthin führt der CTA. */
+/* Die Navigation bildet die Seite ab, in Lesereihenfolge. Einen CTA gibt es
+   nicht mehr, deshalb führt «Kontakt» als letzter Punkt zum Formular. */
 const NAV_LINKS = [
   { href: "#gruende", label: "9 Gründe" },
   { href: "#warum", label: "Warum Siato" },
   { href: "#module", label: "Module" },
   { href: "#preise", label: "Preise" },
   { href: "#faq", label: "FAQ" },
+  { href: "#kontakt", label: "Kontakt" },
 ];
 
 // Header beim Laden: Logo, Menüpunkte und CTA gestaffelt einblenden.
@@ -118,19 +113,6 @@ export function SiatoNav() {
             ))}
           </motion.div>
 
-          {/* Desktop-CTA */}
-          <motion.a
-            variants={navItem}
-            href="#kontakt"
-            whileHover={reduce ? undefined : flaecheHover}
-            whileTap={reduce ? undefined : flaecheDruck}
-            transition={anfassen}
-            className="group hidden items-center gap-2 rounded-full bg-slate-900 px-5 py-2.5 text-[15px] font-bold text-white transition-colors hover:bg-[#80BA2B] md:flex md:justify-self-end"
-          >
-            Demo buchen
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-          </motion.a>
-
           {/* Mobile-Hamburger */}
           <motion.button
             variants={navItem}
@@ -165,14 +147,6 @@ export function SiatoNav() {
                     {l.label}
                   </a>
                 ))}
-                <a
-                  href="#kontakt"
-                  onClick={() => setOpen(false)}
-                  className="mt-3 flex items-center justify-center gap-2 rounded-full bg-slate-900 px-5 py-3 font-bold text-white"
-                >
-                  Demo buchen
-                  <ArrowRight className="h-4 w-4" />
-                </a>
               </div>
             </motion.div>
           )}

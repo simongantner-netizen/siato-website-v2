@@ -3,12 +3,10 @@ import { Splash } from "./components/Splash";
 import { WordSection } from "./components/WordSection";
 import { SiatoNav } from "./components/SiatoNav";
 import { SiatoHeader } from "./components/SiatoHeader";
-import { SiatoCustomers } from "./components/SiatoCustomers";
 import { SiatoGruende } from "./components/SiatoGruende";
 import { SiatoModules } from "./components/SiatoModules";
 import { SiatoDevices } from "./components/SiatoDevices";
 import { SiatoFeatures } from "./components/SiatoFeatures";
-import { SiatoVoices } from "./components/SiatoVoices";
 import { SiatoWhy } from "./components/SiatoWhy";
 import { SiatoPricing } from "./components/SiatoPricing";
 import { SiatoFaq } from "./components/SiatoFaq";
@@ -30,8 +28,8 @@ function App() {
       <WordSection word="überall" />
       <SiatoDevices />
       <SiatoFeatures />
-      <SiatoCustomers />
-      <SiatoVoices />
+      {/* Kundenlogos und Kundenstimmen vorerst ausgeblendet.
+          SiatoCustomers und SiatoVoices bleiben im Ordner liegen. */}
       <WordSection word="fair" />
       <SiatoPricing />
       <SiatoFaq />

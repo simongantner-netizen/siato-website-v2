@@ -1,4 +1,4 @@
-import { useCallback, useId, useState } from "react";
+import { useCallback, useId, useState, type ReactNode } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { Reveal } from "./ui/reveal";
@@ -10,7 +10,7 @@ const SCHLIESSEN = { type: "spring" as const, stiffness: 190, damping: 30, mass:
 type FaqItem = {
   id: string;
   frage: string;
-  antwort: string;
+  antwort: ReactNode;
 };
 
 const faq: FaqItem[] = [
@@ -24,13 +24,13 @@ const faq: FaqItem[] = [
     id: "microsoft-365",
     frage: "Brauchen wir Microsoft 365?",
     antwort:
-      "Ja, Siato ist für Microsoft 365 gebaut: Angemeldet wird mit dem bestehenden Konto, Aufgaben erscheinen in Outlook, Dokumente liegen in SharePoint, Boards gibt es als Tab in Teams. Ohne Microsoft 365 ist der Einsatz nicht vorgesehen.",
+      "Ja, Siato ist für Microsoft 365 gebaut: Angemeldet wird mit dem bestehenden Konto, Aufgaben erscheinen in Outlook, Dokumente liegen in SharePoint. Ohne Microsoft 365 ist der Einsatz nicht vorgesehen.",
   },
   {
     id: "kosten",
     frage: "Was kostet Siato?",
     antwort:
-      "Ein Modul kostet ab CHF 190 pro Monat. Dazu braucht jeder Benutzer eine Lizenz «Power Apps per App» von Microsoft, deren Preis von Ihrem Microsoft-Partner (CSP) abhängt. Sie bezahlen nur die Module, die Sie einsetzen. Für mehrere Module machen wir Ihnen ein Angebot. Alle Siato-Preise verstehen sich exkl. MwSt.",
+      "Ein Modul kostet CHF 390.– pro Monat, drei Module CHF 590.–, alle fünf CHF 790.–. Eine Benutzerlimite gibt es nicht. Jeder Benutzer braucht aber eine Lizenz «Power Apps per App» von Microsoft, deren Preis von Ihrem Microsoft-Partner (CSP) abhängt. Wer nur Ideen einreicht, braucht keine. Support und Updates sind inbegriffen, Einrichtung und Schulung verrechnen wir separat. Alle Siato-Preise verstehen sich exkl. MwSt.",
   },
   {
     id: "ein-modul",
@@ -42,43 +42,41 @@ const faq: FaqItem[] = [
     id: "mindestnutzer",
     frage: "Gibt es eine Mindestzahl an Benutzern?",
     antwort:
-      "Das klären wir mit Ihnen im ersten Gespräch.",
+      "Nein, weder bei den Benutzern noch bei den Modulen. Und nach oben gibt es keine Limite.",
   },
   {
     id: "daten",
     frage: "Wo liegen unsere Daten?",
     antwort:
-      "In der Cloud von Microsoft, denn Siato läuft auf der Power Platform. Wo genau Ihre Daten liegen, sagen wir Ihnen vor dem Start verbindlich.",
+      "In der Schweiz. Siato läuft in der Cloud von Microsoft.",
   },
   {
     id: "einfuehrung",
     frage: "Wie lange dauert die Einführung?",
     antwort:
-      "Das hängt vom Modul ab und davon, wie viel angepasst werden soll. Einen Zeitplan bekommen Sie, sobald klar ist, mit welchem Modul Sie beginnen.",
-  },
-  {
-    id: "alldates",
-    frage: "Wir arbeiten heute mit allDates. Was heisst das für uns?",
-    antwort:
-      "Siato ist die Version der allDates-Software, die in Ihrer Microsoft-Umgebung läuft. Ihre heutige allDates-Software können Sie weiterhin einsetzen. Ob ein Wechsel für Sie sinnvoll ist, besprechen wir persönlich.",
+      "Für das erste Modul eine Woche, vom Ja bis zum Start. Einrichtung und Schulung verrechnen wir separat.",
   },
   {
     id: "eigene-prozesse",
     frage: "Können wir eigene Prozesse abbilden?",
     antwort:
-      "Dafür gibt es das Custom-Modul. Es bildet einen oder mehrere Ihrer Prozesse ab, auf derselben Plattform wie die fünf Module, und wird nach Aufwand abgerechnet. So lassen sich auch Excel-Listen ablösen, die mit Lean nichts zu tun haben.",
-  },
-  {
-    id: "testen",
-    frage: "Können wir Siato vorher ausprobieren?",
-    antwort:
-      "In einer Demo von 30 Minuten zeigen wir Ihnen Siato live. Danach wissen Sie, ob es zu Ihrem Betrieb passt.",
+      "Dafür gibt es das Custom-Modul. Es bildet einen oder mehrere Ihrer Prozesse ab, auf derselben Plattform wie die fünf Module. So lassen sich auch Excel-Listen ablösen, die mit Lean nichts zu tun haben. Abgerechnet wird nach Angebot, allenfalls mit kleinen Lizenzgebühren.",
   },
   {
     id: "support",
     frage: "Wer hilft, wenn es klemmt?",
-    antwort:
-      "Wir, und zwar direkt: am Telefon oder per E-Mail.",
+    antwort: (
+      <>
+        Wir, per E-Mail an{" "}
+        <a
+          href="mailto:helpdesk@siato.ch"
+          className="font-medium text-[#4e7717] underline decoration-[#80BA2B]/40 underline-offset-2 hover:decoration-[#80BA2B]"
+        >
+          helpdesk@siato.ch
+        </a>
+        .
+      </>
+    ),
   },
 ];
 

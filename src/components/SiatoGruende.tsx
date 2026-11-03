@@ -60,7 +60,7 @@ const gruende: Grund[] = [
     nr: 7,
     titel: "Lean funktioniert nur, wenn alle mitmachen",
     ohne: "Wer an der Maschine steht, sieht jeden Tag, was klemmt. Gibt es keinen einfachen Weg, das zu melden, erfährt es niemand.",
-    mit: "Ideen lassen sich am PC oder am Tablet einreichen. Jede wird bewertet und verstaubt nicht im Ideenkasten.",
+    mit: "Auch wer keine eigene Lizenz hat, kann Ideen einreichen. Jede wird bewertet und verstaubt nicht im Ideenkasten.",
   },
   {
     nr: 8,
