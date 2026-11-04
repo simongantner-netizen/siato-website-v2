@@ -48,7 +48,7 @@ const faq: FaqItem[] = [
     id: "daten",
     frage: "Wo liegen unsere Daten?",
     antwort:
-      "In der Schweiz. Siato läuft in der Cloud von Microsoft, auf den Servern von allDates liegen keine Daten.",
+      "In Microsofts Rechenzentren in der Schweiz, nicht auf den Servern von allDates. Microsoft übernimmt vertraglich die Pflichten eines Auftragsverarbeiters nach DSGVO.",
   },
   {
     id: "einfuehrung",

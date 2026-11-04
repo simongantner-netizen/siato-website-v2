@@ -5,7 +5,7 @@ const reasons = [
   {
     icon: ShieldCheck,
     title: "Schweizer Datenhoheit",
-    text: "In der Schweiz entwickelt. Ihre Daten bleiben hier, DSGVO-konform.",
+    text: "In der Schweiz entwickelt, in der Schweiz gespeichert: in Rechenzentren von Microsoft.",
   },
   {
     icon: Plug,

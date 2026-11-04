@@ -60,6 +60,17 @@
           w.classList.add("splash-vorbei");
           return;
         }
+
+        /* Wer scrollt, tippt oder eine Taste drueckt, will die Seite. Der
+           Vorhang (Splash.tsx) zieht dann den Einzug vor - aber seine eigenen
+           Horcher gibt es erst, wenn React steht. Was davor passiert, merkt
+           sich dieses Attribut, und Splash.tsx liest es beim Start. */
+        var eilig = function () {
+          if (!w.classList.contains("splash-vorbei")) w.setAttribute("data-eilig", "");
+        };
+        ["wheel", "touchstart", "keydown", "pointerdown"].forEach(function (s) {
+          window.addEventListener(s, eilig, { passive: true, once: true });
+        });
       })();
     </script>
     <style>
@@ -206,15 +217,18 @@
          Bewusst inline-Spans ohne display-Wechsel: so bleibt die Unterschneidung
          der Schrift unangetastet, und der Kasten des Wortes aendert sich nicht -
          daran haengt spaeter die Messung fuer den Flug. */
+      /* Seit 04.11.2026 enger (vorher 450 ms je Buchstabe, 140 ms Versatz,
+         fertig bei 1070 ms): der ganze Vorhang ist von 5,26 auf 3,0 Sekunden
+         gekuerzt, siehe Splash.tsx. Jetzt fertig bei 740 ms. */
       #splash .wort span span {
         opacity: 0;
-        animation: buchstabe-auf 450ms cubic-bezier(0.33, 1, 0.68, 1) both;
+        animation: buchstabe-auf 380ms cubic-bezier(0.33, 1, 0.68, 1) both;
       }
-      #splash .wort span span:nth-child(1) { animation-delay: 60ms; }
-      #splash .wort span span:nth-child(2) { animation-delay: 200ms; }
-      #splash .wort span span:nth-child(3) { animation-delay: 340ms; }
-      #splash .wort span span:nth-child(4) { animation-delay: 480ms; }
-      #splash .wort span span:nth-child(5) { animation-delay: 620ms; }
+      #splash .wort span span:nth-child(1) { animation-delay: 40ms; }
+      #splash .wort span span:nth-child(2) { animation-delay: 120ms; }
+      #splash .wort span span:nth-child(3) { animation-delay: 200ms; }
+      #splash .wort span span:nth-child(4) { animation-delay: 280ms; }
+      #splash .wort span span:nth-child(5) { animation-delay: 360ms; }
       @keyframes buchstabe-auf {
         from { opacity: 0; }
         to   { opacity: 1; }

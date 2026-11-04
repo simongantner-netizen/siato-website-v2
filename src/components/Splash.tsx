@@ -85,21 +85,34 @@ const WEISS = [
 ];
 
 const T = {
-  /** Erst die Wortmarke allein - sie hat 900 ms für sich. */
-  /* Erst steht das Wort, dann kommen die Linien: der letzte Buchstabe ist
-     bei 1070 ms fertig. Danach zieht jede Linie 1500 ms lang durch, versetzt
-     um 105 ms - der letzte Strich ist bei 3490 fertig. Vorher war es 1150 ms
-     bei 70 ms Versatz, das lief zu hastig. */
-  zugVon: 1150,
-  zugDauer: 1500,
-  zugSchritt: 105,
-  /* Der letzte Strich ist damit bei 2610 fertig, der Einzug beginnt bei 3320:
-     dazwischen stehen 710 ms, in denen das Plakat einfach steht. Ohne diesen
-     Takt ginge der Vorhang, waehrend noch gezeichnet wird - dann hat das Bild
-     nie einen Moment, in dem es fertig ist. */
-  einzugVon: 4000,
-  einzugBis: 5240,
-  ende: 5260,
+  /* Gekuerzt am 04.11.2026 von 5,26 auf 3,0 Sekunden: mehr als fuenf
+     Sekunden vor der Seite waren zu lang, Besucher wollen sie sofort sehen.
+     Die Folge bleibt - Wort, Linien, Stand, Einzug -, aber die Takte
+     ueberlappen jetzt und sind enger.
+
+     Die Buchstaben (CSS in index.html) sind bei 740 ms fertig. Die Linien
+     setzen bei 450 ms an, also waehrend die letzten zwei Buchstaben noch
+     kommen, und ziehen je 1000 ms, versetzt um 60 ms: der letzte Strich ist
+     bei 1930 fertig. Frueher waren es 1500 ms bei 105 ms Versatz. Achtung:
+     Eine Fassung mit 1150 ms bei 70 ms wirkte schon einmal hastig, und diese
+     hier ist noch schneller. Sie traegt nur, weil der ganze Vorhang kuerzer
+     ist und der Strich mit der flachen Kurve (fliessend, Potenz 2.1) weich
+     ansetzt. Wirkt es gehetzt, zuerst zugDauer verlaengern, nicht den Stand. */
+  zugVon: 450,
+  zugDauer: 1000,
+  zugSchritt: 60,
+  /* 120 ms Stand nach dem letzten Strich: das Plakat ist einen Moment fertig,
+     bevor der Vorhang geht. Ohne diesen Takt ginge er, waehrend noch
+     gezeichnet wird. */
+  einzugVon: 2050,
+  /* Der Einzug selbst von 1240 auf 950 ms - die Marke fliegt noch, sie
+     springt nicht. */
+  einzugDauer: 950,
+  /* Wer frueher will, scrollt, tippt oder drueckt eine Taste: dann beginnt
+     der Einzug sofort, aber nie vor diesem Punkt. Die Buchstaben laufen als
+     CSS-Animation bis 740 ms ab dem ersten Bild, und diese Uhr startet erst
+     danach - bei 750 fliegt also nie ein halb eingeblendetes «siato». */
+  fruehestens: 750,
 };
 
 const klemm = (x: number) => Math.min(1, Math.max(0, x));
@@ -269,8 +282,26 @@ export function Splash() {
     let laeuft = 0;
     const start = performance.now();
 
+    /* Der Einzug hat einen festen Platz im Ablauf, kann aber vorgezogen
+       werden: Scrollen, Tippen oder eine Taste heisst «ich will die Seite».
+       Die Linien zeichnen dann auf dem gehenden Vorhang einfach fertig.
+       Die Horcher setzen nur eine Zahl und fassen kein Layout an. */
+    let einzugVon = T.einzugVon;
+    const ungeduldig = () => {
+      const ms = performance.now() - start;
+      if (ms < einzugVon) einzugVon = Math.max(ms, T.fruehestens);
+    };
+    const signale = ["wheel", "touchstart", "keydown", "pointerdown"] as const;
+    signale.forEach((s) => window.addEventListener(s, ungeduldig, { passive: true }));
+    /* Kam das Signal schon, bevor React stand, hat es index.html notiert. */
+    if (wurzel.hasAttribute("data-eilig")) ungeduldig();
+    const horcherWeg = () =>
+      signale.forEach((s) => window.removeEventListener(s, ungeduldig));
+
     const bild = (jetzt: number) => {
       const ms = jetzt - start;
+      const einzugBis = einzugVon + T.einzugDauer;
+      const ende = einzugBis + 20;
 
       /* Der Verlauf wandert, wie in den Wortbaendern - dort treibt ihn die
          Scroll-Geschwindigkeit, hier laeuft er von selbst.
@@ -280,7 +311,7 @@ export function Splash() {
          durch die Toene, mit dem Markengruen im Zentrum.
          Fenster bleibt zwischen 18 und 66 Prozent, damit die Verlaufsraender
          nie ins Bild kommen. */
-      const zug = 0.5 - 0.5 * Math.cos(klemm(ms / T.ende) * Math.PI);
+      const zug = 0.5 - 0.5 * Math.cos(klemm(ms / ende) * Math.PI);
       if (grund) grund.style.backgroundPositionX = `${(18 + 48 * zug).toFixed(2)}%`;
 
       // Die neun Striche zeichnen sich von links, gestaffelt von hinten nach vorn.
@@ -292,7 +323,7 @@ export function Splash() {
       });
 
       // Der Einzug.
-      const e = spanne(ms, T.einzugVon, T.einzugBis);
+      const e = spanne(ms, einzugVon, einzugBis);
       if (e > 0) {
         if (!sitz) sitzMessen();
 
@@ -331,8 +362,9 @@ export function Splash() {
            aufgedeckt, was nicht schon da war. */
         /* 420 ms vor dem Aufsetzen die Navigation anstossen - ihre Einblendung
            dauert genau so lang und ist damit im selben Bild fertig, in dem die
-           Marke ihren Platz einnimmt. */
-        if (e >= 0.66) wurzel.classList.add("splash-sitzt");
+           Marke ihren Platz einnimmt. Aus der Dauer gerechnet, nicht als
+           fester Anteil: bei 1240 ms waren es 0.66, bei 950 sind es 0.56. */
+        if (ms >= einzugBis - 420) wurzel.classList.add("splash-sitzt");
 
         /* Gleichmaessiger Lauf mit weichem Anfahren und Auslaufen, und ein
            kurzer Weg: vorher lagen zwei Drittel der Strecke ausserhalb des
@@ -346,16 +378,20 @@ export function Splash() {
         gruppe.setAttribute("transform", `translate(0 ${(hoch * 30).toFixed(1)})`);
       }
 
-      if (ms < T.ende) {
+      if (ms < ende) {
         laeuft = requestAnimationFrame(bild);
       } else {
+        horcherWeg();
         wurzel.classList.add("splash-vorbei");
         huelle.remove();
       }
     };
 
     laeuft = requestAnimationFrame(bild);
-    return () => cancelAnimationFrame(laeuft);
+    return () => {
+      cancelAnimationFrame(laeuft);
+      horcherWeg();
+    };
   }, []);
 
   return null;
