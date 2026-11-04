@@ -62,7 +62,7 @@ const bereiche: Bereich[] = [
   {
     icon: ShieldCheck,
     titel: "Audits & Compliance",
-    text: "Wer eine Arbeitsanweisung öffnet, hat die gültige vor sich, nicht die vom letzten Jahr. Die Prozesslandkarte zeigt, wie Ihre Abläufe zusammenhängen.",
+    text: "Wer eine Arbeitsanweisung öffnet, hat die gültige vor sich, nicht die vom letzten Jahr. Die Prozesslandkarte zeigt, wie Ihre Abläufe zusammenhängen. Das hilft, ISO-Normen einzuhalten.",
     module: [
       "Gelenkte Dokumente",
       "Prozesslandkarte",

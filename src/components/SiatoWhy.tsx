@@ -5,7 +5,7 @@ const reasons = [
   {
     icon: ShieldCheck,
     title: "Schweizer Datenhoheit",
-    text: "In der Schweiz entwickelt. Ihre Daten bleiben hier, DSGVO- und ISO-konform.",
+    text: "In der Schweiz entwickelt. Ihre Daten bleiben hier, DSGVO-konform.",
   },
   {
     icon: Plug,
